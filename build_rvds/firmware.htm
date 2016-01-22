@@ -1,0 +1,677 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<title>Static Call Graph - [C:\Users\VLDB_HW\Desktop\openssd_original\build_rvds\firmware.axf]</title></head>
+<body><HR>
+<H1>Static Call Graph for image C:\Users\VLDB_HW\Desktop\openssd_original\build_rvds\firmware.axf</H1><HR>
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, RVCT4.0 [Build 400]: Last Updated: Wed Dec 30 15:42:39 2015
+<BR><P>
+<H3>Maximum Stack Usage =         72 bytes + Unknown(Functions without stacksize, Untraceable Function Pointers)</H3><H3>
+Call chain for Maximum Stack Depth:</H3>
+ata_flush_cache &rArr; ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+<P>
+<H3>
+Functions with no stack information
+</H3><UL>
+ <LI><a href="#[839694]">disable_interrupt</a>
+ <LI><a href="#[839658]">enable_interrupt</a>
+ <LI><a href="#[83970c]">reset_handler</a>
+</UL>
+</UL>
+<P>
+<H3>
+Function Pointers
+</H3><UL>
+ <LI><a href="#[8368e0]">ata_not_supported</a>
+ <LI><a href="#[836994]">ata_nop</a>
+ <LI><a href="#[83691c]">ata_recalibrate</a>
+ <LI><a href="#[8369d0]">ata_read_native_max_address</a>
+ <LI><a href="#[836c64]">ata_read_verify_sectors</a>
+ <LI><a href="#[836c64]">ata_read_verify_sectors</a>
+ <LI><a href="#[836bec]">ata_seek</a>
+ <LI><a href="#[836868]">ata_execute_drive_diagnostics</a>
+ <LI><a href="#[836958]">ata_initialize_device_parameters</a>
+ <LI><a href="#[836ac0]">ata_standby_immediate</a>
+ <LI><a href="#[836a48]">ata_idle_immediate</a>
+ <LI><a href="#[836afc]">ata_standby</a>
+ <LI><a href="#[836a84]">ata_idle</a>
+ <LI><a href="#[836d18]">ata_check_power_mode</a>
+ <LI><a href="#[836a0c]">ata_sleep</a>
+ <LI><a href="#[836bb0]">ata_set_multiple_mode</a>
+ <LI><a href="#[836ac0]">ata_standby_immediate</a>
+ <LI><a href="#[836a48]">ata_idle_immediate</a>
+ <LI><a href="#[836afc]">ata_standby</a>
+ <LI><a href="#[836a84]">ata_idle</a>
+ <LI><a href="#[836b74]">ata_read_buffer</a>
+ <LI><a href="#[836d18]">ata_check_power_mode</a>
+ <LI><a href="#[836a0c]">ata_sleep</a>
+ <LI><a href="#[836ca0]">ata_flush_cache</a>
+ <LI><a href="#[836b38]">ata_write_buffer</a>
+ <LI><a href="#[836ca0]">ata_flush_cache</a>
+ <LI><a href="#[83718c]">ata_identify_device</a>
+ <LI><a href="#[836c28]">ata_set_features</a>
+ <LI><a href="#[8369d0]">ata_read_native_max_address</a>
+ <LI><a href="#[8368a4]">ata_srst</a>
+</UL>
+<P>
+<H3>
+Global Symbols
+</H3>
+<P><STRONG><a name="[839694]"></a>disable_interrupt</STRONG> (ARM, 0 bytes, Stack size unknown bytes, init.o(init), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[835cec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sata_reset
+</UL>
+
+<P><STRONG><a name="[839658]"></a>enable_interrupt</STRONG> (ARM, 0 bytes, Stack size unknown bytes, init.o(init), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[835cec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sata_reset
+</UL>
+
+<P><STRONG><a name="[831840]"></a>__rt_lib_init_rand_2</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A), UNUSED)
+
+<P><STRONG><a name="[837ccc]"></a>ftl_open</STRONG> (ARM, 1128 bytes, Stack size 48 bytes, ftl.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = ftl_open &rArr; nand_page_ptread_to_host
+</UL>
+<BR>[Calls]<UL><LI><a href="#[837600]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_read
+<LI><a href="#[83763c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptread_to_host
+<LI><a href="#[837678]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptread
+<LI><a href="#[8376b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram_from_host
+<LI><a href="#[8376f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram
+<LI><a href="#[83772c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_copyback
+<LI><a href="#[837768]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_block_erase
+<LI><a href="#[8377a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led
+<LI><a href="#[8377e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_finish
+<LI><a href="#[83781c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_clear_irq
+<LI><a href="#[837894]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_write_dram_32
+<LI><a href="#[8378d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_write_dram_16
+<LI><a href="#[83790c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_tst_bit_dram
+<LI><a href="#[837948]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_set_bit_dram
+<LI><a href="#[837984]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_read_dram_32
+<LI><a href="#[8379c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_read_dram_16
+<LI><a href="#[8379fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_sram
+<LI><a href="#[837a38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_dram
+<LI><a href="#[837a74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_search_min_max
+<LI><a href="#[837ab0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_search_equ
+<LI><a href="#[837aec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[837c90]"></a>ftl_flush</STRONG> (ARM, 16 bytes, Stack size 8 bytes, ftl.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[838d34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_pmap_table
+<LI><a href="#[838d70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_misc_metadata
+</UL>
+<BR>[Called By]<UL><LI><a href="#[836a48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_idle_immediate
+<LI><a href="#[836a84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_idle
+<LI><a href="#[836ac0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_standby_immediate
+<LI><a href="#[836afc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_standby
+<LI><a href="#[836ca0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_flush_cache
+</UL>
+
+<P><STRONG><a name="[837c54]"></a>ftl_write</STRONG> (ARM, 1288 bytes, Stack size 88 bytes, ftl.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = ftl_write &rArr; nand_page_ptread
+</UL>
+<BR>[Calls]<UL><LI><a href="#[837600]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_read
+<LI><a href="#[837678]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptread
+<LI><a href="#[8376b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram_from_host
+<LI><a href="#[8376f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram
+<LI><a href="#[83772c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_copyback
+<LI><a href="#[837768]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_block_erase
+<LI><a href="#[837894]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_write_dram_32
+<LI><a href="#[8378d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_write_dram_16
+<LI><a href="#[837984]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_read_dram_32
+<LI><a href="#[8379c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_read_dram_16
+<LI><a href="#[8379fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_sram
+<LI><a href="#[837a74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_search_min_max
+<LI><a href="#[837aec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_test_write
+<LI><a href="#[83925c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main
+</UL>
+
+<P><STRONG><a name="[837c18]"></a>ftl_test_write</STRONG> (ARM, 4 bytes, Stack size 0 bytes, ftl.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+</UL>
+
+<P><STRONG><a name="[837bdc]"></a>ftl_read</STRONG> (ARM, 224 bytes, Stack size 40 bytes, ftl.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = ftl_read &rArr; nand_page_ptread_to_host
+</UL>
+<BR>[Calls]<UL><LI><a href="#[83763c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptread_to_host
+<LI><a href="#[8377e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_finish
+<LI><a href="#[837984]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_read_dram_32
+<LI><a href="#[837a38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_dram
+</UL>
+<BR>[Called By]<UL><LI><a href="#[83925c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main
+</UL>
+
+<P><STRONG><a name="[837ba0]"></a>ftl_isr</STRONG> (ARM, 116 bytes, Stack size 4 bytes, ftl.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[8391a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;irq_handler
+</UL>
+
+<P><STRONG><a name="[83718c]"></a>ata_identify_device</STRONG> (ARM, 624 bytes, Stack size 24 bytes, sata_identify.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = ata_identify_device
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8370d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pio_sector_transfer
+<LI><a href="#[837aec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_copy
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836d18]"></a>ata_check_power_mode</STRONG> (ARM, 92 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836cdc]"></a>send_status_to_host</STRONG> (ARM, 124 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[8368e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_not_supported
+<LI><a href="#[83691c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_recalibrate
+<LI><a href="#[836958]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_initialize_device_parameters
+<LI><a href="#[836994]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_nop
+<LI><a href="#[836a0c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_sleep
+<LI><a href="#[836a48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_idle_immediate
+<LI><a href="#[836a84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_idle
+<LI><a href="#[836ac0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_standby_immediate
+<LI><a href="#[836afc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_standby
+<LI><a href="#[836bb0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_set_multiple_mode
+<LI><a href="#[836bec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_seek
+<LI><a href="#[836c28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_set_features
+<LI><a href="#[836c64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_read_verify_sectors
+<LI><a href="#[836ca0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_flush_cache
+<LI><a href="#[8370d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pio_sector_transfer
+<LI><a href="#[839220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fiq_handler
+</UL>
+
+<P><STRONG><a name="[836ca0]"></a>ata_flush_cache</STRONG> (ARM, 20 bytes, Stack size 8 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ata_flush_cache &rArr; ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+<LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836c64]"></a>ata_read_verify_sectors</STRONG> (ARM, 8 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836c28]"></a>ata_set_features</STRONG> (ARM, 140 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836bec]"></a>ata_seek</STRONG> (ARM, 24 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836bb0]"></a>ata_set_multiple_mode</STRONG> (ARM, 8 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[8370d8]"></a>pio_sector_transfer</STRONG> (ARM, 212 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Called By]<UL><LI><a href="#[836b38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_write_buffer
+<LI><a href="#[836b74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_read_buffer
+<LI><a href="#[83718c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_identify_device
+</UL>
+
+<P><STRONG><a name="[836b74]"></a>ata_read_buffer</STRONG> (ARM, 12 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[8370d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pio_sector_transfer
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836b38]"></a>ata_write_buffer</STRONG> (ARM, 12 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[8370d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pio_sector_transfer
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836afc]"></a>ata_standby</STRONG> (ARM, 20 bytes, Stack size 8 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ata_standby &rArr; ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+<LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836ac0]"></a>ata_standby_immediate</STRONG> (ARM, 20 bytes, Stack size 8 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ata_standby_immediate &rArr; ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+<LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836a84]"></a>ata_idle</STRONG> (ARM, 20 bytes, Stack size 8 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ata_idle &rArr; ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+<LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836a48]"></a>ata_idle_immediate</STRONG> (ARM, 20 bytes, Stack size 8 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = ata_idle_immediate &rArr; ftl_flush &rArr; logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+<LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836a0c]"></a>ata_sleep</STRONG> (ARM, 8 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[8369d0]"></a>ata_read_native_max_address</STRONG> (ARM, 176 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836994]"></a>ata_nop</STRONG> (ARM, 8 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836958]"></a>ata_initialize_device_parameters</STRONG> (ARM, 100 bytes, Stack size 8 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = ata_initialize_device_parameters
+</UL>
+<BR>[Calls]<UL><LI><a href="#[832e48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+<LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[83691c]"></a>ata_recalibrate</STRONG> (ARM, 8 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[8368e0]"></a>ata_not_supported</STRONG> (ARM, 8 bytes, Stack size 0 bytes, sata_cmd.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_main.o(.text)
+</UL>
+<P><STRONG><a name="[8368a4]"></a>ata_srst</STRONG> (ARM, 112 bytes, Stack size 16 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ata_srst
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8367f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[836868]"></a>ata_execute_drive_diagnostics</STRONG> (ARM, 96 bytes, Stack size 16 bytes, sata_cmd.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ata_execute_drive_diagnostics
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8367f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> sata_table.o(.constdata)
+</UL>
+<P><STRONG><a name="[839220]"></a>fiq_handler</STRONG> (ARM, 1128 bytes, Stack size 56 bytes, sata_isr.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[8363f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_blink
+<LI><a href="#[836cdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;send_status_to_host
+</UL>
+
+<P><STRONG><a name="[83925c]"></a>Main</STRONG> (ARM, 284 bytes, Stack size 40 bytes, sata_main.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = Main &rArr; ftl_write &rArr; nand_page_ptread
+</UL>
+<BR>[Calls]<UL><LI><a href="#[837ab0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_search_equ
+<LI><a href="#[837bdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_read
+<LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+</UL>
+<BR>[Called By]<UL><LI><a href="#[83970c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_handler
+</UL>
+
+<P><STRONG><a name="[8367f0]"></a>delay</STRONG> (ARM, 60 bytes, Stack size 0 bytes, sata_main.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[8363f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_blink
+<LI><a href="#[836868]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_execute_drive_diagnostics
+<LI><a href="#[8368a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_srst
+<LI><a href="#[8391a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;irq_handler
+<LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[835cec]"></a>sata_reset</STRONG> (ARM, 308 bytes, Stack size 8 bytes, sata_main.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = sata_reset
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8379fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_sram
+<LI><a href="#[839658]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;enable_interrupt
+<LI><a href="#[839694]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;disable_interrupt
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[837aec]"></a>_mem_copy</STRONG> (ARM, 72 bytes, Stack size 0 bytes, mem_util.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[83718c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_identify_device
+<LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[838d34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_pmap_table
+<LI><a href="#[838d70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_misc_metadata
+</UL>
+
+<P><STRONG><a name="[8352d8]"></a>_mem_bmp_find_sram</STRONG> (ARM, 72 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[83529c]"></a>_mem_bmp_find_dram</STRONG> (ARM, 72 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[8379fc]"></a>_mem_set_sram</STRONG> (ARM, 68 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[833ab4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_nand_blocks
+<LI><a href="#[835cec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sata_reset
+<LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[837a38]"></a>_mem_set_dram</STRONG> (ARM, 68 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[833ab4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_nand_blocks
+<LI><a href="#[837bdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_read
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[837a74]"></a>_mem_search_min_max</STRONG> (ARM, 64 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[837ab0]"></a>_mem_search_equ</STRONG> (ARM, 96 bytes, Stack size 4 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = _mem_search_equ
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[83925c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main
+</UL>
+
+<P><STRONG><a name="[837894]"></a>_write_dram_32</STRONG> (ARM, 100 bytes, Stack size 8 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _write_dram_32
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[8378d0]"></a>_write_dram_16</STRONG> (ARM, 144 bytes, Stack size 4 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = _write_dram_16
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[835260]"></a>_write_dram_8</STRONG> (ARM, 140 bytes, Stack size 4 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[837948]"></a>_set_bit_dram</STRONG> (ARM, 136 bytes, Stack size 4 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = _set_bit_dram
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[835224]"></a>_clr_bit_dram</STRONG> (ARM, 136 bytes, Stack size 4 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[83790c]"></a>_tst_bit_dram</STRONG> (ARM, 56 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[8351e8]"></a>_read_dram_8</STRONG> (ARM, 52 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[8379c0]"></a>_read_dram_16</STRONG> (ARM, 56 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[837984]"></a>_read_dram_32</STRONG> (ARM, 32 bytes, Stack size 0 bytes, mem_util.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[837bdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_read
+<LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[8351ac]"></a>_mem_cmp_sram</STRONG> (ARM, 76 bytes, Stack size 4 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[835170]"></a>_mem_cmp_dram</STRONG> (ARM, 172 bytes, Stack size 12 bytes, mem_util.o(.text), UNUSED)
+
+<P><STRONG><a name="[834aa4]"></a>flash_issue_cmd</STRONG> (ARM, 84 bytes, Stack size 0 bytes, flash.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[834504]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_block_erase_sync
+<LI><a href="#[834540]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_modified_copyback
+<LI><a href="#[83457c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_program_from_host
+<LI><a href="#[8345b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_program
+<LI><a href="#[8345f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_read_to_host
+<LI><a href="#[837600]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_read
+<LI><a href="#[83763c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptread_to_host
+<LI><a href="#[837678]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptread
+<LI><a href="#[8376b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram_from_host
+<LI><a href="#[8376f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram
+<LI><a href="#[83772c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_copyback
+<LI><a href="#[837768]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_block_erase
+<LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[834a68]"></a>flash_copy</STRONG> (ARM, 100 bytes, Stack size 8 bytes, flash.o(.text), UNUSED)
+
+<P><STRONG><a name="[834a2c]"></a>flash_modify_copy</STRONG> (ARM, 124 bytes, Stack size 20 bytes, flash.o(.text), UNUSED)
+
+<P><STRONG><a name="[8349f0]"></a>flash_erase</STRONG> (ARM, 88 bytes, Stack size 4 bytes, flash.o(.text), UNUSED)
+
+<P><STRONG><a name="[8377e0]"></a>flash_finish</STRONG> (ARM, 20 bytes, Stack size 0 bytes, flash.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[837bdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_read
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[838d34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_pmap_table
+<LI><a href="#[838d70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_misc_metadata
+</UL>
+
+<P><STRONG><a name="[83781c]"></a>flash_clear_irq</STRONG> (ARM, 48 bytes, Stack size 0 bytes, flash.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[833ab4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_nand_blocks
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[8349b4]"></a>flash_reset</STRONG> (ARM, 328 bytes, Stack size 12 bytes, flash.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = flash_reset
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+</UL>
+
+<P><STRONG><a name="[837600]"></a>nand_page_read</STRONG> (ARM, 80 bytes, Stack size 0 bytes, flash_wrapper.o(.text), UNUSED, KEPT)
+<BR><BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[837678]"></a>nand_page_ptread</STRONG> (ARM, 96 bytes, Stack size 16 bytes, flash_wrapper.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = nand_page_ptread
+</UL>
+<BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[8345f4]"></a>nand_page_read_to_host</STRONG> (ARM, 160 bytes, Stack size 8 bytes, flash_wrapper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+
+<P><STRONG><a name="[83763c]"></a>nand_page_ptread_to_host</STRONG> (ARM, 164 bytes, Stack size 16 bytes, flash_wrapper.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = nand_page_ptread_to_host
+</UL>
+<BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837bdc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_read
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[8345b8]"></a>nand_page_program</STRONG> (ARM, 80 bytes, Stack size 0 bytes, flash_wrapper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+
+<P><STRONG><a name="[8376f0]"></a>nand_page_ptprogram</STRONG> (ARM, 92 bytes, Stack size 8 bytes, flash_wrapper.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[838d34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_pmap_table
+<LI><a href="#[838d70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_misc_metadata
+</UL>
+
+<P><STRONG><a name="[83457c]"></a>nand_page_program_from_host</STRONG> (ARM, 152 bytes, Stack size 16 bytes, flash_wrapper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+
+<P><STRONG><a name="[8376b4]"></a>nand_page_ptprogram_from_host</STRONG> (ARM, 156 bytes, Stack size 16 bytes, flash_wrapper.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = nand_page_ptprogram_from_host
+</UL>
+<BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[83772c]"></a>nand_page_copyback</STRONG> (ARM, 96 bytes, Stack size 8 bytes, flash_wrapper.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = nand_page_copyback
+</UL>
+<BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[834540]"></a>nand_page_modified_copyback</STRONG> (ARM, 280 bytes, Stack size 40 bytes, flash_wrapper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+
+<P><STRONG><a name="[837768]"></a>nand_block_erase</STRONG> (ARM, 72 bytes, Stack size 8 bytes, flash_wrapper.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = nand_block_erase
+</UL>
+<BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_write
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+<LI><a href="#[838d34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_pmap_table
+<LI><a href="#[838d70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;logging_misc_metadata
+</UL>
+
+<P><STRONG><a name="[834504]"></a>nand_block_erase_sync</STRONG> (ARM, 72 bytes, Stack size 8 bytes, flash_wrapper.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+</UL>
+
+<P><STRONG><a name="[8391e4]"></a>init_jasmine</STRONG> (ARM, 440 bytes, Stack size 40 bytes, initialize.o(.text), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 104 + Unknown Stack Size
+<LI>Call Chain = init_jasmine &rArr; ftl_open &rArr; nand_page_ptread_to_host
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8349b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_reset
+<LI><a href="#[834aa4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_issue_cmd
+<LI><a href="#[835cec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sata_reset
+<LI><a href="#[8367f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[83781c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_clear_irq
+<LI><a href="#[8379fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_sram
+<LI><a href="#[837a38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_dram
+<LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+<BR>[Called By]<UL><LI><a href="#[83970c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;reset_handler
+</UL>
+
+<P><STRONG><a name="[8377a4]"></a>led</STRONG> (ARM, 28 bytes, Stack size 0 bytes, misc.o(.text), UNUSED, KEPT)
+<BR><BR>[Called By]<UL><LI><a href="#[837ccc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_open
+</UL>
+
+<P><STRONG><a name="[8363f4]"></a>led_blink</STRONG> (ARM, 60 bytes, Stack size 16 bytes, misc.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[8367f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[839220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fiq_handler
+</UL>
+
+<P><STRONG><a name="[833af0]"></a>swi_handler</STRONG> (ARM, 4 bytes, Stack size 0 bytes, misc.o(.text), UNUSED)
+
+<P><STRONG><a name="[8391a8]"></a>irq_handler</STRONG> (ARM, 248 bytes, Stack size 32 bytes, misc.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[8367f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[837ba0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_isr
+</UL>
+
+<P><STRONG><a name="[833ab4]"></a>test_nand_blocks</STRONG> (ARM, 784 bytes, Stack size 40 bytes, misc.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[8331cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rand (via Veneer)
+<LI><a href="#[833244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;srand (via Veneer)
+<LI><a href="#[83781c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_clear_irq
+<LI><a href="#[8379fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_sram
+<LI><a href="#[837a38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_set_dram
+</UL>
+
+<P><STRONG><a name="[833a78]"></a>start_interval_measurement</STRONG> (ARM, 48 bytes, Stack size 0 bytes, misc.o(.text), UNUSED)
+
+<P><STRONG><a name="[833a3c]"></a>start_timer</STRONG> (ARM, 44 bytes, Stack size 0 bytes, misc.o(.text), UNUSED)
+
+<P><STRONG><a name="[833244]"></a>srand</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, rand.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[833208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rand_init
+<LI><a href="#[833ab4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_nand_blocks (via Veneer)
+</UL>
+
+<P><STRONG><a name="[833208]"></a>_rand_init</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, rand.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[833244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;srand
+</UL>
+
+<P><STRONG><a name="[8331cc]"></a>rand</STRONG> (Thumb, 56 bytes, Stack size 12 bytes, rand.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[833ab4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;test_nand_blocks (via Veneer)
+</UL>
+
+<P><STRONG><a name="[832efc]"></a>__aeabi_idiv</STRONG> (ARM, 0 bytes, Stack size 8 bytes, aeabi_sdivfast.o(.text), UNUSED)
+
+<P><STRONG><a name="[832ec0]"></a>__aeabi_idivmod</STRONG> (ARM, 556 bytes, Stack size 8 bytes, aeabi_sdivfast.o(.text), UNUSED)
+
+<P><STRONG><a name="[832e84]"></a>__aeabi_uidiv</STRONG> (ARM, 0 bytes, Stack size 0 bytes, aeabi_sdivfast.o(.text_udiv), UNUSED)
+
+<P><STRONG><a name="[832e48]"></a>__aeabi_uidivmod</STRONG> (ARM, 40 bytes, Stack size 0 bytes, aeabi_sdivfast.o(.text_udiv))
+<BR><BR>[Calls]<UL><LI><a href="#[832f38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div4
+<LI><a href="#[832f74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div8
+<LI><a href="#[832fb0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div12
+<LI><a href="#[832fec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div16
+<LI><a href="#[833028]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__arm_div_large_positive
+</UL>
+<BR>[Called By]<UL><LI><a href="#[836958]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ata_initialize_device_parameters
+</UL>
+<P>
+<H3>
+Local Symbols
+</H3>
+<P><STRONG><a name="[83970c]"></a>reset_handler</STRONG> (ARM, 0 bytes, Stack size unknown bytes, init.o(init), UNUSED, KEPT)
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = reset_handler &rArr; Main &rArr; ftl_write &rArr; nand_page_ptread
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8391e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_jasmine
+<LI><a href="#[83925c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Main
+</UL>
+
+<P><STRONG><a name="[838d70]"></a>logging_misc_metadata</STRONG> (ARM, 244 bytes, Stack size 48 bytes, ftl.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = logging_misc_metadata &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8376f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram
+<LI><a href="#[837768]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_block_erase
+<LI><a href="#[8377e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_finish
+<LI><a href="#[837aec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+
+<P><STRONG><a name="[838d34]"></a>logging_pmap_table</STRONG> (ARM, 268 bytes, Stack size 48 bytes, ftl.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = logging_pmap_table &rArr; nand_page_ptprogram
+</UL>
+<BR>[Calls]<UL><LI><a href="#[8376f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_page_ptprogram
+<LI><a href="#[837768]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nand_block_erase
+<LI><a href="#[8377e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;flash_finish
+<LI><a href="#[837aec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_mem_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[837c90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ftl_flush
+</UL>
+
+<P><STRONG><a name="[833028]"></a>__arm_div_large_positive</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdivfast.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[832e48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[832fec]"></a>__arm_div16</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdivfast.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[832e48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[832fb0]"></a>__arm_div12</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdivfast.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[832e48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[832f74]"></a>__arm_div8</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdivfast.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[832e48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+
+<P><STRONG><a name="[832f38]"></a>__arm_div4</STRONG> (ARM, 0 bytes, Stack size unknown bytes, aeabi_sdivfast.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[832e48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+</UL>
+<P>
+<H3>
+Undefined Global Symbols
+</H3><HR></body></html>
