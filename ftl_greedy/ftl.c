@@ -1250,8 +1250,40 @@ void ftl_isr(void)
 
 
 /* begin */
+/* 호출해야 되는 시점 
+   (이걸 assign 함수 내에서 할지, write 함수에서 판단해서 assign을 부를지)
+   ( TRIM 적용 가능 여부 확인하기 ) 
+	1. 쓰기 직전에 어디 쓸지 판별 
+   		a. 자기 page 번호의 offset에 이미 쓰여 있으면 새로운 block 할당
+			(혹은 invalid 라도 어쨌든 bitmap on 되있으면 무조건 할당)
+			1) 페이지를 read해서 내용이 있는지 없는지 확인. 
+			2) 테이블을 만든다. -> page mapping 
+			3) 블록의 마지막 페이지에 표시 -> 1 번이랑 같음. 
+			4) bitmap을 관리 
+				a) block mapping table 과 같이, 껐다 켰을때도 유지되어야 함. 
+				b) 실시간으로는 DRAM에서 관리를 해야 빠르고 ( block mapping도 실시간은 dram에서 관리하고,
+					필요할때만 flash 에 write ) 
+				c) misc_meta 구조체에 bitmap 삽입 ( bitmap[PAGES_PER_BLK/8], shift 연산으로 검사 ) 
+				d) misc_meta 구조체 처음 초기화 잊으면 안됨. 
+				e) 썼으면 0/1 어떤거 할지는 너맘 
+		b. 자기 번호 offset이 쓰이지 않았으면 현재 block number 그대로 사용
+			1) 그대로 사용할 경우는, 그 offset에 쓰면 됨. 
+			2) 추가로 처리할 내용이 없음. 
+	
+	2. 새로운 block number를 할당했을 경우 
+		a. 현재 block의 모든 valid 페이지를 새 block 으로 이동
+		b. bitmap 정보 valid 페이지 이동한거에 따라서 setting 
+		c. 새로운 block number를 사용할 수 있게 setting 
 
-
+	3. block 부족할 경우 GC 수행 
+*/ 
+/* 필요한 매개변수 
+   1. bank 정보는 넘겨줘도 되고, global 변수에서 관리해도 되고 
+   2. vpn (페이지 번호)는 반드시 넘겨줘야, 자기 offset 위치 확인 
+*/ 
+/* write 하기 
+   1. assign 에서 받아온곳에 쓰기, 끝. 
+   */ 
 static UINT32 assign_new_write_vbn(UINT32 const bank)
 {
     ASSERT(bank < NUM_BANKS);
