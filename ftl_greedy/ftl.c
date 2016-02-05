@@ -27,7 +27,7 @@
 
 #include "jasmine.h"
 
-#define NUM_BMAP_BLOCK      500
+#define NUM_BMAP_BLOCK      50
 
 //----------------------------------
 // macro
@@ -65,7 +65,7 @@ typedef struct _misc_metadata
     UINT32 cur_mapblk_vbn[MAPBLKS_PER_BANK]; // current write vbn for logging the age mapping info.
     UINT32 gc_vblock_block; // vblock number for garbage collection
     UINT32 free_blk_cnt_block; // total number of free block count
-   
+	UINT32 block_bitmap[NUM_BMAP_BLOCK][PAGES_PER_BLK/8];  //1 : used 0 : unused
 }misc_metadata; // per bank
 
 //----------------------------------
@@ -130,7 +130,7 @@ UINT32 				  g_ftl_write_buf_id;
 #define set_gc_vblock_block(bank, vblock)   (g_misc_meta[bank].gc_vblock_block = vblock)
 
 #define CHECK_LBLOCK(lbn)              ASSERT((lbn) < NUM_BMAP_BLOCK * NUM_BANKS)
-#define CHECK_VBLOCK(vbn)              ASSERT((vpn) < NUM_BMAP_BLOCK)
+#define CHECK_VBLOCK(vbn)              ASSERT((vbn) < NUM_BMAP_BLOCK)
 /* end */
 
 //----------------------------------
@@ -156,6 +156,18 @@ static UINT32 get_vpn(UINT32 const lpn);
 static UINT32 get_vt_vblock(UINT32 const bank);
 static UINT32 assign_new_write_vpn(UINT32 const bank);
 
+/* custom */
+static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn);
+void ftl_read_block(UINT32 const lba, UINT32 const num_sectors);
+void ftl_write_block(UINT32 const lba, UINT32 const num_sectors);
+static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 const num_sectors);
+static UINT32 get_vbn(UINT32 const lbn);
+static void set_vbn(UINT32 const lbn, UINT32 const vbn);
+static UINT32 get_vcount_block(UINT32 const bank, UINT32 const vblock);
+static void set_vcount_block(UINT32 const bank, UINT32 const vblock, UINT32 const vcount);
+static void garbage_collection_block(UINT32 const bank);
+static UINT32 get_vt_vblock_block(UINT32 const bank);
+void ftl_test();
 
 
 
@@ -779,6 +791,12 @@ static void format(void)
     mem_set_dram(PAGE_MAP_ADDR, NULL, PAGE_MAP_BYTES);
     mem_set_dram(VCOUNT_ADDR, NULL, VCOUNT_BYTES);
 
+
+    for (bank = 0; bank < NUM_BANKS; bank++)
+    {
+        memset(g_misc_meta[bank].block_bitmap, 0, (NUM_BMAP_BLOCK * PAGES_PER_BLK / 8) * sizeof(UINT32));
+    }
+
     //----------------------------------------
     // erase all blocks except vblock #0
     //----------------------------------------
@@ -836,6 +854,44 @@ static void init_metadata_sram(void)
 
         vblock = MISCBLK_VBN;
 
+        //-----------------------------------------------------------------------------------------------
+        // init for block mapping
+
+        //----------------------------------------
+        // assign free block for gc (for block mapping)
+        //----------------------------------------
+        do
+        {
+            vblock++;
+            // NOTE: free block should not be secleted as a victim @ first GC
+            write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + vblock) * sizeof(UINT16), VC_MAX);
+            // set free block
+            set_gc_vblock_block(bank, vblock);
+
+            ASSERT(vblock < VBLKS_PER_BANK);
+        }while(is_bad_block(bank, vblock) == TRUE);
+
+
+        //----------------------------------------
+        // assign free vpn for first new write (for block mapping)
+        //----------------------------------------
+        do
+        {
+            vblock++;
+            // 현재 next vblock부터 새로운 데이터를 저장을 시작
+            set_new_write_vbn(bank, vblock);
+            ASSERT(vblock < VBLKS_PER_BANK);
+        }while(is_bad_block(bank, vblock) == TRUE);
+
+        UINT32 first_bmap_vblock = vblock;
+        do
+        {
+            vblock++;
+            if(is_bad_block(bank, vblock) == TRUE) first_bmap_vblock++;
+        }while(vblock != first_bmap_vblock + NUM_BMAP_BLOCK);
+
+        //-----------------------------------------------------------------------------------------------
+
         //----------------------------------------
         // assign map block
         //----------------------------------------
@@ -864,6 +920,7 @@ static void init_metadata_sram(void)
 
             ASSERT(vblock < VBLKS_PER_BANK);
         }while(is_bad_block(bank, vblock) == TRUE);
+
         //----------------------------------------
         // assign free vpn for first new write
         //----------------------------------------
@@ -874,6 +931,7 @@ static void init_metadata_sram(void)
             set_new_write_vpn(bank, vblock * PAGES_PER_BLK);
             ASSERT(vblock < VBLKS_PER_BANK);
         }while(is_bad_block(bank, vblock) == TRUE);
+
     }
 }
 // logging misc + vcount metadata
@@ -1284,7 +1342,7 @@ void ftl_isr(void)
 /* write 하기 
    1. assign 에서 받아온곳에 쓰기, 끝. 
    */ 
-static UINT32 assign_new_write_vbn(UINT32 const bank)
+static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
 {
     ASSERT(bank < NUM_BANKS);
 
@@ -1294,51 +1352,36 @@ static UINT32 assign_new_write_vbn(UINT32 const bank)
     write_vbn   = get_cur_write_vbn(bank);
     vblock      = write_vbn;
 
-    // NOTE: if next new write page's offset is
-    // the last page offset of vblock (i.e. PAGES_PER_BLK - 1),
-    if ((write_vpn % PAGES_PER_BLK) == (PAGES_PER_BLK - 2))
+    if(g_misc_meta[bank].block_bitmap[write_vbn][(lpn % PAGES_PER_BLK)/8] >> (lpn % PAGES_PER_BLK)%8  & 00000001)
     {
-        // then, because of the flash controller limitation
-        // (prohibit accessing a spare area (i.e. OOB)),
-        // thus, we persistenly write a lpn list into last page of vblock.
-        mem_copy(FTL_BUF(bank), g_misc_meta[bank].lpn_list_of_cur_vblock, sizeof(UINT32) * PAGES_PER_BLK);
-        // fix minor bug
-        nand_page_ptprogram(bank, vblock, PAGES_PER_BLK - 1, 0,
-                            ((sizeof(UINT32) * PAGES_PER_BLK + BYTES_PER_SECTOR - 1 ) / BYTES_PER_SECTOR), FTL_BUF(bank));
-
-        mem_set_sram(g_misc_meta[bank].lpn_list_of_cur_vblock, 0x00000000, sizeof(UINT32) * PAGES_PER_BLK);
-
         inc_full_blk_cnt_block(bank);
-
-        // do garbage collection if necessary
         if (is_full_all_blks_block(bank))
         {
             garbage_collection_block(bank);
             return get_cur_write_vbn(bank);
         }
+
         do
         {
             vblock++;
 
             ASSERT(vblock != VBLKS_PER_BANK);
-        }while (get_vcount_block(bank, vblock) == VC_MAX);
+        }while (get_vcount_block(bank, vblock) != 0);
+        
+
+        // write block -> next block
+        if (vblock != write_vbn)
+        {
+            write_vbn = vblock;
+        }
+        else
+        {
+            write_vbn++;
+        }
     }
     
-/*
-    // write block -> next block
-    if (vblock != write_vbn)
-    {
-        write_vbn = vblock;
-    }
-    else
-    {
-        write_vbn++;
-    }
-*/
-
-
     set_new_write_vbn(bank, write_vbn);
-
+    uart_printf("assign_new_write_vbn function success");
     return write_vbn;
 }
 
@@ -1417,9 +1460,6 @@ void ftl_write_block(UINT32 const lba, UINT32 const num_sectors)
     sect_offset  = lba % SECTORS_PER_PAGE;
     remain_sects = num_sectors;
 
-    lbn     = lpn / PAGES_PER_BLK;
-    offset  = lpn % PAGES_PER_BLK
-
     while (remain_sects != 0)
     {
         if ((sect_offset + remain_sects) < SECTORS_PER_PAGE)
@@ -1444,22 +1484,23 @@ void ftl_write_block(UINT32 const lba, UINT32 const num_sectors)
 
 static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 const num_sectors)
 {
-    CHECK_LBLOCK(lbn);
+    CHECK_LBLOCK(lpn / PAGES_PER_BLK);
     ASSERT(sect_offset < SECTORS_PER_PAGE);
     ASSERT(num_sectors > 0 && num_sectors <= SECTORS_PER_PAGE);
 
     UINT32 bank, old_vbn, new_vbn;
     UINT32 vblock, page_num, page_offset, column_cnt;
+    UINT32 lbn = lpn / PAGES_PER_BLK;
 
     bank        = get_num_bank(lpn); // page striping
     page_offset = sect_offset;
     column_cnt  = num_sectors;
 
-    new_vbn  = assign_new_write_vbn(bank);  //수정 필요
+    new_vbn  = assign_new_write_vbn(bank, lpn);
     old_vbn  = get_vbn(lbn);
 
-    CHECK_VBLOCK (old_vbn);
-    CHECK_VBLOCK (new_vbn);
+    CHECK_VBLOCK(old_vbn);
+    CHECK_VBLOCK(new_vbn);
     ASSERT(old_vbn != new_vbn);
 
     g_ftl_statistics[bank].page_wcount++;
@@ -1467,15 +1508,17 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     // if old data already exist,
     if (old_vbn != NULL)
     {
-        vblock   = old_vpn / PAGES_PER_BLK;
-        page_num = old_vpn % PAGES_PER_BLK;
+        vblock   = old_vbn;
 
+        // 이 경우 metadata의 비트를 비교하여 valid한 페이지들만 복사하여야 한다.
+        // 기존의 방식은 해당 페이지에서 valid한 부분만 복사했지만 block mapping방식에서는 블록 전체에서 valid한 페이지들을 복사해야 한다.
         //--------------------------------------------------------------------------------------
         // `Partial programming'
         // we could not determine whether the new data is loaded in the SATA write buffer.
         // Thus, read the left/right hole sectors of a valid page and copy into the write buffer.
         // And then, program whole valid data
         //--------------------------------------------------------------------------------------
+        
         if (num_sectors != SECTORS_PER_PAGE)
         {
             // Performance optimization (but, not proved)
@@ -1537,10 +1580,11 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
         column_cnt  = SECTORS_PER_PAGE;
         // invalid old page (decrease vcount)
         set_vcount(bank, vblock, get_vcount(bank, vblock) - 1);
+
     }
 
-    vblock   = new_vpn / PAGES_PER_BLK;
-    page_num = new_vpn % PAGES_PER_BLK;
+    vblock   = new_vbn;
+    page_num = lpn % PAGES_PER_BLK;
     ASSERT(get_vcount(bank,vblock) < (PAGES_PER_BLK - 1));
 
     // write new data (make sure that the new data is ready in the write buffer frame)
@@ -1554,6 +1598,10 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     set_lbn(bank, page_num, lbn);
     set_vbn(lbn, new_vbn);
     set_vcount(bank, vblock, get_vcount_block(bank, vblock) + 1);
+
+    //update metadata
+    g_misc_meta[bank].block_bitmap[new_vbn][lpn % PAGES_PER_BLK / 8] = g_misc_meta[bank].block_bitmap[new_vbn][lpn % PAGES_PER_BLK / 8] & 1 >> (lpn % PAGES_PER_BLK) % 8;
+    uart_printf("write function success");
 }
 
 
@@ -1570,7 +1618,7 @@ static UINT32 get_vbn(UINT32 const lbn)
 static void set_vbn(UINT32 const lbn, UINT32 const vbn)
 {
     CHECK_LBLOCK(lbn);
-    ASSERT(vpn >= (META_BLKS_PER_BANK * PAGES_PER_BLK) && vpn < (VBLKS_PER_BANK * PAGES_PER_BLK));
+    ASSERT(vbn < (VBLKS_PER_BANK * NUM_BMAP_BLOCK));
 
     write_dram_32(BLOCK_MAP_ADDR + lbn * sizeof(UINT32), vbn);
 }
@@ -1680,15 +1728,16 @@ static void garbage_collection_block(UINT32 const bank)
     ASSERT((free_vpn % PAGES_PER_BLK) < (PAGES_PER_BLK - 2));
     ASSERT((free_vpn % PAGES_PER_BLK == vcount));
 
-/*     uart_printf("gc page count : %d", vcount); */
+     uart_printf("gc page count : %d", vcount); 
 
     // 4. update metadata
+    memset(g_misc_meta[bank].block_bitmap[free_vpn / PAGES_PER_BLK], 0, (PAGES_PER_BLK / 8) * sizeof(UINT32));
     set_vcount_block(bank, vt_vblock, VC_MAX);
     set_vcount_block(bank, gc_vblock, vcount);
-    set_new_write_vbn(bank, free_vbn); // set a free page for new write
+    set_new_write_vbn(bank, free_vpn / PAGES_PER_BLK); // set a free page for new write
     set_gc_vblock_block(bank, vt_vblock); // next free block (reserve for GC)
     dec_full_blk_cnt_block(bank); // decrease full block count
-    /* uart_print("garbage_collection end"); */
+    uart_print("garbage_collection end");
 }
 
 
@@ -1720,3 +1769,8 @@ static UINT32 get_vt_vblock_block(UINT32 const bank)
 
 
 /* end */
+
+void ftl_test()
+{
+
+}
