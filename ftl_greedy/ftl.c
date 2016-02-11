@@ -120,7 +120,7 @@ UINT32 				  g_ftl_write_buf_id;
 #define inc_mapblk_vbn(bank, mapblk_lbn)    (g_misc_meta[bank].cur_mapblk_vbn[mapblk_lbn]++)
 #define inc_miscblk_vbn(bank)     (g_misc_meta[bank].cur_miscblk_vbn++)
 
-#define set_lbn(bank, page_num, lpn)  (g_misc_meta[bank].lpn_list_of_cur_vblock[page_num] = lpn)
+#define set_lbn(bank, page_num, lbn)  (g_misc_meta[bank].lpn_list_of_cur_vblock[page_num] = lbn)
 #define get_lbn(bank, page_num)       (g_misc_meta[bank].lpn_list_of_cur_vblock[page_num])
 
 #define get_cur_write_vbn(bank)       (g_misc_meta[bank].cur_write_vbn)
@@ -790,6 +790,8 @@ static void format(void)
     //----------------------------------------
     mem_set_dram(PAGE_MAP_ADDR, NULL, PAGE_MAP_BYTES);
     mem_set_dram(VCOUNT_ADDR, NULL, VCOUNT_BYTES);
+    mem_set_dram(BLOCK_MAP_ADDR, NULL, BLOCK_MAP_BYTES);
+    mem_set_dram(BLOCK_VCOUNT_ADDR, NULL, BLOCK_VCOUNT_BYTES);
 
 
     for (bank = 0; bank < NUM_BANKS; bank++)
@@ -865,6 +867,7 @@ static void init_metadata_sram(void)
             vblock++;
             // NOTE: free block should not be secleted as a victim @ first GC
             write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + vblock) * sizeof(UINT16), VC_MAX);
+            set_vcount(bank, vblock, VC_MAX+1);
             // set free block
             set_gc_vblock_block(bank, vblock);
 
@@ -878,6 +881,7 @@ static void init_metadata_sram(void)
         do
         {
             vblock++;
+            set_vcount(bank, vblock, VC_MAX+1);
             // 현재 next vblock부터 새로운 데이터를 저장을 시작
             set_new_write_vbn(bank, vblock);
             ASSERT(vblock < VBLKS_PER_BANK);
@@ -887,6 +891,7 @@ static void init_metadata_sram(void)
         do
         {
             vblock++;
+            set_vcount(bank, vblock, VC_MAX+1);
             if(is_bad_block(bank, vblock) == TRUE) first_bmap_vblock++;
         }while(vblock != first_bmap_vblock + NUM_BMAP_BLOCK);
 
@@ -1508,6 +1513,59 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     // if old data already exist,
     if (old_vbn != NULL)
     {
+        UINT32 src_lbn;
+        UINT32 vt_vblock;
+        UINT32 free_vpn;
+        UINT32 vcount; // valid page count in victim block
+        UINT32 src_page;
+        UINT32 gc_vblock;
+
+        g_ftl_statistics[bank].gc_cnt++;
+
+        vt_vblock = old_vbn;   // get victim block
+        vcount    = get_vcount_block(bank, vt_vblock);
+        gc_vblock = new_vbn;
+        free_vpn  = gc_vblock * PAGES_PER_BLK;    
+        
+        // 1. copy-back all valid pages to free space
+        for (src_page = 0; src_page < (PAGES_PER_BLK - 1); src_page++)
+        {
+            // get lpn of victim block from a read lpn list
+            src_lbn = get_lbn(bank,src_page);
+
+            // determine whether the page is valid or not
+            if (get_vbn(src_lbn) != vt_vblock)
+            {
+                // invalid page
+                continue;
+            }
+            
+            // if the page is valid,
+            // then do copy-back op. to free space
+            nand_page_copyback(bank,
+                               vt_vblock,
+                               src_page,
+                               free_vpn / PAGES_PER_BLK,
+                               free_vpn % PAGES_PER_BLK);
+            
+            // update metadata
+            set_vbn(src_lbn, free_vpn % PAGES_PER_BLK);
+            set_lbn(bank, (free_vpn % PAGES_PER_BLK), src_lbn);
+
+            free_vpn++;
+        }
+
+        // 2. update metadata
+        set_vcount_block(bank, vt_vblock, VC_MAX);
+        set_vcount_block(bank, gc_vblock, vcount);
+
+
+
+
+
+
+        //-----------------------------------------------------------------------------------------------------
+
         vblock   = old_vbn;
 
         // 이 경우 metadata의 비트를 비교하여 valid한 페이지들만 복사하여야 한다.
@@ -1600,7 +1658,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     set_vcount(bank, vblock, get_vcount_block(bank, vblock) + 1);
 
     //update metadata
-    g_misc_meta[bank].block_bitmap[new_vbn][lpn % PAGES_PER_BLK / 8] = g_misc_meta[bank].block_bitmap[new_vbn][lpn % PAGES_PER_BLK / 8] & 1 >> (lpn % PAGES_PER_BLK) % 8;
+    g_misc_meta[bank].block_bitmap[new_vbn][lpn % PAGES_PER_BLK / 8] = g_misc_meta[bank].block_bitmap[new_vbn][lpn % PAGES_PER_BLK / 8] | 1 << (lpn % PAGES_PER_BLK) % 8;
     uart_printf("write function success");
 }
 
@@ -1657,7 +1715,7 @@ static void garbage_collection_block(UINT32 const bank)
     ASSERT(bank < NUM_BANKS);
     g_ftl_statistics[bank].gc_cnt++;
 
-    UINT32 src_lpn;
+    UINT32 src_lbn;
     UINT32 vt_vblock;
     UINT32 free_vpn;
     UINT32 vcount; // valid page count in victim block
@@ -1688,18 +1746,15 @@ static void garbage_collection_block(UINT32 const bank)
     for (src_page = 0; src_page < (PAGES_PER_BLK - 1); src_page++)
     {
         // get lpn of victim block from a read lpn list
-        src_lpn = get_lpn(bank, src_page);
-        CHECK_VPAGE(get_vpn(src_lpn));
+        src_lbn = get_lbn(bank,src_page);
 
         // determine whether the page is valid or not
-        if (get_vpn(src_lpn) !=
-            ((vt_vblock * PAGES_PER_BLK) + src_page))
+        if (get_vbn(src_lbn) != vt_vblock)
         {
             // invalid page
             continue;
         }
-        ASSERT(get_lpn(bank, src_page) != INVALID);
-        CHECK_LPAGE(src_lpn);
+        
         // if the page is valid,
         // then do copy-back op. to free space
         nand_page_copyback(bank,
@@ -1707,15 +1762,13 @@ static void garbage_collection_block(UINT32 const bank)
                            src_page,
                            free_vpn / PAGES_PER_BLK,
                            free_vpn % PAGES_PER_BLK);
-        ASSERT((free_vpn / PAGES_PER_BLK) == gc_vblock);
         
+        // update metadata
+        set_vbn(src_lbn, free_vpn % PAGES_PER_BLK);
+        set_lbn(bank, (free_vpn % PAGES_PER_BLK), src_lbn);
 
         free_vpn++;
     }
-
-    // update metadata
-    set_vbn(src_lpn/PAGES_PER_BLK, free_vpn/PAGES_PER_BLK);
-    set_lbn(bank, (free_vpn % PAGES_PER_BLK), src_lpn);
 
 #if OPTION_ENABLE_ASSERT
     if (vcount == 0)
