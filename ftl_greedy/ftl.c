@@ -1500,6 +1500,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     bank        = get_num_bank(lpn); // page striping
     page_offset = sect_offset;
     column_cnt  = num_sectors;
+    page_num = lpn % PAGES_PER_BLK;
 
     new_vbn  = assign_new_write_vbn(bank, lpn);
     old_vbn  = get_vbn(lbn);
