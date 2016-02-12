@@ -18,3 +18,4 @@
 -I../include
 -I../sata
 -I../target_spw
+-DOPTION_FTL_TEST

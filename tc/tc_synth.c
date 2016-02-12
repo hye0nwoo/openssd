@@ -114,14 +114,21 @@ static void aging_with_rw(UINT32 io_cnt);
 /*     } */
 /*     ftl_flush(); */
 /* } */
-void ftl_test(void)
-{
-    uart_print("start ftl test...");
+/*void ftl_test(void)*/
+/*{*/
+/*    uart_print("start ftl test...");*/
 /*     fillup_dataspace(); */
 /*     tc_write_seq(0, 5000, NUM_PSECTORS_64KB); */
-    tc_write_rand(0, 200000, NUM_PSECTORS_4KB);
+/*    tc_write_rand(0, 200000, NUM_PSECTORS_4KB);*/
 /*     tc_write_rand(0, 2000000, NUM_PSECTORS_4KB); */
-    uart_print("ftl test passed!");
+/*    uart_print("ftl test passed!");*/
+/*}*/
+
+
+
+void ftl_test()
+{
+    tc_write_seq(0, 5000, NUM_PSECTORS_64KB);
 }
 static void aging_with_rw(UINT32 io_cnt)
 {
@@ -167,6 +174,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
     led(0);
 
     // STEP 1 - write
+    // 5번 테스트 
     for (UINT32 loop = 0; loop < 5; loop++)
     {
         wr_buf_addr = WR_BUF_ADDR;
@@ -175,11 +183,14 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
 
         uart_print_32(loop); uart_print("");
 
+        // io_cnt 너가 write 하고싶은 page 갯수 
         for (i = 0; i < io_cnt; i++)
         {
+            // 이거 그대로 따라하고 
             wr_buf_addr = WR_BUF_PTR(g_ftl_write_buf_id) + ((lba % SECTORS_PER_PAGE) * BYTES_PER_SECTOR);
             for (j = 0; j < num_sectors; j++)
             {
+                // 이게 원하는 데이터 memory에 임시로 올려놓는거 
                 mem_set_dram(wr_buf_addr, data, BYTES_PER_SECTOR);
 
                 wr_buf_addr += BYTES_PER_SECTOR;
@@ -190,9 +201,9 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
                 }
                 data++;
             }
-            ptimer_start();
-            ftl_write(lba, num_sectors);
-            ptimer_stop_and_uart_print();
+            //ptimer_start();
+            ftl_write_block(lba, num_sectors);
+            //ptimer_stop_and_uart_print();
 
             lba += num_sectors;
 
@@ -213,7 +224,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
         {
             rd_buf_addr = RD_BUF_PTR(g_ftl_read_buf_id) + ((lba % SECTORS_PER_PAGE) * BYTES_PER_SECTOR);
             /* ptimer_start(); */
-            ftl_read(lba, num_sectors);
+            ftl_read_block(lba, num_sectors);
 
             flash_finish();
             /* ptimer_stop_and_uart_print(); */
