@@ -156,6 +156,8 @@ static void fillup_dataspace(void)
     }
     uart_printf("complete!");
 }
+
+//sequential write test
 static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT32 sector_size)
 {
     UINT32 i, j, wr_buf_addr, rd_buf_addr, data;
@@ -167,6 +169,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
     led(0);
 
     // STEP 1 - write
+	// 5번 테스트 
     for (UINT32 loop = 0; loop < 5; loop++)
     {
         wr_buf_addr = WR_BUF_ADDR;
@@ -175,11 +178,14 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
 
         uart_print_32(loop); uart_print("");
 
+		// io_cnt 너가 write 하고싶은 page 갯수 
         for (i = 0; i < io_cnt; i++)
         {
+			// 이거 그대로 따라하고 
             wr_buf_addr = WR_BUF_PTR(g_ftl_write_buf_id) + ((lba % SECTORS_PER_PAGE) * BYTES_PER_SECTOR);
             for (j = 0; j < num_sectors; j++)
             {
+				// 이게 원하는 데이터 memory에 임시로 올려놓는거 
                 mem_set_dram(wr_buf_addr, data, BYTES_PER_SECTOR);
 
                 wr_buf_addr += BYTES_PER_SECTOR;
