@@ -1439,13 +1439,14 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
             num_sectors_to_read = SECTORS_PER_PAGE - sect_offset;
         }
         bank = get_num_bank(lpn); // page striping
-        vpn  = get_vbn(lpn / PAGES_PER_BLK) * PAGES_PER_BLK + lpn % PAGES_PER_BLK;
-
+        vpn  = get_vbn(bank * NUM_BMAP_BLOCK + lpn / PAGES_PER_BLK);
+        uart_printf("Read from bank %d\n", bank);
+        uart_printf("Read page from lbn %d, lpn %d\n", vpn, lpn / PAGES_PER_BLK);
         if (vpn != NULL)
         {
             nand_page_ptread_to_host(bank,
-                                     vpn / PAGES_PER_BLK,
-                                     vpn % PAGES_PER_BLK,
+                                     vpn,
+                                     lpn % PAGES_PER_BLK,
                                      sect_offset,
                                      num_sectors_to_read);
         }
@@ -1538,6 +1539,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     // if old data already exist,
     if (((g_misc_meta[bank].block_bitmap[new_vbn][(lpn % PAGES_PER_BLK) / 8] >> (lpn % PAGES_PER_BLK) % 8)*4) & 0x00000001  == 1)
     {
+        uart_printf("test");
         UINT32 src_lbn;
         UINT32 vt_vblock;
         UINT32 free_vpn;
@@ -1668,6 +1670,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     vblock   = new_vbn;
     page_num = lpn % PAGES_PER_BLK;
 
+    uart_printf("Write data to lbn %d, lpn %d, # banks %d\n", vblock, page_num, NUM_BANKS);
     // write new data (make sure that the new data is ready in the write buffer frame)
     // (c.f FO_B_SATA_W flag in flash.h)
     nand_page_ptprogram_from_host(bank,
@@ -1677,7 +1680,8 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
                                   column_cnt);
     // update metadata
     set_lbn(bank, page_num, lbn);
-    set_vbn(lbn, new_vbn);
+    set_vbn(bank * NUM_BMAP_BLOCK + lbn, new_vbn);
+    uart_printf("Get vbn %d\n", get_vbn(lbn));
     set_vcount_block(bank, vblock, get_vcount_block(bank, vblock) + 1);
     set_new_write_vbn(bank, new_vbn);
     uart_printf("lbn : %d",lbn);

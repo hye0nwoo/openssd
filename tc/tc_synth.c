@@ -118,7 +118,7 @@ void ftl_test(void)
 {
     uart_print("start ftl test...");
 /*     fillup_dataspace(); */
-     tc_write_seq(0, 256, NUM_PSECTORS_32KB); 
+     tc_write_seq(0, 128, NUM_PSECTORS_32KB); 
 /*    tc_write_rand(0, 200000, NUM_PSECTORS_4KB);*/
 /*     tc_write_rand(0, 2000000, NUM_PSECTORS_4KB); */
 /*    uart_print("ftl test passed!");*/
@@ -190,9 +190,10 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
                 }
                 data++;
             }
-            ptimer_start();
+           // ptimer_start();
+            uart_printf("Write test lpn %d\n", lba);
             ftl_write_block(lba, num_sectors);
-            ptimer_stop_and_uart_print();
+            //ptimer_stop_and_uart_print();
 
             lba += num_sectors;
 
@@ -213,6 +214,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
         {
             rd_buf_addr = RD_BUF_PTR(g_ftl_read_buf_id) + ((lba % SECTORS_PER_PAGE) * BYTES_PER_SECTOR);
             /* ptimer_start(); */
+            uart_printf("Read test lpn %d", lba);
             ftl_read_block(lba, num_sectors);
 
             flash_finish();
