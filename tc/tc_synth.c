@@ -114,15 +114,15 @@ static void aging_with_rw(UINT32 io_cnt);
 /*     } */
 /*     ftl_flush(); */
 /* } */
-/*void ftl_test(void)*/
-/*{*/
-/*    uart_print("start ftl test...");*/
+void ftl_test(void)
+{
+    uart_print("start ftl test...");
 /*     fillup_dataspace(); */
-/*     tc_write_seq(0, 5000, NUM_PSECTORS_64KB); */
+     tc_write_seq(0, 128, NUM_PSECTORS_32KB); 
 /*    tc_write_rand(0, 200000, NUM_PSECTORS_4KB);*/
 /*     tc_write_rand(0, 2000000, NUM_PSECTORS_4KB); */
 /*    uart_print("ftl test passed!");*/
-/*}*/
+}
 static void aging_with_rw(UINT32 io_cnt)
 {
     UINT32 lba;
