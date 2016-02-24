@@ -76,6 +76,7 @@ static misc_metadata  g_misc_meta[NUM_BANKS];
 static ftl_statistics g_ftl_statistics[NUM_BANKS];
 static UINT32		  g_bad_blk_count[NUM_BANKS];
 
+static UINT32   first_bmap_vblock[NUM_BANKS];
 static UINT32   last_bmap_block[NUM_BANKS];
 
 // SATA read/write buffer pointer id
@@ -121,7 +122,11 @@ UINT32 block_bank = 0;
 #define CHECK_LPAGE(lpn)              ASSERT((lpn) < NUM_LPAGES)
 #define CHECK_VPAGE(vpn)              ASSERT((vpn) < (VBLKS_PER_BANK * PAGES_PER_BLK))
 
+
 /* begin */
+
+#define get_num_bank_block(lbn)             ((lbn) % NUM_BANKS)
+
 #define is_full_all_blks_block(bank)    (g_misc_meta[bank].free_blk_cnt_block == 1)
 #define inc_full_blk_cnt_block(bank)    (g_misc_meta[bank].free_blk_cnt_block--)
 #define dec_full_blk_cnt_block(bank)    (g_misc_meta[bank].free_blk_cnt_block++)
@@ -889,6 +894,7 @@ static void init_metadata_sram(void)
         //----------------------------------------
         // assign free block for gc (for block mapping)
         //----------------------------------------
+        
         do
         {
             vblock++;
@@ -915,16 +921,17 @@ static void init_metadata_sram(void)
             ASSERT(vblock < VBLKS_PER_BANK);
         }while(is_bad_block(bank, vblock) == TRUE);
 
-        UINT32 first_bmap_vblock = vblock;
-
+        first_bmap_vblock[bank] = vblock;
+        UINT32 start_bmap = vblock;
+        uart_printf("# bank : %d first_bmap_vblock : %d",bank,first_bmap_vblock[bank]);
         do
         {
             vblock++;
 
             set_vcount(bank, vblock, VC_MAX);
             //set_vcount_block(bank,vblock, PAGES_PER_BLK);
-            if(is_bad_block(bank, vblock) == TRUE) first_bmap_vblock++;
-        }while(vblock != first_bmap_vblock + NUM_BMAP_BLOCK);
+            if(is_bad_block(bank, vblock) == TRUE) start_bmap++;
+        }while(vblock != start_bmap + NUM_BMAP_BLOCK);
 
         last_bmap_block[bank]=vblock;
 
@@ -1377,8 +1384,8 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
     write_vbn   = get_cur_write_vbn(bank);
     vblock      = write_vbn;
 
-
-    if((((g_misc_meta[bank].block_bitmap[write_vbn][(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) || !(get_vcount_block(bank, lpn/PAGES_PER_BLK) < PAGES_PER_BLK - 1))
+    uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn));
+    if((((g_misc_meta[bank].block_bitmap[write_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn) < PAGES_PER_BLK))
     {
         
         mem_copy(FTL_BUF(bank), g_misc_meta[bank].lpn_list_of_cur_vblock_block, sizeof(UINT32) * PAGES_PER_BLK);
@@ -1428,6 +1435,8 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
     sect_offset  = lba % SECTORS_PER_PAGE;
     remain_sects = num_sectors;
 
+    uart_printf("ftl_read_block(%d, %d) start", lba, num_sectors);
+
     while (remain_sects != 0)
     {
         if ((sect_offset + remain_sects) < SECTORS_PER_PAGE)
@@ -1438,7 +1447,7 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
         {
             num_sectors_to_read = SECTORS_PER_PAGE - sect_offset;
         }
-        bank = get_num_bank(lpn); // page striping
+        bank = get_num_bank_block(lpn / PAGES_PER_BLK); // page striping
         vpn  = get_vbn(bank * NUM_BMAP_BLOCK + lpn / PAGES_PER_BLK);
         uart_printf("Read from bank %d\n", bank);
         uart_printf("Read page from lbn %d, lpn %d\n", vpn, lpn / PAGES_PER_BLK);
@@ -1449,6 +1458,7 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
                                      lpn % PAGES_PER_BLK,
                                      sect_offset,
                                      num_sectors_to_read);
+            uart_printf("nand_page_ptread_to_host(%d, %d, %d, %d, %d);", bank, vpn, lpn % PAGES_PER_BLK, sect_offset, num_sectors_to_read);
         }
         // The host is requesting to read a logical page that has never been written to.
         else
@@ -1525,7 +1535,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     UINT32 lbn = lpn / PAGES_PER_BLK;
    
     //bank        = write_block_bank(block_bank); // page striping
-    bank = get_num_bank(lpn);
+    bank = get_num_bank_block(lpn / PAGES_PER_BLK);
     //uart_printf("bank : %d",bank);
     page_offset = sect_offset;
     column_cnt  = num_sectors;
@@ -1537,9 +1547,9 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     g_ftl_statistics[bank].page_wcount++;
 
     // if old data already exist,
-    if (((g_misc_meta[bank].block_bitmap[new_vbn][(lpn % PAGES_PER_BLK) / 8] >> (lpn % PAGES_PER_BLK) % 8)*4) & 0x00000001  == 1)
+    if (((g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] >> (lpn % PAGES_PER_BLK) % 8)*4) & 0x00000001  == 0x1)
     {
-        uart_printf("test");
+        uart_printf("data already exist");
         UINT32 src_lbn;
         UINT32 vt_vblock;
         UINT32 free_vpn;
@@ -1670,7 +1680,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     vblock   = new_vbn;
     page_num = lpn % PAGES_PER_BLK;
 
-    uart_printf("Write data to lbn %d, lpn %d, # banks %d\n", vblock, page_num, NUM_BANKS);
+    uart_printf("Write data to lbn %d, lpn %d, # banks %d\n", vblock, page_num, bank);
     // write new data (make sure that the new data is ready in the write buffer frame)
     // (c.f FO_B_SATA_W flag in flash.h)
     nand_page_ptprogram_from_host(bank,
@@ -1689,7 +1699,8 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     uart_printf("vbn : %d",new_vbn);
      //page_num : %d\n vbn : %d\n", lbn, page_num, vbn);
     //update metadata
-    g_misc_meta[bank].block_bitmap[new_vbn][(lpn % PAGES_PER_BLK) / 8] = g_misc_meta[bank].block_bitmap[new_vbn][(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
+    g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] = g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
+    uart_printf("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][0], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][1], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][2], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][3], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][4], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][5], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][6], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][7], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][8], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][9], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][10], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][11], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][12], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][13], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][14], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][15]);
 }
 
 
@@ -1719,7 +1730,7 @@ static UINT32 get_vcount_block(UINT32 const bank, UINT32 const vblock)
     ASSERT(bank < NUM_BANKS);
 
     vcount = read_dram_16(BLOCK_VCOUNT_ADDR + (((bank * NUM_BMAP_BLOCK) + vblock) * sizeof(UINT16)));
-    ASSERT((vcount < PAGES_PER_BLK) || (vcount == VC_MAX));
+    ASSERT((vcount <= PAGES_PER_BLK) || (vcount == VC_MAX));
 
     return vcount;
 }
@@ -1727,7 +1738,7 @@ static UINT32 get_vcount_block(UINT32 const bank, UINT32 const vblock)
 static void set_vcount_block(UINT32 const bank, UINT32 const vblock, UINT32 const vcount)
 {
     ASSERT(bank < NUM_BANKS);
-    ASSERT((vcount < PAGES_PER_BLK) || (vcount == VC_MAX));
+    ASSERT((vcount <= PAGES_PER_BLK) || (vcount == VC_MAX));
 
     write_dram_16(BLOCK_VCOUNT_ADDR + (((bank * NUM_BMAP_BLOCK) + vblock) * sizeof(UINT16)), vcount);
 }

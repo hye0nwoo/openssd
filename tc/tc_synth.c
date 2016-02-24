@@ -118,10 +118,10 @@ void ftl_test(void)
 {
     uart_print("start ftl test...");
 /*     fillup_dataspace(); */
-     tc_write_seq(0, 128, NUM_PSECTORS_32KB); 
+    tc_write_seq(0, 1152, NUM_PSECTORS_32KB); 
 /*    tc_write_rand(0, 200000, NUM_PSECTORS_4KB);*/
 /*     tc_write_rand(0, 2000000, NUM_PSECTORS_4KB); */
-/*    uart_print("ftl test passed!");*/
+    uart_print("ftl test passed!");
 }
 static void aging_with_rw(UINT32 io_cnt)
 {
@@ -214,6 +214,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
         {
             rd_buf_addr = RD_BUF_PTR(g_ftl_read_buf_id) + ((lba % SECTORS_PER_PAGE) * BYTES_PER_SECTOR);
             /* ptimer_start(); */
+            uart_printf("-------------------------------------------------------------------------------------");
             uart_printf("Read test lpn %d", lba);
             ftl_read_block(lba, num_sectors);
 
@@ -223,7 +224,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
             for (j = 0; j < num_sectors; j++)
             {
                 UINT32 sample = read_dram_32(rd_buf_addr);
-
+                uart_printf("ftl test io#: %d, %d\t data : %d", lba, num_sectors, data);
                 if (sample != data)
                 {
                     uart_printf("ftl test fail...io#: %d, %d", lba, num_sectors);
