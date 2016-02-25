@@ -65,7 +65,7 @@ typedef struct _misc_metadata
     UINT32 cur_mapblk_vbn[MAPBLKS_PER_BANK]; // current write vbn for logging the age mapping info.
     UINT32 gc_vblock_block; // vblock number for garbage collection
     UINT32 free_blk_cnt_block; // total number of free block count
-	UINT32 block_bitmap[NUM_BMAP_BLOCK][PAGES_PER_BLK/8];  //1 : used 0 : unused
+	UINT32 block_bitmap[PAGES_PER_BLK/8];  //1 : used 0 : unused
     UINT32 lpn_list_of_cur_vblock_block[PAGES_PER_BLK]; // logging lpn list of current write vblock for GC
 }misc_metadata; // per bank
 
@@ -1385,13 +1385,10 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
     vblock      = write_vbn;
 
     uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn));
-    if((((g_misc_meta[bank].block_bitmap[write_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn) < PAGES_PER_BLK))
+    if((((g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn) < PAGES_PER_BLK))
     {
         uart_print("test");
         mem_copy(FTL_BUF(bank), g_misc_meta[bank].lpn_list_of_cur_vblock_block, sizeof(UINT32) * PAGES_PER_BLK);
-        // fix minor bug
-        /*nand_page_ptprogram(bank, vblock, PAGES_PER_BLK - 1, 0,
-                            ((sizeof(UINT32) * PAGES_PER_BLK + BYTES_PER_SECTOR - 1 ) / BYTES_PER_SECTOR), FTL_BUF(bank));*/
 
         mem_set_sram(g_misc_meta[bank].lpn_list_of_cur_vblock_block, 0x00000000, sizeof(UINT32) * PAGES_PER_BLK);
 
@@ -1418,6 +1415,7 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
         {
             write_vbn++;
         }
+        memset(g_misc_meta[bank].block_bitmap, 0, (PAGES_PER_BLK / 8) * sizeof(UINT32));
     }
     
     set_new_write_vbn(bank, write_vbn);
@@ -1546,137 +1544,6 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
 
     g_ftl_statistics[bank].page_wcount++;
 
-   /* // if old data already exist,
-    if (((g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] >> (lpn % PAGES_PER_BLK) % 8)*4) & 0x00000001  == 0x1)
-    {
-        uart_printf("data already exist");
-        UINT32 src_lbn;
-        UINT32 vt_vblock;
-        UINT32 free_vpn;
-        UINT32 vcount; // valid page count in victim block
-        UINT32 src_page;
-        UINT32 gc_vblock;
-
-        g_ftl_statistics[bank].gc_cnt++;
-
-        vt_vblock = old_vbn;   // get victim block
-        vcount    = get_vcount_block(bank, vt_vblock);
-
-        gc_vblock = new_vbn;
-        free_vpn  = gc_vblock * PAGES_PER_BLK;
-        
-        // 1. copy-back all valid pages to free space
-        for (src_page = 0; src_page < (PAGES_PER_BLK - 1); src_page++)
-        {
-            // get lpn of victim block from a read lpn list
-            src_lbn = get_lbn(bank,src_page);
-
-            // determine whether the page is valid or not
-            if (get_vbn(src_lbn) != vt_vblock)
-            {
-                // invalid page
-                continue;
-            }
-            
-            // if the page is valid,
-            // then do copy-back op. to free space
-            nand_page_copyback(bank,
-                               vt_vblock,
-                               src_page,
-                               free_vpn / PAGES_PER_BLK,
-                               free_vpn % PAGES_PER_BLK);
-            
-            // update metadata
-            set_vbn(src_lbn, free_vpn % PAGES_PER_BLK);
-            set_lbn(bank, (free_vpn % PAGES_PER_BLK), src_lbn);
-
-            free_vpn++;
-        }
-        // 3. erase victim block
-        nand_block_erase(bank, vt_vblock);
-
-        // 2. update metadata
-        set_vcount_block(bank, vt_vblock, PAGES_PER_BLK - 1);
-        set_vcount_block(bank, gc_vblock, vcount);
-
-        //-----------------------------------------------------------------------------------------------------
-
-        vblock   = old_vbn;
-
-        // 이 경우 metadata의 비트를 비교하여 valid한 페이지들만 복사하여야 한다.
-        // 기존의 방식은 해당 페이지에서 valid한 부분만 복사했지만 block mapping방식에서는 블록 전체에서 valid한 페이지들을 복사해야 한다.
-        //--------------------------------------------------------------------------------------
-        // `Partial programming'
-        // we could not determine whether the new data is loaded in the SATA write buffer.
-        // Thus, read the left/right hole sectors of a valid page and copy into the write buffer.
-        // And then, program whole valid data
-        //--------------------------------------------------------------------------------------
-        
-        if (num_sectors != SECTORS_PER_PAGE)
-        {
-            // Performance optimization (but, not proved)
-            // To reduce flash memory access, valid hole copy into SATA write buffer after reading whole page
-            // Thus, in this case, we need just one full page read + one or two mem_copy
-            if ((num_sectors <= 8) && (page_offset != 0))
-            {
-                // one page async read
-                nand_page_read(bank,
-                               vblock,
-                               page_num,
-                               FTL_BUF(bank));
-                // copy `left hole sectors' into SATA write buffer
-                if (page_offset != 0)
-                {
-                    mem_copy(WR_BUF_PTR(g_ftl_write_buf_id),
-                             FTL_BUF(bank),
-                             page_offset * BYTES_PER_SECTOR);
-                }
-                // copy `right hole sectors' into SATA write buffer
-                if ((page_offset + column_cnt) < SECTORS_PER_PAGE)
-                {
-                    UINT32 const rhole_base = (page_offset + column_cnt) * BYTES_PER_SECTOR;
-
-                    mem_copy(WR_BUF_PTR(g_ftl_write_buf_id) + rhole_base,
-                             FTL_BUF(bank) + rhole_base,
-                             BYTES_PER_PAGE - rhole_base);
-                }
-            }
-            // left/right hole async read operation (two partial page read)
-            else
-            {
-                // read `left hole sectors'
-                if (page_offset != 0)
-                {
-                    nand_page_ptread(bank,
-                                     vblock,
-                                     page_num,
-                                     0,
-                                     page_offset,
-                                     WR_BUF_PTR(g_ftl_write_buf_id),
-                                     RETURN_ON_ISSUE);
-                }
-                // read `right hole sectors'
-                if ((page_offset + column_cnt) < SECTORS_PER_PAGE)
-                {
-                    nand_page_ptread(bank,
-                                     vblock,
-                                     page_num,
-                                     page_offset + column_cnt,
-                                     SECTORS_PER_PAGE - (page_offset + column_cnt),
-                                     WR_BUF_PTR(g_ftl_write_buf_id),
-                                     RETURN_ON_ISSUE);
-                }
-            }
-        }
-        // full page write
-        page_offset = 0;
-        column_cnt  = SECTORS_PER_PAGE;
-        // invalid old page (decrease vcount)
-
-        set_vcount_block(bank, vblock, get_vcount_block(bank, vblock) - 1);
-
-    }*/
-
     vblock   = new_vbn;
     page_num = lpn % PAGES_PER_BLK;
 
@@ -1699,8 +1566,8 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     uart_printf("vbn : %d",new_vbn);
      //page_num : %d\n vbn : %d\n", lbn, page_num, vbn);
     //update metadata
-    g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] = g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
-    uart_printf("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][0], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][1], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][2], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][3], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][4], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][5], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][6], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][7], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][8], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][9], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][10], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][11], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][12], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][13], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][14], g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][15]);
+    g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK) / 8] = g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
+    uart_printf("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", g_misc_meta[bank].block_bitmap[0], g_misc_meta[bank].block_bitmap[1], g_misc_meta[bank].block_bitmap[2], g_misc_meta[bank].block_bitmap[3], g_misc_meta[bank].block_bitmap[4], g_misc_meta[bank].block_bitmap[5], g_misc_meta[bank].block_bitmap[6], g_misc_meta[bank].block_bitmap[7], g_misc_meta[bank].block_bitmap[8], g_misc_meta[bank].block_bitmap[9], g_misc_meta[bank].block_bitmap[10], g_misc_meta[bank].block_bitmap[11], g_misc_meta[bank].block_bitmap[12], g_misc_meta[bank].block_bitmap[13], g_misc_meta[bank].block_bitmap[14], g_misc_meta[bank].block_bitmap[15]);
 }
 
 
@@ -1822,7 +1689,6 @@ static void garbage_collection_block(UINT32 const bank)
      uart_printf("gc page count : %d", vcount); 
 
     // 4. update metadata
-    memset(g_misc_meta[bank].block_bitmap[free_vpn / PAGES_PER_BLK], 0, (PAGES_PER_BLK / 8) * sizeof(UINT32));
     set_vcount_block(bank, vt_vblock, VC_MAX);
     set_vcount_block(bank, gc_vblock, vcount);
     set_new_write_vbn(bank, free_vpn / PAGES_PER_BLK); // set a free page for new write
