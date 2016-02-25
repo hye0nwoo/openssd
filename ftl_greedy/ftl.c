@@ -1387,11 +1387,11 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
     uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn));
     if((((g_misc_meta[bank].block_bitmap[write_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn) < PAGES_PER_BLK))
     {
-        
+        uart_print("test");
         mem_copy(FTL_BUF(bank), g_misc_meta[bank].lpn_list_of_cur_vblock_block, sizeof(UINT32) * PAGES_PER_BLK);
         // fix minor bug
-        nand_page_ptprogram(bank, vblock, PAGES_PER_BLK - 1, 0,
-                            ((sizeof(UINT32) * PAGES_PER_BLK + BYTES_PER_SECTOR - 1 ) / BYTES_PER_SECTOR), FTL_BUF(bank));
+        /*nand_page_ptprogram(bank, vblock, PAGES_PER_BLK - 1, 0,
+                            ((sizeof(UINT32) * PAGES_PER_BLK + BYTES_PER_SECTOR - 1 ) / BYTES_PER_SECTOR), FTL_BUF(bank));*/
 
         mem_set_sram(g_misc_meta[bank].lpn_list_of_cur_vblock_block, 0x00000000, sizeof(UINT32) * PAGES_PER_BLK);
 
@@ -1546,7 +1546,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
 
     g_ftl_statistics[bank].page_wcount++;
 
-    // if old data already exist,
+   /* // if old data already exist,
     if (((g_misc_meta[bank].block_bitmap[new_vbn - first_bmap_vblock[bank]][(lpn % PAGES_PER_BLK) / 8] >> (lpn % PAGES_PER_BLK) % 8)*4) & 0x00000001  == 0x1)
     {
         uart_printf("data already exist");
@@ -1675,7 +1675,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
 
         set_vcount_block(bank, vblock, get_vcount_block(bank, vblock) - 1);
 
-    }
+    }*/
 
     vblock   = new_vbn;
     page_num = lpn % PAGES_PER_BLK;
