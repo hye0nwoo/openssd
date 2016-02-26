@@ -118,7 +118,7 @@ void ftl_test(void)
 {
     uart_print("start ftl test...");
 /*     fillup_dataspace(); */
-    tc_write_seq(0, 1152, NUM_PSECTORS_32KB); 
+    tc_write_seq(0, 128, NUM_PSECTORS_32KB); 
 /*    tc_write_rand(0, 200000, NUM_PSECTORS_4KB);*/
 /*     tc_write_rand(0, 2000000, NUM_PSECTORS_4KB); */
     uart_print("ftl test passed!");
@@ -167,7 +167,7 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
     led(0);
 
     // STEP 1 - write
-    for (UINT32 loop = 0; loop < 5; loop++)
+    for (UINT32 loop = 0; loop < 20; loop++)
     {
         wr_buf_addr = WR_BUF_ADDR;
         data = 0;
@@ -224,14 +224,13 @@ static void tc_write_seq(const UINT32 start_lsn, const UINT32 io_num, const UINT
             for (j = 0; j < num_sectors; j++)
             {
                 UINT32 sample = read_dram_32(rd_buf_addr);
-                uart_printf("ftl test io#: %d, %d\t data : %d", lba, num_sectors, data);
+                //uart_printf("ftl test io#: %d, %d\t sample : %d data : %d", lba, num_sectors, sample, data);
                 if (sample != data)
                 {
                     uart_printf("ftl test fail...io#: %d, %d", lba, num_sectors);
                     uart_printf("sample data %d should be %d", sample, data);
                     led_blink();
                 }
-
                 rd_buf_addr += BYTES_PER_SECTOR;
 
                 if (rd_buf_addr >= RD_BUF_ADDR + RD_BUF_BYTES)
@@ -285,11 +284,11 @@ static void tc_write_rand(const UINT32 start_lsn, const UINT32 io_num, const UIN
                 data++;
             }
 /*             ptimer_start(); */
-            ftl_write(lba, num_sectors);
+            ftl_write_block(lba, num_sectors);
 /*             ptimer_stop_and_uart_print(); */
             rd_buf_addr = RD_BUF_PTR(g_ftl_read_buf_id) + ((lba % SECTORS_PER_PAGE) * BYTES_PER_SECTOR);
 /*             ptimer_start(); */
-            ftl_read(lba, num_sectors);
+            ftl_read_block(lba, num_sectors);
 /*             ptimer_stop_and_uart_print(); */
 
             flash_finish();
