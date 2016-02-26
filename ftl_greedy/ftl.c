@@ -1524,6 +1524,10 @@ void ftl_write_block(UINT32 const lba, UINT32 const num_sectors)
 }
 
 
+static int is_written(UINT32 bank, UINT32 lbn, UINT32 lpn)
+{
+	return ;
+}
 static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 const num_sectors)
 {
     CHECK_LBLOCK(lpn / PAGES_PER_BLK);
