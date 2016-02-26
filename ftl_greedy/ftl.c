@@ -27,7 +27,7 @@
 
 #include "jasmine.h"
 
-#define NUM_BMAP_BLOCK      50
+#define NUM_BMAP_BLOCK      10
 
 //----------------------------------
 // macro
@@ -75,6 +75,8 @@ typedef struct _misc_metadata
 static misc_metadata  g_misc_meta[NUM_BANKS];
 static ftl_statistics g_ftl_statistics[NUM_BANKS];
 static UINT32		  g_bad_blk_count[NUM_BANKS];
+
+static UINT32         g_bad_blk_count_block[NUM_BANKS];
 
 static UINT32   first_bmap_vblock[NUM_BANKS];
 static UINT32   last_bmap_block[NUM_BANKS];
@@ -126,6 +128,8 @@ UINT32 block_bank = 0;
 /* begin */
 
 #define get_num_bank_block(lbn)             ((lbn) % NUM_BANKS)
+
+#define get_bad_blk_cnt_block(bank)         (g_bad_blk_count_block[bank])
 
 #define is_full_all_blks_block(bank)    (g_misc_meta[bank].free_blk_cnt_block == 1)
 #define inc_full_blk_cnt_block(bank)    (g_misc_meta[bank].free_blk_cnt_block--)
@@ -310,6 +314,50 @@ static void build_bad_blk_list(void)
 				set_bit_dram(BAD_BLK_BMP_ADDR + bank*(VBLKS_PER_BANK/8 + 1), vblk_offset);
 			}
 		}
+
+        g_bad_blk_count_block[bank] = 0;
+
+        for (vblk_offset = first_bmap_vblock[bank]; vblk_offset < first_bmap_vblock[bank] + NUM_BMAP_BLOCK; vblk_offset++)
+        {
+            BOOL32 bad = FALSE;
+
+            #if OPTION_2_PLANE
+            {
+                UINT32 pblk_offset;
+
+                pblk_offset = vblk_offset * NUM_PLANES;
+
+                // fix bug@jasmine v.1.1.0
+                if (mem_search_equ_dram(scan_list, sizeof(UINT16), num_entries + 1, pblk_offset) < num_entries + 1)
+                {
+                    bad = TRUE;
+                }
+
+                pblk_offset = vblk_offset * NUM_PLANES + 1;
+
+                // fix bug@jasmine v.1.1.0
+                if (mem_search_equ_dram(scan_list, sizeof(UINT16), num_entries + 1, pblk_offset) < num_entries + 1)
+                {
+                    bad = TRUE;
+                }
+            }
+            #else
+            {
+                // fix bug@jasmine v.1.1.0
+                if (mem_search_equ_dram(scan_list, sizeof(UINT16), num_entries + 1, vblk_offset) < num_entries + 1)
+                {
+                    bad = TRUE;
+                }
+            }
+            #endif
+
+            if (bad)
+            {
+                g_bad_blk_count_block[bank]++;
+                set_bit_dram(BAD_BLK_BMP_ADDR + bank*(VBLKS_PER_BANK/8 + 1), vblk_offset);
+            }
+        }
+
 	}
 }
 
@@ -855,7 +903,8 @@ static void init_metadata_sram(void)
     {
         g_misc_meta[bank].free_blk_cnt = VBLKS_PER_BANK - META_BLKS_PER_BANK - NUM_BMAP_BLOCK;
         g_misc_meta[bank].free_blk_cnt -= get_bad_blk_cnt(bank);
-        g_misc_meta[bank].free_blk_cnt_block = NUM_BMAP_BLOCK - 10;
+        g_misc_meta[bank].free_blk_cnt_block = NUM_BMAP_BLOCK;
+        g_misc_meta[bank].free_blk_cnt -= get_bad_blk_cnt_block(bank);
         // NOTE: vblock #0,1 don't use for user space
         write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + 0) * sizeof(UINT16), VC_MAX);
         write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + 1) * sizeof(UINT16), VC_MAX);
@@ -892,24 +941,6 @@ static void init_metadata_sram(void)
         // init for block mapping
 
         //----------------------------------------
-        // assign free block for gc (for block mapping)
-        //----------------------------------------
-        
-        do
-        {
-            vblock++;
-            // NOTE: free block should not be secleted as a victim @ first GC
-            write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + vblock) * sizeof(UINT16), VC_MAX);
-            set_vcount(bank, vblock, VC_MAX);
-            // set free block
-            write_dram_16(BLOCK_VCOUNT_ADDR + ((bank * NUM_BMAP_BLOCK) + vblock) * sizeof(UINT16), VC_MAX);
-            set_gc_vblock_block(bank, vblock);
-
-            ASSERT(vblock < VBLKS_PER_BANK);
-        }while(is_bad_block(bank, vblock) == TRUE);
-
-
-        //----------------------------------------
         // assign free vpn for first new write (for block mapping)
         //----------------------------------------
         do
@@ -924,13 +955,36 @@ static void init_metadata_sram(void)
         first_bmap_vblock[bank] = vblock;
         UINT32 start_bmap = vblock;
         uart_printf("# bank : %d first_bmap_vblock : %d",bank,first_bmap_vblock[bank]);
+
+        //----------------------------------------
+        // assign free block for gc (for block mapping)
+        //----------------------------------------
+        
+        do
+        {
+            vblock++;
+            // NOTE: free block should not be secleted as a victim @ first GC
+            write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + vblock) * sizeof(UINT16), VC_MAX);
+            set_vcount(bank, vblock, VC_MAX);
+            // set free block
+            write_dram_16(BLOCK_VCOUNT_ADDR + ((bank * NUM_BMAP_BLOCK) + vblock) * sizeof(UINT16), VC_MAX);
+            set_gc_vblock_block(bank, vblock);
+            uart_printf("gc block for block mapping # %d",vblock);
+
+            ASSERT(vblock < VBLKS_PER_BANK);
+        }while(is_bad_block(bank, vblock) == TRUE);
+
         do
         {
             vblock++;
 
             set_vcount(bank, vblock, VC_MAX);
             //set_vcount_block(bank,vblock, PAGES_PER_BLK);
-            if(is_bad_block(bank, vblock) == TRUE) start_bmap++;
+            if(is_bad_block(bank, vblock) == TRUE)
+            {
+                start_bmap++;
+                set_vcount_block(bank, vblock - first_bmap_vblock[bank], VC_MAX);
+            }
         }while(vblock != start_bmap + NUM_BMAP_BLOCK);
 
         last_bmap_block[bank]=vblock;
@@ -1384,26 +1438,26 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
     write_vbn   = get_cur_write_vbn(bank);
     vblock      = write_vbn;
 
-    uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn));
-    if((((g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn) < PAGES_PER_BLK))
+    uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]));
+    if((((g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) < PAGES_PER_BLK))
     {
         uart_print("test");
-        mem_copy(FTL_BUF(bank), g_misc_meta[bank].lpn_list_of_cur_vblock_block, sizeof(UINT32) * PAGES_PER_BLK);
-
-        mem_set_sram(g_misc_meta[bank].lpn_list_of_cur_vblock_block, 0x00000000, sizeof(UINT32) * PAGES_PER_BLK);
 
         inc_full_blk_cnt_block(bank);
         if (is_full_all_blks_block(bank))
         {
             garbage_collection_block(bank);
+            if(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) != VC_MAX) set_vcount_block(bank, write_vbn - first_bmap_vblock[bank], 0);
+        
             return get_cur_write_vbn(bank);
         }
-
+        if(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) != VC_MAX) set_vcount_block(bank, write_vbn - first_bmap_vblock[bank], 0);
+        
         do
         {
             vblock++;
-            ASSERT(vblock != last_bmap_block[bank] - 1);
-        }while (get_vcount_block(bank, vblock) == VC_MAX || is_bad_block(bank, vblock));
+            ASSERT(vblock != last_bmap_block[bank]);
+        }while (get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) == VC_MAX || is_bad_block(bank, vblock));
         
 
         // write block -> next block
@@ -1559,7 +1613,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     set_lbn(bank, page_num, lbn);
     set_vbn(bank * NUM_BMAP_BLOCK + lbn, new_vbn);
     uart_printf("Get vbn %d\n", get_vbn(lbn));
-    set_vcount_block(bank, vblock, get_vcount_block(bank, vblock) + 1);
+    set_vcount_block(bank, vblock - first_bmap_vblock[bank], get_vcount_block(bank, vblock - first_bmap_vblock[bank]) + 1);
     set_new_write_vbn(bank, new_vbn);
     uart_printf("lbn : %d",lbn);
     uart_printf("page_num : %d",page_num);
@@ -1623,77 +1677,43 @@ static void garbage_collection_block(UINT32 const bank)
 
     UINT32 src_lbn;
     UINT32 vt_vblock;
-    UINT32 free_vpn;
     UINT32 vcount; // valid page count in victim block
     UINT32 src_page;
     UINT32 gc_vblock;
 
     g_ftl_statistics[bank].gc_cnt++;
 
-    vt_vblock = get_vt_vblock_block(bank);   // get victim block
-    vcount    = get_vcount_block(bank, vt_vblock);
-    gc_vblock = get_gc_vblock_block(bank);
-    free_vpn  = gc_vblock * PAGES_PER_BLK;
+  //  do{
+    uart_printf("garbage_collection_block function start");
+        vt_vblock = get_vt_vblock_block(bank);   // get victim block
+        vcount    = get_vcount_block(bank, vt_vblock - first_bmap_vblock[bank]);
+        gc_vblock = get_gc_vblock_block(bank);
 
-/*     uart_printf("garbage_collection bank %d, vblock %d",bank, vt_vblock); */
+        uart_printf("garbage_collection bank %d, vblock %d, gc_vblock %d",bank, vt_vblock, gc_vblock);
 
-    ASSERT(vt_vblock != gc_vblock);
-    ASSERT(vcount < (PAGES_PER_BLK - 1));
-    ASSERT(get_vcount_block(bank, gc_vblock) == VC_MAX);
-    ASSERT(!is_bad_block(bank, gc_vblock));
-
-    // 1. load p2l list from last page offset of victim block (4B x PAGES_PER_BLK)
-    // fix minor bug
-    nand_page_ptread(bank, vt_vblock, PAGES_PER_BLK - 1, 0,
-                     ((sizeof(UINT32) * PAGES_PER_BLK + BYTES_PER_SECTOR - 1 ) / BYTES_PER_SECTOR), FTL_BUF(bank), RETURN_WHEN_DONE);
-    mem_copy(g_misc_meta[bank].lpn_list_of_cur_vblock, FTL_BUF(bank), sizeof(UINT32) * PAGES_PER_BLK);
-    // 2. copy-back all valid pages to free space
-    for (src_page = 0; src_page < (PAGES_PER_BLK - 1); src_page++)
-    {
-        // get lpn of victim block from a read lpn list
-        src_lbn = get_lbn(bank,src_page);
-
-        // determine whether the page is valid or not
-        if (get_vbn(src_lbn) != vt_vblock)
+        ASSERT(vt_vblock != gc_vblock);
+        ASSERT(vcount < (PAGES_PER_BLK + 1));
+        ASSERT(get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]) == VC_MAX);
+        ASSERT(!is_bad_block(bank, gc_vblock));
+     
+/*#if OPTION_ENABLE_ASSERT
+        if (vcount == 0)
         {
-            // invalid page
-            continue;
+            ASSERT(free_vpn == (gc_vblock * PAGES_PER_BLK));
         }
+#endif*/
+        // 3. erase victim block
+        nand_block_erase(bank, vt_vblock);
         
-        // if the page is valid,
-        // then do copy-back op. to free space
-        nand_page_copyback(bank,
-                           vt_vblock,
-                           src_page,
-                           free_vpn / PAGES_PER_BLK,
-                           free_vpn % PAGES_PER_BLK);
-        
-        // update metadata
-        set_vbn(src_lbn, free_vpn % PAGES_PER_BLK);
-        set_lbn(bank, (free_vpn % PAGES_PER_BLK), src_lbn);
+         uart_printf("gc page count : %d", vcount); 
 
-        free_vpn++;
-    }
-
-#if OPTION_ENABLE_ASSERT
-    if (vcount == 0)
-    {
-        ASSERT(free_vpn == (gc_vblock * PAGES_PER_BLK));
-    }
-#endif
-    // 3. erase victim block
-    nand_block_erase(bank, vt_vblock);
-    ASSERT((free_vpn % PAGES_PER_BLK) < (PAGES_PER_BLK - 2));
-    ASSERT((free_vpn % PAGES_PER_BLK == vcount));
-
-     uart_printf("gc page count : %d", vcount); 
-
-    // 4. update metadata
-    set_vcount_block(bank, vt_vblock, VC_MAX);
-    set_vcount_block(bank, gc_vblock, vcount);
-    set_new_write_vbn(bank, free_vpn / PAGES_PER_BLK); // set a free page for new write
-    set_gc_vblock_block(bank, vt_vblock); // next free block (reserve for GC)
-    dec_full_blk_cnt_block(bank); // decrease full block count
+        // 4. update metadata
+        set_vcount_block(bank, vt_vblock - first_bmap_vblock[bank], VC_MAX);
+        set_vcount_block(bank, gc_vblock - first_bmap_vblock[bank], 0);
+        set_new_write_vbn(bank, gc_vblock); // set a free page for new write
+        set_gc_vblock_block(bank, vt_vblock); // next free block (reserve for GC)
+        dec_full_blk_cnt_block(bank); // decrease full block count
+ //   }while(g_misc_meta[bank].free_blk_cnt_block < 10);
     uart_print("garbage_collection end");
 }
 
@@ -1711,15 +1731,15 @@ static UINT32 get_vt_vblock_block(UINT32 const bank)
     UINT32 vblock;
 
     // search the block which has mininum valid pages
+
     vblock = mem_search_min_max(BLOCK_VCOUNT_ADDR + (bank * NUM_BMAP_BLOCK * sizeof(UINT16)),
                                 sizeof(UINT16),
                                 NUM_BMAP_BLOCK,
                                 MU_CMD_SEARCH_MIN_DRAM);
 
     ASSERT(is_bad_block(bank, vblock) == FALSE);
-    ASSERT(vblock < NUM_BMAP_BLOCK);
-    ASSERT(get_vcount_block(bank, vblock) < (PAGES_PER_BLK - 1));
+    ASSERT(get_vcount_block(bank,vblock - first_bmap_vblock[bank]) < (PAGES_PER_BLK + 1));
     //ASSERT(get_vcount_block(bank, vblock) == 0);
-    
-    return vblock;
+    uart_printf("in garbage_collection(%d), vt_vblock is %d\t vt_vblock\'s vcount : %d", bank, first_bmap_vblock[bank] + vblock,get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
+    return first_bmap_vblock[bank] + vblock;
 }
