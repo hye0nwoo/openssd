@@ -967,7 +967,7 @@ static void init_metadata_sram(void)
             write_dram_16(VCOUNT_ADDR + ((bank * VBLKS_PER_BANK) + vblock) * sizeof(UINT16), VC_MAX);
             set_vcount(bank, vblock, VC_MAX);
             // set free block
-            write_dram_16(BLOCK_VCOUNT_ADDR + ((bank * NUM_BMAP_BLOCK) + vblock) * sizeof(UINT16), VC_MAX);
+            write_dram_16(BLOCK_VCOUNT_ADDR + ((bank * NUM_BMAP_BLOCK) + vblock - first_bmap_vblock[bank]) * sizeof(UINT16), VC_MAX);
             set_gc_vblock_block(bank, vblock);
             uart_printf("gc block for block mapping # %d",vblock);
 
@@ -983,11 +983,12 @@ static void init_metadata_sram(void)
             if(is_bad_block(bank, vblock) == TRUE)
             {
                 start_bmap++;
-                set_vcount_block(bank, vblock - first_bmap_vblock[bank], VC_MAX);
+                //set_vcount_block(bank, vblock - first_bmap_vblock[bank], VC_MAX);
             }
         }while(vblock != start_bmap + NUM_BMAP_BLOCK);
 
         last_bmap_block[bank]=vblock;
+        uart_printf("# bank : %d last_bmap_vblock : %d",bank,last_bmap_block[bank]);
 
         //-----------------------------------------------------------------------------------------------
 
@@ -1451,14 +1452,16 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
         
             return get_cur_write_vbn(bank);
         }
-        if(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) != VC_MAX) set_vcount_block(bank, write_vbn - first_bmap_vblock[bank], 0);
-        
+       
         do
         {
             vblock++;
+            uart_printf("get_vcount_block(bank, %d) : %d", vblock, get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
             ASSERT(vblock != last_bmap_block[bank]);
-        }while (get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) == VC_MAX || is_bad_block(bank, vblock));
+        }while (get_vcount_block(bank, vblock - first_bmap_vblock[bank]) == VC_MAX || is_bad_block(bank, vblock));
         
+        if(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) != VC_MAX) set_vcount_block(bank, write_vbn - first_bmap_vblock[bank], 0);
+ 
 
         // write block -> next block
         if (vblock != write_vbn)
@@ -1470,6 +1473,7 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
             write_vbn++;
         }
         memset(g_misc_meta[bank].block_bitmap, 0, (PAGES_PER_BLK / 8) * sizeof(UINT32));
+
     }
     
     set_new_write_vbn(bank, write_vbn);
@@ -1689,12 +1693,12 @@ static void garbage_collection_block(UINT32 const bank)
         vcount    = get_vcount_block(bank, vt_vblock - first_bmap_vblock[bank]);
         gc_vblock = get_gc_vblock_block(bank);
 
-        uart_printf("garbage_collection bank %d, vblock %d, gc_vblock %d",bank, vt_vblock, gc_vblock);
+        uart_printf("garbage_collection bank %d, vblock %d, vblock\'s vcount : %d, gc_vblock %d, gc_vblock\'s vcount : %d",bank, vt_vblock, get_vcount_block(bank, vt_vblock - first_bmap_vblock[bank]), gc_vblock, get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]));
 
         ASSERT(vt_vblock != gc_vblock);
         ASSERT(vcount < (PAGES_PER_BLK + 1));
         ASSERT(get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]) == VC_MAX);
-        ASSERT(!is_bad_block(bank, gc_vblock));
+        //ASSERT(!is_bad_block(bank, gc_vblock));
      
 /*#if OPTION_ENABLE_ASSERT
         if (vcount == 0)
@@ -1737,7 +1741,7 @@ static UINT32 get_vt_vblock_block(UINT32 const bank)
                                 NUM_BMAP_BLOCK,
                                 MU_CMD_SEARCH_MIN_DRAM);
 
-    ASSERT(is_bad_block(bank, vblock) == FALSE);
+    //ASSERT(is_bad_block(bank, vblock) == FALSE);
     ASSERT(get_vcount_block(bank,vblock - first_bmap_vblock[bank]) < (PAGES_PER_BLK + 1));
     //ASSERT(get_vcount_block(bank, vblock) == 0);
     uart_printf("in garbage_collection(%d), vt_vblock is %d\t vt_vblock\'s vcount : %d", bank, first_bmap_vblock[bank] + vblock,get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
