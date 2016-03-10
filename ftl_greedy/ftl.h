@@ -24,7 +24,7 @@
 #ifndef FTL_H
 #define FTL_H
 
-#define NUM_BMAP_BLOCK      500
+#define NUM_BMAP_BLOCK      10
 
 /////////////////
 // DRAM buffers

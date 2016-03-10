@@ -96,13 +96,20 @@ static __inline void handle_srst(void)
 
 static __inline void handle_got_cfis(void)
 {
-	UINT32 lba, sector_count, cmd_code, cmd_type, fis_d1, fis_d3;
-
+	UINT32 lba, sector_count, cmd_code, cmd_type, fis_d0, fis_d1, fis_d2, fis_d3, fis_d4;
+	UINT8 is_block;
 	cmd_code = (GETREG(SATA_FIS_H2D_0) & 0x00FF0000) >> 16;
 	cmd_type = ata_cmd_class_table[cmd_code];
+	fis_d0 = GETREG(SATA_FIS_H2D_0);
 	fis_d1 = GETREG(SATA_FIS_H2D_1);
+	fis_d2 = GETREG(SATA_FIS_H2D_2);
 	fis_d3 = GETREG(SATA_FIS_H2D_3);
-
+	fis_d4 = GETREG(SATA_FIS_H2D_4);
+	
+	//uart_printf("handle_got_cfis function start fis_d1 : %d\tfis_d2 : %d\tfis_d3 : %d\tfis_d4 : %d\n\n\n", fis_d1, fis_d2, fis_d3, fis_d4);
+	is_block = (fis_d2 >> 5);
+	SETREG(SATA_FIS_H2D_2, GETREG(SATA_FIS_H2D_2) & 0xFFFFFF1F);
+	uart_printf("is block map: %u, fis2: %x\n", is_block, fis_d2);
 	if (cmd_type & ATR_LBA_NOR)
 	{
 		if ((fis_d1 & BIT30) == 0)	// CHS
@@ -225,6 +232,7 @@ static __inline void handle_got_cfis(void)
 		g_sata_context.slow_cmd.lba = lba;
 		g_sata_context.slow_cmd.sector_count = sector_count;
 	}
+
 }
 
 #ifdef __GNUC__

@@ -1,4 +1,4 @@
-cscope 15 /home/vldbhw/openssd_20151230               0000374893
+cscope 15 /home/vldbhw/openssd_20151230               0000374676
 	@ftl_greedy/ftl.c
 
 28 
@@ -7,7 +7,7 @@ cscope 15 /home/vldbhw/openssd_20151230               0000374893
 
 30 
 	#NUM_BMAP_BLOCK
- 50
+ 10
 
 	)
 
@@ -164,8 +164,6 @@ UINT32
  
 	mblock_bôm≠
 [
-NUM_BMAP_BLOCK
-][
 PAGES_PER_BLK
 /8];
 
@@ -208,30 +206,46 @@ NUM_BANKS
 79 
 UINT32
  
+	gg_bad_blk_cou¡_block
+[
+NUM_BANKS
+];
+
+81 
+UINT32
+ 
+	gfú°_bm≠_vblock
+[
+NUM_BANKS
+];
+
+82 
+UINT32
+ 
 	gœ°_bm≠_block
 [
 NUM_BANKS
 ];
 
-82 
+85 
 UINT32
  
 	gg_·l_ªad_buf_id
 ;
 
-83 
+86 
 UINT32
  
 	gg_·l_wrôe_buf_id
 ;
 
-87 
+90 
 UINT32
  
 	gblock_b™k
  = 0;
 
-102 
+105 
 	#is_fuŒ_Æl_blks
 (
 b™k
@@ -243,7 +257,7 @@ g_misc_mëa
 
 	)
 
-103 
+106 
 	#öc_fuŒ_blk_˙t
 (
 b™k
@@ -255,7 +269,7 @@ g_misc_mëa
 
 	)
 
-104 
+107 
 	#dec_fuŒ_blk_˙t
 (
 b™k
@@ -267,7 +281,7 @@ g_misc_mëa
 
 	)
 
-105 
+108 
 	#öc_m≠blk_v≤
 (
 b™k
@@ -281,7 +295,7 @@ cur_m≠blk_v≤
 
 	)
 
-106 
+109 
 	#öc_miscblk_v≤
 (
 b™k
@@ -293,7 +307,7 @@ cur_miscblk_v≤
 
 	)
 
-109 
+112 
 	#gë_num_b™k
 (
 Õn
@@ -303,7 +317,7 @@ NUM_BANKS
 
 	)
 
-110 
+113 
 	#gë_bad_blk_˙t
 (
 b™k
@@ -313,7 +327,7 @@ g_bad_blk_cou¡
 
 	)
 
-111 
+114 
 	#gë_cur_wrôe_v≤
 (
 b™k
@@ -325,7 +339,7 @@ cur_wrôe_v≤
 
 	)
 
-112 
+115 
 	#£t_√w_wrôe_v≤
 (
 b™k
@@ -339,7 +353,7 @@ cur_wrôe_v≤
 
 	)
 
-113 
+116 
 	#gë_gc_vblock
 (
 b™k
@@ -351,7 +365,7 @@ gc_vblock
 
 	)
 
-114 
+117 
 	#£t_gc_vblock
 (
 b™k
@@ -365,7 +379,7 @@ gc_vblock
 
 	)
 
-115 
+118 
 	#£t_Õn
 (
 b™k
@@ -381,7 +395,7 @@ g_misc_mëa
 
 	)
 
-116 
+119 
 	#gë_Õn
 (
 b™k
@@ -395,7 +409,7 @@ g_misc_mëa
 
 	)
 
-117 
+120 
 	#gë_miscblk_v≤
 (
 b™k
@@ -407,7 +421,7 @@ cur_miscblk_v≤
 
 	)
 
-118 
+121 
 	#£t_miscblk_v≤
 (
 b™k
@@ -421,7 +435,7 @@ cur_miscblk_v≤
 
 	)
 
-119 
+122 
 	#gë_m≠blk_v≤
 (
 b™k
@@ -435,7 +449,7 @@ cur_m≠blk_v≤
 
 	)
 
-120 
+123 
 	#£t_m≠blk_v≤
 (
 b™k
@@ -451,7 +465,7 @@ cur_m≠blk_v≤
 
 	)
 
-121 
+124 
 	#CHECK_LPAGE
 (
 Õn
@@ -463,7 +477,7 @@ NUM_LPAGES
 
 	)
 
-122 
+125 
 	#CHECK_VPAGE
 (
 v≤
@@ -477,7 +491,27 @@ PAGES_PER_BLK
 
 	)
 
-125 
+130 
+	#gë_num_b™k_block
+(
+lbn
+Ë(÷bnË% 
+NUM_BANKS
+)
+
+	)
+
+132 
+	#gë_bad_blk_˙t_block
+(
+b™k
+Ë(
+g_bad_blk_cou¡_block
+[b™k])
+
+	)
+
+134 
 	#is_fuŒ_Æl_blks_block
 (
 b™k
@@ -489,7 +523,7 @@ g_misc_mëa
 
 	)
 
-126 
+135 
 	#öc_fuŒ_blk_˙t_block
 (
 b™k
@@ -501,7 +535,7 @@ g_misc_mëa
 
 	)
 
-127 
+136 
 	#dec_fuŒ_blk_˙t_block
 (
 b™k
@@ -513,7 +547,7 @@ g_misc_mëa
 
 	)
 
-128 
+137 
 	#öc_m≠blk_vbn
 (
 b™k
@@ -527,7 +561,7 @@ cur_m≠blk_vbn
 
 	)
 
-129 
+138 
 	#öc_miscblk_vbn
 (
 b™k
@@ -539,7 +573,7 @@ cur_miscblk_vbn
 
 	)
 
-131 
+140 
 	#£t_lbn
 (
 b™k
@@ -555,7 +589,7 @@ g_misc_mëa
 
 	)
 
-132 
+141 
 	#gë_lbn
 (
 b™k
@@ -569,7 +603,7 @@ g_misc_mëa
 
 	)
 
-134 
+143 
 	#gë_cur_wrôe_vbn
 (
 b™k
@@ -581,7 +615,7 @@ cur_wrôe_vbn
 
 	)
 
-135 
+144 
 	#£t_√w_wrôe_vbn
 (
 b™k
@@ -595,7 +629,7 @@ cur_wrôe_vbn
 
 	)
 
-137 
+146 
 	#gë_gc_vblock_block
 (
 b™k
@@ -607,7 +641,7 @@ gc_vblock_block
 
 	)
 
-138 
+147 
 	#£t_gc_vblock_block
 (
 b™k
@@ -621,7 +655,7 @@ gc_vblock_block
 
 	)
 
-140 
+149 
 	#CHECK_LBLOCK
 (
 lbn
@@ -635,7 +669,7 @@ NUM_BANKS
 
 	)
 
-141 
+150 
 	#CHECK_VBLOCK
 (
 vbn
@@ -647,7 +681,7 @@ NUM_BMAP_BLOCK
 
 	)
 
-143 
+152 
 	#wrôe_block_b™k
 (
 b™k
@@ -655,43 +689,43 @@ b™k
 
 	)
 
-149 
+158 
 f‹m©
 ();
 
-150 
+159 
 wrôe_f‹m©_m¨k
 ();
 
-151 
+160 
 ßnôy_check
 ();
 
-152 
+161 
 lﬂd_pm≠_èbÀ
 ();
 
-153 
+162 
 lﬂd_misc_mëad©a
 ();
 
-154 
+163 
 öô_mëad©a_§am
 ();
 
-155 
+164 
 lﬂd_mëad©a
 ();
 
-156 
+165 
 loggög_pm≠_èbÀ
 ();
 
-157 
+166 
 loggög_misc_mëad©a
 ();
 
-158 
+167 
 wrôe_∑ge
 (
 UINT32
@@ -703,7 +737,7 @@ UINT32
 num_£˘‹s
 );
 
-159 
+168 
 £t_v≤
 (
 UINT32
@@ -713,7 +747,7 @@ UINT32
 v≤
 );
 
-160 
+169 
 g¨bage_cﬁÀ˘i⁄
 (
 UINT32
@@ -721,7 +755,7 @@ UINT32
 b™k
 );
 
-161 
+170 
 £t_vcou¡
 (
 UINT32
@@ -733,7 +767,7 @@ vblock
 vcou¡
 );
 
-162 
+171 
 BOOL32
  
 is_bad_block
@@ -745,13 +779,13 @@ b™k
 vblock
 );
 
-163 
+172 
 BOOL32
  
 check_f‹m©_m¨k
 ();
 
-164 
+173 
 UINT32
  
 gë_vcou¡
@@ -761,7 +795,7 @@ b™k
 vblock
 );
 
-165 
+174 
 UINT32
  
 gë_v≤
@@ -769,7 +803,7 @@ gë_v≤
 Õn
 );
 
-166 
+175 
 UINT32
  
 gë_vt_vblock
@@ -777,7 +811,7 @@ gë_vt_vblock
 b™k
 );
 
-167 
+176 
 UINT32
  
 assign_√w_wrôe_v≤
@@ -785,7 +819,7 @@ assign_√w_wrôe_v≤
 b™k
 );
 
-170 
+179 
 UINT32
  
 assign_√w_wrôe_vbn
@@ -795,7 +829,7 @@ b™k
 Õn
 );
 
-171 
+180 
 ·l_ªad_block
 (
 UINT32
@@ -805,7 +839,7 @@ lba
 num_£˘‹s
 );
 
-172 
+181 
 ·l_wrôe_block
 (
 UINT32
@@ -815,7 +849,7 @@ lba
 num_£˘‹s
 );
 
-173 
+182 
 wrôe_∑ge_block
 (
 UINT32
@@ -827,7 +861,7 @@ UINT32
 num_£˘‹s
 );
 
-174 
+183 
 UINT32
  
 gë_vbn
@@ -835,7 +869,7 @@ gë_vbn
 lbn
 );
 
-175 
+184 
 £t_vbn
 (
 UINT32
@@ -845,7 +879,7 @@ lbn
 vbn
 );
 
-176 
+185 
 UINT32
  
 gë_vcou¡_block
@@ -855,7 +889,7 @@ b™k
 vblock
 );
 
-177 
+186 
 £t_vcou¡_block
 (
 UINT32
@@ -867,7 +901,7 @@ vblock
 vcou¡
 );
 
-178 
+187 
 g¨bage_cﬁÀ˘i⁄_block
 (
 UINT32
@@ -875,7 +909,7 @@ UINT32
 b™k
 );
 
-179 
+188 
 UINT32
  
 gë_vt_vblock_block
@@ -883,11 +917,11 @@ gë_vt_vblock_block
 b™k
 );
 
-181 
+190 
 	$ßnôy_check
 ()
 
-183 
+192 
 UINT32
  
 døm_ªquúemít
@@ -901,7 +935,7 @@ COPY_BUF_BYTES
 FTL_BUF_BYTES
 
 
-184 + 
+193 + 
 HIL_BUF_BYTES
  + 
 TEMP_BUF_BYTES
@@ -913,31 +947,31 @@ PAGE_MAP_BYTES
 VCOUNT_BYTES
 ;
 
-186 i‡((
+195 i‡((
 døm_ªquúemít
  > 
 DRAM_SIZE
 ) ||
 
-187 ((
+196 ((
 misc_mëad©a
 Ë> 
 BYTES_PER_PAGE
 ))
 
-189 
+198 
 	`Àd_blök
 ();
 
-192 
+201 
 	}
 }
 
-193 
+202 
 	$buûd_bad_blk_li°
 ()
 
-195 
+204 
 UINT32
  
 b™k
@@ -949,7 +983,7 @@ num_íåõs
 vblk_off£t
 ;
 
-196 
+205 
 sˇn_li°_t
 * 
 sˇn_li°
@@ -957,7 +991,7 @@ sˇn_li°
 TEMP_BUF_ADDR
 ;
 
-198 
+207 
 	`mem_£t_døm
 (
 BAD_BLK_BMP_ADDR
@@ -967,21 +1001,21 @@ NULL
 BAD_BLK_BMP_BYTES
 );
 
-200 
+209 
 	`dißbÀ_úq
 ();
 
-202 
+211 
 	`Êash_˛ór_úq
 ();
 
-204 
+213 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-206 
+215 
 	`SETREG
 (
 FCP_CMD
@@ -989,7 +1023,7 @@ FCP_CMD
 FC_COL_ROW_READ_OUT
 );
 
-207 
+216 
 	`SETREG
 (
 FCP_BANK
@@ -999,7 +1033,7 @@ FCP_BANK
 b™k
 ));
 
-208 
+217 
 	`SETREG
 (
 FCP_OPTION
@@ -1007,7 +1041,7 @@ FCP_OPTION
 FO_E
 );
 
-209 
+218 
 	`SETREG
 (
 FCP_DMA_ADDR
@@ -1017,7 +1051,7 @@ UINT32
 sˇn_li°
 );
 
-210 
+219 
 	`SETREG
 (
 FCP_DMA_CNT
@@ -1025,13 +1059,13 @@ FCP_DMA_CNT
 SCAN_LIST_SIZE
 );
 
-211 
+220 
 	`SETREG
 (
 FCP_COL
 , 0);
 
-212 
+221 
 	`SETREG
 (
 	`FCP_ROW_L
@@ -1041,7 +1075,7 @@ b™k
 SCAN_LIST_PAGE_OFFSET
 );
 
-213 
+222 
 	`SETREG
 (
 	`FCP_ROW_H
@@ -1051,7 +1085,7 @@ b™k
 SCAN_LIST_PAGE_OFFSET
 );
 
-215 
+224 
 	`SETREG
 (
 FCP_ISSUE
@@ -1059,13 +1093,13 @@ FCP_ISSUE
 NULL
 );
 
-216 (
+225 (
 	`GETREG
 (
 WR_STAT
 ) & 0x00000001) != 0);
 
-217 
+226 
 	`BSP_FSM
 (
 b™k
@@ -1073,19 +1107,19 @@ b™k
 BANK_IDLE
 );
 
-219 
+228 
 num_íåõs
  = 
 NULL
 ;
 
-220 
+229 
 ªsu…
  = 
 OK
 ;
 
-222 i‡(
+231 i‡(
 	`BSP_INTR
 (
 b™k
@@ -1093,19 +1127,19 @@ b™k
 FIRQ_DATA_CORRUPT
 )
 
-224 
+233 
 ªsu…
  = 
 FAIL
 ;
 
-228 
+237 
 UINT32
  
 i
 ;
 
-230 
+239 
 num_íåõs
  = 
 	`ªad_døm_16
@@ -1113,25 +1147,25 @@ num_íåõs
 sˇn_li°
 ->num_entries));
 
-232 i‡(
+241 i‡(
 num_íåõs
  > 
 SCAN_LIST_ITEMS
 )
 
-234 
+243 
 ªsu…
  = 
 FAIL
 ;
 
-238 
+247 
 i
  = 0; i < 
 num_íåõs
 ; i++)
 
-240 
+249 
 UINT16
  
 íåy
@@ -1145,7 +1179,7 @@ li°
 i
 );
 
-241 
+250 
 UINT16
  
 pblk_off£t
@@ -1153,25 +1187,25 @@ pblk_off£t
 íåy
  & 0x7FFF;
 
-243 i‡(
+252 i‡(
 pblk_off£t
  =0 ||Öblk_off£à>
 PBLKS_PER_BANK
 )
 
-245 #i‡
+254 #i‡
 OPTION_REDUCED_CAPACITY
  =
 FALSE
 
 
-246 
+255 
 ªsu…
  = 
 FAIL
 ;
 
-251 
+260 
 	`wrôe_døm_16
 (
 sˇn_li°
@@ -1183,17 +1217,17 @@ i
 pblk_off£t
 );
 
-257 i‡(
+266 i‡(
 ªsu…
  =
 FAIL
 )
 
-259 
+268 
 num_íåõs
  = 0;
 
-263 
+272 
 	`wrôe_døm_16
 (&(
 sˇn_li°
@@ -1201,19 +1235,19 @@ sˇn_li°
 num_íåõs
 ), 0);
 
-266 
+275 
 g_bad_blk_cou¡
 [
 b™k
 ] = 0;
 
-268 
+277 
 vblk_off£t
  = 1; vblk_off£à< 
 VBLKS_PER_BANK
 ; vblk_offset++)
 
-270 
+279 
 BOOL32
  
 bad
@@ -1221,17 +1255,17 @@ bad
 FALSE
 ;
 
-272 #i‡
+281 #i‡
 OPTION_2_PLANE
 
 
-274 
+283 
 UINT32
  
 pblk_off£t
 ;
 
-276 
+285 
 pblk_off£t
  = 
 vblk_off£t
@@ -1239,7 +1273,7 @@ vblk_off£t
 NUM_PLANES
 ;
 
-279 i‡(
+288 i‡(
 	`mem_£¨ch_equ_døm
 (
 sˇn_li°
@@ -1251,13 +1285,13 @@ num_íåõs
 pblk_off£t
 ) <Çum_entries + 1)
 
-281 
+290 
 bad
  = 
 TRUE
 ;
 
-284 
+293 
 pblk_off£t
  = 
 vblk_off£t
@@ -1265,7 +1299,7 @@ vblk_off£t
 NUM_PLANES
  + 1;
 
-287 i‡(
+296 i‡(
 	`mem_£¨ch_equ_døm
 (
 sˇn_li°
@@ -1277,13 +1311,13 @@ num_íåõs
 pblk_off£t
 ) <Çum_entries + 1)
 
-289 
+298 
 bad
  = 
 TRUE
 ;
 
-295 i‡(
+304 i‡(
 	`mem_£¨ch_equ_døm
 (
 sˇn_li°
@@ -1295,23 +1329,23 @@ num_íåõs
 vblk_off£t
 ) <Çum_entries + 1)
 
-297 
+306 
 bad
  = 
 TRUE
 ;
 
-302 i‡(
+311 i‡(
 bad
 )
 
-304 
+313 
 g_bad_blk_cou¡
 [
 b™k
 ]++;
 
-305 
+314 
 	`£t_bô_døm
 (
 BAD_BLK_BMP_ADDR
@@ -1323,59 +1357,185 @@ VBLKS_PER_BANK
 vblk_off£t
 );
 
-309 
+318 
+g_bad_blk_cou¡_block
+[
+b™k
+] = 0;
+
+320 
+vblk_off£t
+ = 
+fú°_bm≠_vblock
+[
+b™k
+]; vblk_off£à< fú°_bm≠_vblock[b™k] + 
+NUM_BMAP_BLOCK
+; vblk_offset++)
+
+322 
+BOOL32
+ 
+bad
+ = 
+FALSE
+;
+
+324 #i‡
+OPTION_2_PLANE
+
+
+326 
+UINT32
+ 
+pblk_off£t
+;
+
+328 
+pblk_off£t
+ = 
+vblk_off£t
+ * 
+NUM_PLANES
+;
+
+331 i‡(
+	`mem_£¨ch_equ_døm
+(
+sˇn_li°
+, (
+UINT16
+), 
+num_íåõs
+ + 1, 
+pblk_off£t
+) <Çum_entries + 1)
+
+333 
+bad
+ = 
+TRUE
+;
+
+336 
+pblk_off£t
+ = 
+vblk_off£t
+ * 
+NUM_PLANES
+ + 1;
+
+339 i‡(
+	`mem_£¨ch_equ_døm
+(
+sˇn_li°
+, (
+UINT16
+), 
+num_íåõs
+ + 1, 
+pblk_off£t
+) <Çum_entries + 1)
+
+341 
+bad
+ = 
+TRUE
+;
+
+347 i‡(
+	`mem_£¨ch_equ_døm
+(
+sˇn_li°
+, (
+UINT16
+), 
+num_íåõs
+ + 1, 
+vblk_off£t
+) <Çum_entries + 1)
+
+349 
+bad
+ = 
+TRUE
+;
+
+354 i‡(
+bad
+)
+
+356 
+g_bad_blk_cou¡_block
+[
+b™k
+]++;
+
+357 
+	`£t_bô_døm
+(
+BAD_BLK_BMP_ADDR
+ + 
+b™k
+*(
+VBLKS_PER_BANK
+/8 + 1), 
+vblk_off£t
+);
+
+362 
 	}
 }
 
-311 
+364 
 	$·l_›í
 ()
 
-319 
+372 
 	`Àd
 (0);
 
-320 
+373 
 	`ßnôy_check
 ();
 
-325 
+378 
 	`buûd_bad_blk_li°
 ();
 
-332 i‡(
+385 i‡(
 TRUE
 )
 
-334 
+387 
 	`u¨t_¥öt
 ("do format");
 
-335 
+388 
 	`f‹m©
 ();
 
-336 
+389 
 	`u¨t_¥öt
 ("end format");
 
-341 
+394 
 	`lﬂd_mëad©a
 ();
 
-343 
+396 
 g_·l_ªad_buf_id
  = 0;
 
-344 
+397 
 g_·l_wrôe_buf_id
  = 0;
 
-347 
+400 
 	`Êash_˛ór_úq
 ();
 
-349 
+402 
 	`SETREG
 (
 INTR_MASK
@@ -1387,7 +1547,7 @@ FIRQ_BADBLK_L
 FIRQ_BADBLK_H
 );
 
-350 
+403 
 	`SETREG
 (
 FCONF_PAUSE
@@ -1399,31 +1559,31 @@ FIRQ_BADBLK_L
 FIRQ_BADBLK_H
 );
 
-352 
+405 
 	`íabÀ_úq
 ();
 
-353 
+406 
 	}
 }
 
-354 
+407 
 	$·l_Êush
 ()
 
-357 
+410 
 	`loggög_pm≠_èbÀ
 ();
 
-358 
+411 
 	`loggög_misc_mëad©a
 ();
 
-360 
+413 
 	}
 }
 
-362 
+415 
 	$·l_ã°_wrôe
 (
 UINT32
@@ -1433,7 +1593,7 @@ lba
 num_£˘‹s
 )
 
-364 
+417 
 	`ASSERT
 (
 lba
@@ -1443,13 +1603,13 @@ num_£˘‹s
 NUM_LSECTORS
 );
 
-365 
+418 
 	`ASSERT
 (
 num_£˘‹s
  > 0);
 
-367 
+420 
 	`·l_wrôe
 (
 lba
@@ -1457,11 +1617,11 @@ lba
 num_£˘‹s
 );
 
-368 
+421 
 	}
 }
 
-369 
+422 
 	$·l_ªad
 (
 UINT32
@@ -1471,7 +1631,7 @@ lba
 num_£˘‹s
 )
 
-371 
+424 
 UINT32
  
 ªmaö_£˘s
@@ -1479,7 +1639,7 @@ UINT32
 num_£˘‹s_to_ªad
 ;
 
-372 
+425 
 UINT32
  
 Õn
@@ -1487,7 +1647,7 @@ UINT32
 £˘_off£t
 ;
 
-373 
+426 
 UINT32
  
 b™k
@@ -1495,7 +1655,7 @@ b™k
 v≤
 ;
 
-375 
+428 
 Õn
  = 
 lba
@@ -1503,7 +1663,7 @@ lba
 SECTORS_PER_PAGE
 ;
 
-376 
+429 
 £˘_off£t
  = 
 lba
@@ -1511,17 +1671,17 @@ lba
 SECTORS_PER_PAGE
 ;
 
-377 
+430 
 ªmaö_£˘s
  = 
 num_£˘‹s
 ;
 
-379 
+432 
 ªmaö_£˘s
  != 0)
 
-381 i‡((
+434 i‡((
 £˘_off£t
  + 
 ªmaö_£˘s
@@ -1529,13 +1689,13 @@ num_£˘‹s
 SECTORS_PER_PAGE
 )
 
-383 
+436 
 num_£˘‹s_to_ªad
  = 
 ªmaö_£˘s
 ;
 
-387 
+440 
 num_£˘‹s_to_ªad
  = 
 SECTORS_PER_PAGE
@@ -1543,7 +1703,7 @@ SECTORS_PER_PAGE
 £˘_off£t
 ;
 
-389 
+442 
 b™k
  = 
 	`gë_num_b™k
@@ -1551,7 +1711,7 @@ b™k
 Õn
 );
 
-390 
+443 
 v≤
  = 
 	`gë_v≤
@@ -1559,45 +1719,45 @@ v≤
 Õn
 );
 
-391 
+444 
 	`CHECK_VPAGE
 (
 v≤
 );
 
-393 i‡(
+446 i‡(
 v≤
  !
 NULL
 )
 
-395 
+448 
 	`«nd_∑ge_±ªad_to_ho°
 (
 b™k
 ,
 
-396 
+449 
 v≤
  / 
 PAGES_PER_BLK
 ,
 
-397 
+450 
 v≤
  % 
 PAGES_PER_BLK
 ,
 
-398 
+451 
 £˘_off£t
 ,
 
-399 
+452 
 num_£˘‹s_to_ªad
 );
 
-404 
+457 
 UINT32
  
 √xt_ªad_buf_id
@@ -1607,11 +1767,11 @@ g_·l_ªad_buf_id
 NUM_RD_BUFFERS
 ;
 
-406 #i‡
+459 #i‡
 OPTION_FTL_TEST
  == 0
 
-407 
+460 
 √xt_ªad_buf_id
  =
 	`GETREG
@@ -1619,7 +1779,7 @@ OPTION_FTL_TEST
 SATA_RBUF_PTR
 ));
 
-414 
+467 
 	`mem_£t_døm
 (
 	`RD_BUF_PTR
@@ -1631,17 +1791,17 @@ g_·l_ªad_buf_id
 BYTES_PER_SECTOR
 ,
 
-415 0xFFFFFFFF, 
+468 0xFFFFFFFF, 
 num_£˘‹s_to_ªad
 *
 BYTES_PER_SECTOR
 );
 
-417 
+470 
 	`Êash_föish
 ();
 
-419 
+472 
 	`SETREG
 (
 BM_STACK_RDSET
@@ -1649,37 +1809,37 @@ BM_STACK_RDSET
 √xt_ªad_buf_id
 );
 
-420 
+473 
 	`SETREG
 (
 BM_STACK_RESET
 , 0x02);
 
-422 
+475 
 g_·l_ªad_buf_id
  = 
 √xt_ªad_buf_id
 ;
 
-424 
+477 
 £˘_off£t
  = 0;
 
-425 
+478 
 ªmaö_£˘s
  -
 num_£˘‹s_to_ªad
 ;
 
-426 
+479 
 Õn
 ++;
 
-428 
+481 
 	}
 }
 
-429 
+482 
 	$·l_wrôe
 (
 UINT32
@@ -1689,7 +1849,7 @@ lba
 num_£˘‹s
 )
 
-431 
+484 
 UINT32
  
 ªmaö_£˘s
@@ -1697,7 +1857,7 @@ UINT32
 num_£˘‹s_to_wrôe
 ;
 
-432 
+485 
 UINT32
  
 Õn
@@ -1705,7 +1865,7 @@ UINT32
 £˘_off£t
 ;
 
-434 
+487 
 Õn
  = 
 lba
@@ -1713,7 +1873,7 @@ lba
 SECTORS_PER_PAGE
 ;
 
-435 
+488 
 £˘_off£t
  = 
 lba
@@ -1721,17 +1881,17 @@ lba
 SECTORS_PER_PAGE
 ;
 
-436 
+489 
 ªmaö_£˘s
  = 
 num_£˘‹s
 ;
 
-438 
+491 
 ªmaö_£˘s
  != 0)
 
-440 i‡((
+493 i‡((
 £˘_off£t
  + 
 ªmaö_£˘s
@@ -1739,13 +1899,13 @@ num_£˘‹s
 SECTORS_PER_PAGE
 )
 
-442 
+495 
 num_£˘‹s_to_wrôe
  = 
 ªmaö_£˘s
 ;
 
-446 
+499 
 num_£˘‹s_to_wrôe
  = 
 SECTORS_PER_PAGE
@@ -1753,7 +1913,7 @@ SECTORS_PER_PAGE
 £˘_off£t
 ;
 
-449 
+502 
 	`wrôe_∑ge
 (
 Õn
@@ -1763,25 +1923,25 @@ SECTORS_PER_PAGE
 num_£˘‹s_to_wrôe
 );
 
-451 
+504 
 £˘_off£t
  = 0;
 
-452 
+505 
 ªmaö_£˘s
  -
 num_£˘‹s_to_wrôe
 ;
 
-453 
+506 
 Õn
 ++;
 
-455 
+508 
 	}
 }
 
-456 
+509 
 	$wrôe_∑ge
 (
 UINT32
@@ -1793,13 +1953,13 @@ UINT32
 num_£˘‹s
 )
 
-458 
+511 
 	`CHECK_LPAGE
 (
 Õn
 );
 
-459 
+512 
 	`ASSERT
 (
 £˘_off£t
@@ -1807,7 +1967,7 @@ num_£˘‹s
 SECTORS_PER_PAGE
 );
 
-460 
+513 
 	`ASSERT
 (
 num_£˘‹s
@@ -1815,7 +1975,7 @@ num_£˘‹s
 SECTORS_PER_PAGE
 );
 
-462 
+515 
 UINT32
  
 b™k
@@ -1825,7 +1985,7 @@ b™k
 √w_v≤
 ;
 
-463 
+516 
 UINT32
  
 vblock
@@ -1837,7 +1997,7 @@ vblock
 cﬁumn_˙t
 ;
 
-465 
+518 
 b™k
  = 
 	`gë_num_b™k
@@ -1845,19 +2005,19 @@ b™k
 Õn
 );
 
-466 
+519 
 ∑ge_off£t
  = 
 £˘_off£t
 ;
 
-467 
+520 
 cﬁumn_˙t
  = 
 num_£˘‹s
 ;
 
-469 
+522 
 √w_v≤
  = 
 	`assign_√w_wrôe_v≤
@@ -1865,7 +2025,7 @@ num_£˘‹s
 b™k
 );
 
-470 
+523 
 ﬁd_v≤
  = 
 	`gë_v≤
@@ -1873,19 +2033,19 @@ b™k
 Õn
 );
 
-472 
+525 
 	`CHECK_VPAGE
  (
 ﬁd_v≤
 );
 
-473 
+526 
 	`CHECK_VPAGE
  (
 √w_v≤
 );
 
-474 
+527 
 	`ASSERT
 (
 ﬁd_v≤
@@ -1893,7 +2053,7 @@ b™k
 √w_v≤
 );
 
-476 
+529 
 g_·l_°©i°ics
 [
 b™k
@@ -1901,13 +2061,13 @@ b™k
 ∑ge_wcou¡
 ++;
 
-479 i‡(
+532 i‡(
 ﬁd_v≤
  !
 NULL
 )
 
-481 
+534 
 vblock
  = 
 ﬁd_v≤
@@ -1915,7 +2075,7 @@ vblock
 PAGES_PER_BLK
 ;
 
-482 
+535 
 ∑ge_num
  = 
 ﬁd_v≤
@@ -1923,43 +2083,43 @@ PAGES_PER_BLK
 PAGES_PER_BLK
 ;
 
-490 i‡(
+543 i‡(
 num_£˘‹s
  !
 SECTORS_PER_PAGE
 )
 
-495 i‡((
+548 i‡((
 num_£˘‹s
  <8Ë&& (
 ∑ge_off£t
  != 0))
 
-498 
+551 
 	`«nd_∑ge_ªad
 (
 b™k
 ,
 
-499 
+552 
 vblock
 ,
 
-500 
+553 
 ∑ge_num
 ,
 
-501 
+554 
 	`FTL_BUF
 (
 b™k
 ));
 
-503 i‡(
+556 i‡(
 ∑ge_off£t
  != 0)
 
-505 
+558 
 	`mem_c›y
 (
 	`WR_BUF_PTR
@@ -1967,19 +2127,19 @@ b™k
 g_·l_wrôe_buf_id
 ),
 
-506 
+559 
 	`FTL_BUF
 (
 b™k
 ),
 
-507 
+560 
 ∑ge_off£t
  * 
 BYTES_PER_SECTOR
 );
 
-510 i‡((
+563 i‡((
 ∑ge_off£t
  + 
 cﬁumn_˙t
@@ -1987,7 +2147,7 @@ cﬁumn_˙t
 SECTORS_PER_PAGE
 )
 
-512 
+565 
 UINT32
  c⁄° 
 rhﬁe_ba£
@@ -1999,7 +2159,7 @@ cﬁumn_˙t
 BYTES_PER_SECTOR
 ;
 
-514 
+567 
 	`mem_c›y
 (
 	`WR_BUF_PTR
@@ -2009,7 +2169,7 @@ g_·l_wrôe_buf_id
 rhﬁe_ba£
 ,
 
-515 
+568 
 	`FTL_BUF
 (
 b™k
@@ -2017,45 +2177,45 @@ b™k
 rhﬁe_ba£
 ,
 
-516 
+569 
 BYTES_PER_PAGE
  - 
 rhﬁe_ba£
 );
 
-523 i‡(
+576 i‡(
 ∑ge_off£t
  != 0)
 
-525 
+578 
 	`«nd_∑ge_±ªad
 (
 b™k
 ,
 
-526 
+579 
 vblock
 ,
 
-527 
+580 
 ∑ge_num
 ,
 
-529 
+582 
 ∑ge_off£t
 ,
 
-530 
+583 
 	`WR_BUF_PTR
 (
 g_·l_wrôe_buf_id
 ),
 
-531 
+584 
 RETURN_ON_ISSUE
 );
 
-534 i‡((
+587 i‡((
 ∑ge_off£t
  + 
 cﬁumn_˙t
@@ -2063,27 +2223,27 @@ cﬁumn_˙t
 SECTORS_PER_PAGE
 )
 
-536 
+589 
 	`«nd_∑ge_±ªad
 (
 b™k
 ,
 
-537 
+590 
 vblock
 ,
 
-538 
+591 
 ∑ge_num
 ,
 
-539 
+592 
 ∑ge_off£t
  + 
 cﬁumn_˙t
 ,
 
-540 
+593 
 SECTORS_PER_PAGE
  - (
 ∑ge_off£t
@@ -2091,27 +2251,27 @@ SECTORS_PER_PAGE
 cﬁumn_˙t
 ),
 
-541 
+594 
 	`WR_BUF_PTR
 (
 g_·l_wrôe_buf_id
 ),
 
-542 
+595 
 RETURN_ON_ISSUE
 );
 
-547 
+600 
 ∑ge_off£t
  = 0;
 
-548 
+601 
 cﬁumn_˙t
  = 
 SECTORS_PER_PAGE
 ;
 
-550 
+603 
 	`£t_vcou¡
 (
 b™k
@@ -2121,7 +2281,7 @@ vblock
 	`gë_vcou¡
 (bank, vblock) - 1);
 
-552 
+605 
 vblock
  = 
 √w_v≤
@@ -2129,7 +2289,7 @@ vblock
 PAGES_PER_BLK
 ;
 
-553 
+606 
 ∑ge_num
  = 
 √w_v≤
@@ -2137,7 +2297,7 @@ PAGES_PER_BLK
 PAGES_PER_BLK
 ;
 
-554 
+607 
 	`ASSERT
 (
 	`gë_vcou¡
@@ -2149,29 +2309,29 @@ vblock
 PAGES_PER_BLK
  - 1));
 
-558 
+611 
 	`«nd_∑ge_±¥ogøm_‰om_ho°
 (
 b™k
 ,
 
-559 
+612 
 vblock
 ,
 
-560 
+613 
 ∑ge_num
 ,
 
-561 
+614 
 ∑ge_off£t
 ,
 
-562 
+615 
 cﬁumn_˙t
 );
 
-564 
+617 
 	`£t_Õn
 (
 b™k
@@ -2181,7 +2341,7 @@ b™k
 Õn
 );
 
-565 
+618 
 	`£t_v≤
 (
 Õn
@@ -2189,7 +2349,7 @@ b™k
 √w_v≤
 );
 
-566 
+619 
 	`£t_vcou¡
 (
 b™k
@@ -2199,11 +2359,11 @@ vblock
 	`gë_vcou¡
 (bank, vblock) + 1);
 
-567 
+620 
 	}
 }
 
-569 
+622 
 UINT32
  
 	$gë_v≤
@@ -2213,13 +2373,13 @@ UINT32
 Õn
 )
 
-571 
+624 
 	`CHECK_LPAGE
 (
 Õn
 );
 
-572  
+625  
 	`ªad_døm_32
 (
 PAGE_MAP_ADDR
@@ -2229,11 +2389,11 @@ PAGE_MAP_ADDR
 UINT32
 ));
 
-573 
+626 
 	}
 }
 
-575 
+628 
 	$£t_v≤
 (
 UINT32
@@ -2243,13 +2403,13 @@ UINT32
 v≤
 )
 
-577 
+630 
 	`CHECK_LPAGE
 (
 Õn
 );
 
-578 
+631 
 	`ASSERT
 (
 v≤
@@ -2261,7 +2421,7 @@ PAGES_PER_BLK
 VBLKS_PER_BANK
  * PAGES_PER_BLK));
 
-580 
+633 
 	`wrôe_døm_32
 (
 PAGE_MAP_ADDR
@@ -2273,11 +2433,11 @@ UINT32
 v≤
 );
 
-581 
+634 
 	}
 }
 
-583 
+636 
 UINT32
  
 	$gë_vcou¡
@@ -2289,13 +2449,13 @@ b™k
 vblock
 )
 
-585 
+638 
 UINT32
  
 vcou¡
 ;
 
-587 
+640 
 	`ASSERT
 (
 b™k
@@ -2303,7 +2463,7 @@ b™k
 NUM_BANKS
 );
 
-588 
+641 
 	`ASSERT
 ((
 vblock
@@ -2313,7 +2473,7 @@ META_BLKS_PER_BANK
 VBLKS_PER_BANK
 ));
 
-590 
+643 
 vcou¡
  = 
 	`ªad_døm_16
@@ -2329,7 +2489,7 @@ vblock
 UINT16
 )));
 
-591 
+644 
 	`ASSERT
 ((
 vcou¡
@@ -2339,15 +2499,15 @@ PAGES_PER_BLK
 VC_MAX
 ));
 
-593  
+646  
 vcou¡
 ;
 
-594 
+647 
 	}
 }
 
-596 
+649 
 	$£t_vcou¡
 (
 UINT32
@@ -2359,7 +2519,7 @@ vblock
 vcou¡
 )
 
-598 
+651 
 	`ASSERT
 (
 b™k
@@ -2367,7 +2527,7 @@ b™k
 NUM_BANKS
 );
 
-599 
+652 
 	`ASSERT
 ((
 vblock
@@ -2377,7 +2537,7 @@ META_BLKS_PER_BANK
 VBLKS_PER_BANK
 ));
 
-600 
+653 
 	`ASSERT
 ((
 vcou¡
@@ -2387,7 +2547,7 @@ PAGES_PER_BLK
 VC_MAX
 ));
 
-602 
+655 
 	`wrôe_døm_16
 (
 VCOUNT_ADDR
@@ -2403,11 +2563,11 @@ UINT16
 vcou¡
 );
 
-603 
+656 
 	}
 }
 
-604 
+657 
 UINT32
  
 	$assign_√w_wrôe_v≤
@@ -2417,7 +2577,7 @@ UINT32
 b™k
 )
 
-606 
+659 
 	`ASSERT
 (
 b™k
@@ -2425,19 +2585,19 @@ b™k
 NUM_BANKS
 );
 
-608 
+661 
 UINT32
  
 wrôe_v≤
 ;
 
-609 
+662 
 UINT32
  
 vblock
 ;
 
-611 
+664 
 wrôe_v≤
  = 
 	`gë_cur_wrôe_v≤
@@ -2445,7 +2605,7 @@ wrôe_v≤
 b™k
 );
 
-612 
+665 
 vblock
  = 
 wrôe_v≤
@@ -2453,13 +2613,13 @@ wrôe_v≤
 PAGES_PER_BLK
 ;
 
-616 i‡((
+669 i‡((
 wrôe_v≤
  % 
 PAGES_PER_BLK
 ) == (PAGES_PER_BLK - 2))
 
-621 
+674 
 	`mem_c›y
 (
 	`FTL_BUF
@@ -2475,7 +2635,7 @@ UINT32
 PAGES_PER_BLK
 );
 
-623 
+676 
 	`«nd_∑ge_±¥ogøm
 (
 b™k
@@ -2485,7 +2645,7 @@ vblock
 PAGES_PER_BLK
  - 1, 0,
 
-624 (((
+677 (((
 UINT32
 Ë* 
 PAGES_PER_BLK
@@ -2497,7 +2657,7 @@ BYTES_PER_SECTOR
 b™k
 ));
 
-626 
+679 
 	`mem_£t_§am
 (
 g_misc_mëa
@@ -2511,35 +2671,35 @@ UINT32
 PAGES_PER_BLK
 );
 
-628 
+681 
 	`öc_fuŒ_blk_˙t
 (
 b™k
 );
 
-631 i‡(
+684 i‡(
 	`is_fuŒ_Æl_blks
 (
 b™k
 ))
 
-633 
+686 
 	`g¨bage_cﬁÀ˘i⁄
 (
 b™k
 );
 
-634  
+687  
 	`gë_cur_wrôe_v≤
 (
 b™k
 );
 
-638 
+691 
 vblock
 ++;
 
-640 
+693 
 	`ASSERT
 (
 vblock
@@ -2547,7 +2707,7 @@ vblock
 VBLKS_PER_BANK
 );
 
-641 }
+694 }
 	`gë_vcou¡
 (
 b™k
@@ -2557,7 +2717,7 @@ vblock
 VC_MAX
 );
 
-644 i‡(
+697 i‡(
 vblock
  !(
 wrôe_v≤
@@ -2565,7 +2725,7 @@ wrôe_v≤
 PAGES_PER_BLK
 ))
 
-646 
+699 
 wrôe_v≤
  = 
 vblock
@@ -2573,11 +2733,11 @@ vblock
 PAGES_PER_BLK
 ;
 
-650 
+703 
 wrôe_v≤
 ++;
 
-652 
+705 
 	`£t_√w_wrôe_v≤
 (
 b™k
@@ -2585,15 +2745,15 @@ b™k
 wrôe_v≤
 );
 
-654  
+707  
 wrôe_v≤
 ;
 
-655 
+708 
 	}
 }
 
-656 
+709 
 BOOL32
  
 	$is_bad_block
@@ -2605,7 +2765,7 @@ b™k
 vblk_off£t
 )
 
-658 i‡(
+711 i‡(
 	`t°_bô_døm
 (
 BAD_BLK_BMP_ADDR
@@ -2619,19 +2779,19 @@ vblk_off£t
 FALSE
 )
 
-660  
+713  
 FALSE
 ;
 
-662  
+715  
 TRUE
 ;
 
-663 
+716 
 	}
 }
 
-668 
+721 
 	$g¨bage_cﬁÀ˘i⁄
 (
 UINT32
@@ -2639,7 +2799,7 @@ UINT32
 b™k
 )
 
-670 
+723 
 	`ASSERT
 (
 b™k
@@ -2647,7 +2807,7 @@ b™k
 NUM_BANKS
 );
 
-671 
+724 
 g_·l_°©i°ics
 [
 b™k
@@ -2655,43 +2815,43 @@ b™k
 gc_˙t
 ++;
 
-673 
+726 
 UINT32
  
 §c_Õn
 ;
 
-674 
+727 
 UINT32
  
 vt_vblock
 ;
 
-675 
+728 
 UINT32
  
 ‰ì_v≤
 ;
 
-676 
+729 
 UINT32
  
 vcou¡
 ;
 
-677 
+730 
 UINT32
  
 §c_∑ge
 ;
 
-678 
+731 
 UINT32
  
 gc_vblock
 ;
 
-680 
+733 
 g_·l_°©i°ics
 [
 b™k
@@ -2699,7 +2859,7 @@ b™k
 gc_˙t
 ++;
 
-682 
+735 
 vt_vblock
  = 
 	`gë_vt_vblock
@@ -2707,7 +2867,7 @@ vt_vblock
 b™k
 );
 
-683 
+736 
 vcou¡
  = 
 	`gë_vcou¡
@@ -2717,7 +2877,7 @@ b™k
 vt_vblock
 );
 
-684 
+737 
 gc_vblock
  = 
 	`gë_gc_vblock
@@ -2725,7 +2885,7 @@ gc_vblock
 b™k
 );
 
-685 
+738 
 ‰ì_v≤
  = 
 gc_vblock
@@ -2733,7 +2893,7 @@ gc_vblock
 PAGES_PER_BLK
 ;
 
-689 
+742 
 	`ASSERT
 (
 vt_vblock
@@ -2741,7 +2901,7 @@ vt_vblock
 gc_vblock
 );
 
-690 
+743 
 	`ASSERT
 (
 vt_vblock
@@ -2751,7 +2911,7 @@ META_BLKS_PER_BANK
 VBLKS_PER_BANK
 );
 
-691 
+744 
 	`ASSERT
 (
 vcou¡
@@ -2759,7 +2919,7 @@ vcou¡
 PAGES_PER_BLK
  - 1));
 
-692 
+745 
 	`ASSERT
 (
 	`gë_vcou¡
@@ -2771,7 +2931,7 @@ gc_vblock
 VC_MAX
 );
 
-693 
+746 
 	`ASSERT
 (!
 	`is_bad_block
@@ -2781,7 +2941,7 @@ b™k
 gc_vblock
 ));
 
-697 
+750 
 	`«nd_∑ge_±ªad
 (
 b™k
@@ -2791,7 +2951,7 @@ vt_vblock
 PAGES_PER_BLK
  - 1, 0,
 
-698 (((
+751 (((
 UINT32
 Ë* 
 PAGES_PER_BLK
@@ -2805,7 +2965,7 @@ b™k
 RETURN_WHEN_DONE
 );
 
-699 
+752 
 	`mem_c›y
 (
 g_misc_mëa
@@ -2821,13 +2981,13 @@ UINT32
 PAGES_PER_BLK
 );
 
-701 
+754 
 §c_∑ge
  = 0; src_∑gê< (
 PAGES_PER_BLK
  - 1); src_page++)
 
-704 
+757 
 §c_Õn
  = 
 	`gë_Õn
@@ -2837,7 +2997,7 @@ b™k
 §c_∑ge
 );
 
-705 
+758 
 	`CHECK_VPAGE
 (
 	`gë_v≤
@@ -2845,13 +3005,13 @@ b™k
 §c_Õn
 ));
 
-708 i‡(
+761 i‡(
 	`gë_v≤
 (
 §c_Õn
 ) !=
 
-709 ((
+762 ((
 vt_vblock
  * 
 PAGES_PER_BLK
@@ -2859,7 +3019,7 @@ PAGES_PER_BLK
 §c_∑ge
 ))
 
-714 
+767 
 	`ASSERT
 (
 	`gë_Õn
@@ -2871,39 +3031,39 @@ b™k
 INVALID
 );
 
-715 
+768 
 	`CHECK_LPAGE
 (
 §c_Õn
 );
 
-718 
+771 
 	`«nd_∑ge_c›yback
 (
 b™k
 ,
 
-719 
+772 
 vt_vblock
 ,
 
-720 
+773 
 §c_∑ge
 ,
 
-721 
+774 
 ‰ì_v≤
  / 
 PAGES_PER_BLK
 ,
 
-722 
+775 
 ‰ì_v≤
  % 
 PAGES_PER_BLK
 );
 
-723 
+776 
 	`ASSERT
 ((
 ‰ì_v≤
@@ -2913,7 +3073,7 @@ PAGES_PER_BLK
 gc_vblock
 );
 
-725 
+778 
 	`£t_v≤
 (
 §c_Õn
@@ -2921,7 +3081,7 @@ gc_vblock
 ‰ì_v≤
 );
 
-726 
+779 
 	`£t_Õn
 (
 b™k
@@ -2933,19 +3093,19 @@ PAGES_PER_BLK
 §c_Õn
 );
 
-728 
+781 
 ‰ì_v≤
 ++;
 
-730 #i‡
+783 #i‡
 OPTION_ENABLE_ASSERT
 
 
-731 i‡(
+784 i‡(
 vcou¡
  == 0)
 
-733 
+786 
 	`ASSERT
 (
 ‰ì_v≤
@@ -2955,7 +3115,7 @@ gc_vblock
 PAGES_PER_BLK
 ));
 
-737 
+790 
 	`«nd_block_îa£
 (
 b™k
@@ -2963,7 +3123,7 @@ b™k
 vt_vblock
 );
 
-738 
+791 
 	`ASSERT
 ((
 ‰ì_v≤
@@ -2971,7 +3131,7 @@ vt_vblock
 PAGES_PER_BLK
 ) < (PAGES_PER_BLK - 2));
 
-739 
+792 
 	`ASSERT
 ((
 ‰ì_v≤
@@ -2981,7 +3141,7 @@ PAGES_PER_BLK
 vcou¡
 ));
 
-744 
+797 
 	`£t_vcou¡
 (
 b™k
@@ -2991,7 +3151,7 @@ vt_vblock
 VC_MAX
 );
 
-745 
+798 
 	`£t_vcou¡
 (
 b™k
@@ -3001,7 +3161,7 @@ gc_vblock
 vcou¡
 );
 
-746 
+799 
 	`£t_√w_wrôe_v≤
 (
 b™k
@@ -3009,7 +3169,7 @@ b™k
 ‰ì_v≤
 );
 
-747 
+800 
 	`£t_gc_vblock
 (
 b™k
@@ -3017,17 +3177,17 @@ b™k
 vt_vblock
 );
 
-748 
+801 
 	`dec_fuŒ_blk_˙t
 (
 b™k
 );
 
-750 
+803 
 	}
 }
 
-756 
+809 
 UINT32
  
 	$gë_vt_vblock
@@ -3037,7 +3197,7 @@ UINT32
 b™k
 )
 
-758 
+811 
 	`ASSERT
 (
 b™k
@@ -3045,13 +3205,13 @@ b™k
 NUM_BANKS
 );
 
-760 
+813 
 UINT32
  
 vblock
 ;
 
-763 
+816 
 vblock
  = 
 	`mem_£¨ch_mö_max
@@ -3065,19 +3225,19 @@ VBLKS_PER_BANK
 UINT16
 )),
 
-764 (
+817 (
 UINT16
 ),
 
-765 
+818 
 VBLKS_PER_BANK
 ,
 
-766 
+819 
 MU_CMD_SEARCH_MIN_DRAM
 );
 
-768 
+821 
 	`ASSERT
 (
 	`is_bad_block
@@ -3089,7 +3249,7 @@ vblock
 FALSE
 );
 
-769 
+822 
 	`ASSERT
 (
 vblock
@@ -3099,7 +3259,7 @@ META_BLKS_PER_BANK
 VBLKS_PER_BANK
 );
 
-770 
+823 
 	`ASSERT
 (
 	`gë_vcou¡
@@ -3111,19 +3271,19 @@ vblock
 PAGES_PER_BLK
  - 1));
 
-772  
+825  
 vblock
 ;
 
-773 
+826 
 	}
 }
 
-774 
+827 
 	$f‹m©
 ()
 
-776 
+829 
 UINT32
  
 b™k
@@ -3133,31 +3293,31 @@ vblock
 vcou¡_vÆ
 ;
 
-778 
+831 
 	`ASSERT
 (
 NUM_MISC_META_SECT
  > 0);
 
-779 
+832 
 	`ASSERT
 (
 NUM_VCOUNT_SECT
  > 0);
 
-781 
+834 
 	`u¨t_¥ötf
 ("TŸÆ FTL DRAM mëad©®size: %d KB", 
 DRAM_BYTES_OTHER
  / 1024);
 
-783 
+836 
 	`u¨t_¥ötf
 ("VBLKS_PER_BANK: %d", 
 VBLKS_PER_BANK
 );
 
-784 
+837 
 	`u¨t_¥ötf
 ("LBLKS_PER_BANK: %d", 
 NUM_LPAGES
@@ -3167,37 +3327,37 @@ PAGES_PER_BLK
 NUM_BANKS
 );
 
-785 
+838 
 	`u¨t_¥ötf
 ("META_BLKS_PER_BANK: %d", 
 META_BLKS_PER_BANK
 );
 
-788 
+841 
 	`u¨t_¥ötf
 ("\n\¿SECTORS_PER_PAGE : %d", 
 SECTORS_PER_PAGE
 );
 
-791 
+844 
 	`u¨t_¥ötf
 ("NUM_LPAGES : %d", 
 NUM_LPAGES
 );
 
-792 
+845 
 	`u¨t_¥ötf
 ("VBLKS_PER_BANK : %d", 
 VBLKS_PER_BANK
 );
 
-793 
+846 
 	`u¨t_¥ötf
 ("PAGES_PER_BLK : %d", 
 PAGES_PER_BLK
 );
 
-798 
+851 
 	`mem_£t_døm
 (
 PAGE_MAP_ADDR
@@ -3207,7 +3367,7 @@ NULL
 PAGE_MAP_BYTES
 );
 
-799 
+852 
 	`mem_£t_døm
 (
 VCOUNT_ADDR
@@ -3217,7 +3377,7 @@ NULL
 VCOUNT_BYTES
 );
 
-800 
+853 
 	`mem_£t_døm
 (
 BLOCK_MAP_ADDR
@@ -3227,7 +3387,7 @@ NULL
 BLOCK_MAP_BYTES
 );
 
-801 
+854 
 	`mem_£t_døm
 (
 BLOCK_VCOUNT_ADDR
@@ -3237,13 +3397,13 @@ NULL
 BLOCK_VCOUNT_BYTES
 );
 
-804 
+857 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-806 
+859 
 	`mem£t
 (
 g_misc_mëa
@@ -3259,7 +3419,7 @@ PAGES_PER_BLK
 UINT32
 ));
 
-813 
+866 
 vblock
  = 
 MISCBLK_VBN
@@ -3267,19 +3427,19 @@ MISCBLK_VBN
 VBLKS_PER_BANK
 ; vblock++)
 
-815 
+868 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-817 
+870 
 vcou¡_vÆ
  = 
 VC_MAX
 ;
 
-818 i‡(
+871 i‡(
 	`is_bad_block
 (
 b™k
@@ -3289,7 +3449,7 @@ vblock
 FALSE
 )
 
-820 
+873 
 	`«nd_block_îa£
 (
 b™k
@@ -3297,11 +3457,11 @@ b™k
 vblock
 );
 
-821 
+874 
 vcou¡_vÆ
  = 0;
 
-823 
+876 
 	`wrôe_døm_16
 (
 VCOUNT_ADDR
@@ -3315,67 +3475,67 @@ vblock
 UINT16
 ),
 
-824 
+877 
 vcou¡_vÆ
 );
 
-830 
+883 
 	`öô_mëad©a_§am
 ();
 
-833 
+886 
 	`loggög_pm≠_èbÀ
 ();
 
-834 
+887 
 	`loggög_misc_mëad©a
 ();
 
-836 
+889 
 	`wrôe_f‹m©_m¨k
 ();
 
-837 
+890 
 	`Àd
 (1);
 
-838 
+891 
 	`u¨t_¥öt
 ("format complete");
 
-839 
+892 
 	}
 }
 
-840 
+893 
 	$öô_mëad©a_§am
 ()
 
-842 
+895 
 UINT32
  
 b™k
 ;
 
-843 
+896 
 UINT32
  
 vblock
 ;
 
-844 
+897 
 UINT32
  
 m≠blk_lbn
 ;
 
-849 
+902 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-851 
+904 
 g_misc_mëa
 [
 b™k
@@ -3389,7 +3549,7 @@ META_BLKS_PER_BANK
 NUM_BMAP_BLOCK
 ;
 
-852 
+905 
 g_misc_mëa
 [
 b™k
@@ -3399,7 +3559,7 @@ b™k
 	`gë_bad_blk_˙t
 (bank);
 
-853 
+906 
 g_misc_mëa
 [
 b™k
@@ -3407,9 +3567,19 @@ b™k
 ‰ì_blk_˙t_block
  = 
 NUM_BMAP_BLOCK
- - 10;
+;
 
-855 
+907 
+g_misc_mëa
+[
+b™k
+].
+‰ì_blk_˙t
+ -
+	`gë_bad_blk_˙t_block
+(bank);
+
+909 
 	`wrôe_døm_16
 (
 VCOUNT_ADDR
@@ -3423,7 +3593,7 @@ UINT16
 VC_MAX
 );
 
-856 
+910 
 	`wrôe_døm_16
 (
 VCOUNT_ADDR
@@ -3437,7 +3607,7 @@ UINT16
 VC_MAX
 );
 
-863 
+917 
 	`£t_miscblk_v≤
 (
 b™k
@@ -3447,7 +3617,7 @@ MISCBLK_VBN
 PAGES_PER_BLK
  - 1);
 
-864 
+918 
 	`ASSERT
 (
 	`is_bad_block
@@ -3459,27 +3629,27 @@ MISCBLK_VBN
 FALSE
 );
 
-866 
+920 
 vblock
  = 
 MISCBLK_VBN
 ;
 
-871 
+925 
 m≠blk_lbn
  = 0;
 
-872 
+926 
 m≠blk_lbn
  < 
 MAPBLKS_PER_BANK
 )
 
-874 
+928 
 vblock
 ++;
 
-875 
+929 
 	`ASSERT
 (
 vblock
@@ -3487,7 +3657,7 @@ vblock
 VBLKS_PER_BANK
 );
 
-876 i‡(
+930 i‡(
 	`is_bad_block
 (
 b™k
@@ -3497,7 +3667,7 @@ vblock
 FALSE
 )
 
-878 
+932 
 	`£t_m≠blk_v≤
 (
 b™k
@@ -3509,7 +3679,7 @@ vblock
 PAGES_PER_BLK
 );
 
-879 
+933 
 	`wrôe_døm_16
 (
 VCOUNT_ADDR
@@ -3525,31 +3695,15 @@ UINT16
 VC_MAX
 );
 
-880 
+934 
 m≠blk_lbn
 ++;
 
-894 
+948 
 vblock
 ++;
 
-896 
-	`wrôe_døm_16
-(
-VCOUNT_ADDR
- + ((
-b™k
- * 
-VBLKS_PER_BANK
-Ë+ 
-vblock
-Ë* (
-UINT16
-), 
-VC_MAX
-);
-
-897 
+949 
 	`£t_vcou¡
 (
 b™k
@@ -3559,7 +3713,87 @@ vblock
 VC_MAX
 );
 
-899 
+951 
+	`£t_√w_wrôe_vbn
+(
+b™k
+, 
+vblock
+);
+
+952 
+	`ASSERT
+(
+vblock
+ < 
+VBLKS_PER_BANK
+);
+
+953 }
+	`is_bad_block
+(
+b™k
+, 
+vblock
+Ë=
+TRUE
+);
+
+955 
+fú°_bm≠_vblock
+[
+b™k
+] = 
+vblock
+;
+
+956 
+UINT32
+ 
+°¨t_bm≠
+ = 
+vblock
+;
+
+957 
+	`u¨t_¥ötf
+("# b™k : %d fú°_bm≠_vblock : %d",
+b™k
+,
+fú°_bm≠_vblock
+[bank]);
+
+965 
+vblock
+++;
+
+967 
+	`wrôe_døm_16
+(
+VCOUNT_ADDR
+ + ((
+b™k
+ * 
+VBLKS_PER_BANK
+Ë+ 
+vblock
+Ë* (
+UINT16
+), 
+VC_MAX
+);
+
+968 
+	`£t_vcou¡
+(
+b™k
+, 
+vblock
+, 
+VC_MAX
+);
+
+970 
 	`wrôe_døm_16
 (
 BLOCK_VCOUNT_ADDR
@@ -3569,13 +3803,15 @@ b™k
 NUM_BMAP_BLOCK
 Ë+ 
 vblock
-Ë* (
+ - 
+fú°_bm≠_vblock
+[b™k]Ë* (
 UINT16
 ), 
 VC_MAX
 );
 
-900 
+971 
 	`£t_gc_vblock_block
 (
 b™k
@@ -3583,7 +3819,13 @@ b™k
 vblock
 );
 
-902 
+972 
+	`u¨t_¥ötf
+("g¯block f‹ block m≠pög # %d",
+vblock
+);
+
+974 
 	`ASSERT
 (
 vblock
@@ -3591,7 +3833,7 @@ vblock
 VBLKS_PER_BANK
 );
 
-903 }
+975 }
 	`is_bad_block
 (
 b™k
@@ -3601,11 +3843,11 @@ vblock
 TRUE
 );
 
-911 
+979 
 vblock
 ++;
 
-912 
+981 
 	`£t_vcou¡
 (
 b™k
@@ -3615,23 +3857,7 @@ vblock
 VC_MAX
 );
 
-914 
-	`£t_√w_wrôe_vbn
-(
-b™k
-, 
-vblock
-);
-
-915 
-	`ASSERT
-(
-vblock
- < 
-VBLKS_PER_BANK
-);
-
-916 }
+983 if(
 	`is_bad_block
 (
 b™k
@@ -3639,51 +3865,21 @@ b™k
 vblock
 Ë=
 TRUE
-);
+)
 
-918 
-UINT32
- 
-fú°_bm≠_vblock
- = 
-vblock
-;
-
-922 
-vblock
+985 
+°¨t_bm≠
 ++;
 
-924 
-	`£t_vcou¡
-(
-b™k
-, 
-vblock
-, 
-VC_MAX
-);
-
-926 if(
-	`is_bad_block
-(
-b™k
-, 
-vblock
-Ë=
-TRUE
-Ë
-fú°_bm≠_vblock
-++;
-
-927 }
+988 }
 vblock
  !
-fú°_bm≠_vblock
+°¨t_bm≠
  + 
 NUM_BMAP_BLOCK
 );
 
-929 
+990 
 œ°_bm≠_block
 [
 b™k
@@ -3691,11 +3887,19 @@ b™k
 vblock
 ;
 
-940 
+991 
+	`u¨t_¥ötf
+("# b™k : %dÜa°_bm≠_vblock : %d",
+b™k
+,
+œ°_bm≠_block
+[bank]);
+
+1002 
 vblock
 ++;
 
-942 
+1004 
 	`wrôe_døm_16
 (
 VCOUNT_ADDR
@@ -3711,7 +3915,7 @@ UINT16
 VC_MAX
 );
 
-944 
+1006 
 	`£t_gc_vblock
 (
 b™k
@@ -3719,7 +3923,7 @@ b™k
 vblock
 );
 
-946 
+1008 
 	`ASSERT
 (
 vblock
@@ -3727,7 +3931,7 @@ vblock
 VBLKS_PER_BANK
 );
 
-947 }
+1009 }
 	`is_bad_block
 (
 b™k
@@ -3737,11 +3941,11 @@ vblock
 TRUE
 );
 
-954 
+1016 
 vblock
 ++;
 
-956 
+1018 
 	`£t_√w_wrôe_v≤
 (
 b™k
@@ -3751,7 +3955,7 @@ vblock
 PAGES_PER_BLK
 );
 
-957 
+1019 
 	`ASSERT
 (
 vblock
@@ -3759,7 +3963,7 @@ vblock
 VBLKS_PER_BANK
 );
 
-958 }
+1020 }
 	`is_bad_block
 (
 b™k
@@ -3769,15 +3973,15 @@ vblock
 TRUE
 );
 
-961 
+1023 
 	}
 }
 
-963 
+1025 
 	$loggög_misc_mëad©a
 ()
 
-965 
+1027 
 UINT32
  
 misc_mëa_byãs
@@ -3787,7 +3991,7 @@ NUM_MISC_META_SECT
 BYTES_PER_SECTOR
 ;
 
-966 
+1028 
 UINT32
  
 vcou¡_addr
@@ -3795,7 +3999,7 @@ vcou¡_addr
 VCOUNT_ADDR
 ;
 
-967 
+1029 
 UINT32
  
 vcou¡_byãs
@@ -3805,7 +4009,7 @@ NUM_VCOUNT_SECT
 BYTES_PER_SECTOR
 ;
 
-968 
+1030 
 UINT32
  
 vcou¡_bound¨y
@@ -3815,29 +4019,29 @@ VCOUNT_ADDR
 VCOUNT_BYTES
 ;
 
-969 
+1031 
 UINT32
  
 b™k
 ;
 
-971 
+1033 
 	`Êash_föish
 ();
 
-973 
+1035 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-975 
+1037 
 	`öc_miscblk_v≤
 (
 b™k
 );
 
-978 i‡((
+1040 i‡((
 	`gë_miscblk_v≤
 (
 b™k
@@ -3847,7 +4051,7 @@ PAGES_PER_BLK
 MISCBLK_VBN
 )
 
-980 
+1042 
 	`«nd_block_îa£
 (
 b™k
@@ -3855,7 +4059,7 @@ b™k
 MISCBLK_VBN
 );
 
-981 
+1043 
 	`£t_miscblk_v≤
 (
 b™k
@@ -3865,7 +4069,7 @@ MISCBLK_VBN
 PAGES_PER_BLK
 );
 
-984 
+1046 
 	`mem_c›y
 (
 	`FTL_BUF
@@ -3877,13 +4081,13 @@ g_misc_mëa
 misc_mëa_byãs
 );
 
-987 i‡(
+1049 i‡(
 vcou¡_addr
  <
 vcou¡_bound¨y
 )
 
-989 
+1051 
 	`mem_c›y
 (
 	`FTL_BUF
@@ -3897,25 +4101,25 @@ vcou¡_addr
 vcou¡_byãs
 );
 
-990 
+1052 
 vcou¡_addr
  +
 vcou¡_byãs
 ;
 
-994 
+1056 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-996 
+1058 
 	`«nd_∑ge_±¥ogøm
 (
 b™k
 ,
 
-997 
+1059 
 	`gë_miscblk_v≤
 (
 b™k
@@ -3923,7 +4127,7 @@ b™k
 PAGES_PER_BLK
 ,
 
-998 
+1060 
 	`gë_miscblk_v≤
 (
 b™k
@@ -3931,31 +4135,31 @@ b™k
 PAGES_PER_BLK
 ,
 
-1000 
+1062 
 NUM_MISC_META_SECT
  + 
 NUM_VCOUNT_SECT
 ,
 
-1001 
+1063 
 	`FTL_BUF
 (
 b™k
 ));
 
-1003 
+1065 
 	`Êash_föish
 ();
 
-1004 
+1066 
 	}
 }
 
-1005 
+1067 
 	$loggög_pm≠_èbÀ
 ()
 
-1007 
+1069 
 UINT32
  
 pm≠_addr
@@ -3963,7 +4167,7 @@ pm≠_addr
 PAGE_MAP_ADDR
 ;
 
-1008 
+1070 
 UINT32
  
 pm≠_byãs
@@ -3971,19 +4175,19 @@ pm≠_byãs
 BYTES_PER_PAGE
 ;
 
-1009 
+1071 
 UINT32
  
 m≠blk_v≤
 ;
 
-1010 
+1072 
 UINT32
  
 b™k
 ;
 
-1011 
+1073 
 UINT32
  
 pm≠_bound¨y
@@ -3993,7 +4197,7 @@ PAGE_MAP_ADDR
 PAGE_MAP_BYTES
 ;
 
-1012 
+1074 
 BOOL32
  
 föished
@@ -4001,7 +4205,7 @@ föished
 FALSE
 ;
 
-1014 
+1076 
 UINT32
  
 m≠blk_lbn
@@ -4009,33 +4213,33 @@ m≠blk_lbn
 MAPBLKS_PER_BANK
 ; mapblk_lbn++)
 
-1016 
+1078 
 	`Êash_föish
 ();
 
-1018 
+1080 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-1020 i‡(
+1082 i‡(
 föished
 )
 
-1024 i‡(
+1086 i‡(
 pm≠_addr
  >
 pm≠_bound¨y
 )
 
-1026 
+1088 
 föished
  = 
 TRUE
 ;
 
-1029 i‡(
+1091 i‡(
 pm≠_addr
  + 
 BYTES_PER_PAGE
@@ -4043,13 +4247,13 @@ BYTES_PER_PAGE
 pm≠_bound¨y
 )
 
-1031 
+1093 
 föished
  = 
 TRUE
 ;
 
-1032 
+1094 
 pm≠_byãs
  = (
 pm≠_bound¨y
@@ -4059,7 +4263,7 @@ pm≠_addr
 BYTES_PER_SECTOR
  - 1) / BYTES_PER_SECTOR * BYTES_PER_SECTOR ;
 
-1034 
+1096 
 	`öc_m≠blk_v≤
 (
 b™k
@@ -4067,7 +4271,7 @@ b™k
 m≠blk_lbn
 );
 
-1036 
+1098 
 m≠blk_v≤
  = 
 	`gë_m≠blk_v≤
@@ -4077,13 +4281,13 @@ b™k
 m≠blk_lbn
 );
 
-1039 i‡((
+1101 i‡((
 m≠blk_v≤
  % 
 PAGES_PER_BLK
 ) == 0)
 
-1042 
+1104 
 	`«nd_block_îa£
 (
 b™k
@@ -4093,7 +4297,7 @@ m≠blk_v≤
 PAGES_PER_BLK
 );
 
-1045 
+1107 
 	`£t_m≠blk_v≤
 (
 b™k
@@ -4105,7 +4309,7 @@ m≠blk_v≤
 PAGES_PER_BLK
 ) * PAGES_PER_BLK);
 
-1046 
+1108 
 m≠blk_v≤
  = 
 	`gë_m≠blk_v≤
@@ -4115,7 +4319,7 @@ b™k
 m≠blk_lbn
 );
 
-1049 
+1111 
 	`mem_c›y
 (
 	`FTL_BUF
@@ -4127,75 +4331,75 @@ pm≠_addr
 pm≠_byãs
 );
 
-1052 
+1114 
 	`«nd_∑ge_±¥ogøm
 (
 b™k
 ,
 
-1053 
+1115 
 m≠blk_v≤
  / 
 PAGES_PER_BLK
 ,
 
-1054 
+1116 
 m≠blk_v≤
  % 
 PAGES_PER_BLK
 ,
 
-1056 
+1118 
 pm≠_byãs
  / 
 BYTES_PER_SECTOR
 ,
 
-1057 
+1119 
 	`FTL_BUF
 (
 b™k
 ));
 
-1058 
+1120 
 pm≠_addr
  +
 pm≠_byãs
 ;
 
-1060 i‡(
+1122 i‡(
 föished
 )
 
-1065 
+1127 
 	`Êash_föish
 ();
 
-1066 
+1128 
 	}
 }
 
-1068 
+1130 
 	$lﬂd_mëad©a
 ()
 
-1070 
+1132 
 	`lﬂd_misc_mëad©a
 ();
 
-1071 
+1133 
 	`lﬂd_pm≠_èbÀ
 ();
 
-1072 
+1134 
 	}
 }
 
-1074 
+1136 
 	$lﬂd_misc_mëad©a
 ()
 
-1076 
+1138 
 UINT32
  
 misc_mëa_byãs
@@ -4205,7 +4409,7 @@ NUM_MISC_META_SECT
 BYTES_PER_SECTOR
 ;
 
-1077 
+1139 
 UINT32
  
 vcou¡_byãs
@@ -4215,7 +4419,7 @@ NUM_VCOUNT_SECT
 BYTES_PER_SECTOR
 ;
 
-1078 
+1140 
 UINT32
  
 vcou¡_addr
@@ -4223,7 +4427,7 @@ vcou¡_addr
 VCOUNT_ADDR
 ;
 
-1079 
+1141 
 UINT32
  
 vcou¡_bound¨y
@@ -4233,13 +4437,13 @@ VCOUNT_ADDR
 VCOUNT_BYTES
 ;
 
-1081 
+1143 
 UINT32
  
 lﬂd_Êag
  = 0;
 
-1082 
+1144 
 UINT32
  
 b™k
@@ -4247,25 +4451,25 @@ b™k
 ∑ge_num
 ;
 
-1083 
+1145 
 UINT32
  
 lﬂd_˙t
  = 0;
 
-1085 
+1147 
 	`Êash_föish
 ();
 
-1087 
+1149 
 	`dißbÀ_úq
 ();
 
-1088 
+1150 
 	`Êash_˛ór_úq
 ();
 
-1091 
+1153 
 ∑ge_num
  = 
 PAGES_PER_BLK
@@ -4273,59 +4477,59 @@ PAGES_PER_BLK
 UINT32
 ) -1);Öage_num--)
 
-1093 
+1155 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-1095 i‡(
+1157 i‡(
 lﬂd_Êag
  & (0x1 << 
 b™k
 ))
 
-1100 
+1162 
 	`«nd_∑ge_±ªad
 (
 b™k
 ,
 
-1101 
+1163 
 MISCBLK_VBN
 ,
 
-1102 
+1164 
 ∑ge_num
 ,
 
-1104 
+1166 
 NUM_MISC_META_SECT
  + 
 NUM_VCOUNT_SECT
 ,
 
-1105 
+1167 
 	`FTL_BUF
 (
 b™k
 ),
 
-1106 
+1168 
 RETURN_ON_ISSUE
 );
 
-1108 
+1170 
 	`Êash_föish
 ();
 
-1110 
+1172 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-1112 i‡(!(
+1174 i‡(!(
 lﬂd_Êag
  & (0x1 << 
 b™k
@@ -4335,23 +4539,23 @@ b™k
 FIRQ_ALL_FF
 ))
 
-1114 
+1176 
 lﬂd_Êag
  =Üﬂd_Êag | (0x1 << 
 b™k
 );
 
-1115 
+1177 
 lﬂd_˙t
 ++;
 
-1117 
+1179 
 	`CLR_BSP_INTR
 (
 b™k
 , 0xFF);
 
-1120 
+1182 
 	`ASSERT
 (
 lﬂd_˙t
@@ -4359,13 +4563,13 @@ lﬂd_˙t
 NUM_BANKS
 );
 
-1122 
+1184 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-1125 
+1187 
 	`mem_c›y
 (&
 g_misc_mëa
@@ -4377,13 +4581,13 @@ b™k
 misc_mëad©a
 ));
 
-1128 i‡(
+1190 i‡(
 vcou¡_addr
  <
 vcou¡_bound¨y
 )
 
-1130 
+1192 
 	`mem_c›y
 (
 vcou¡_addr
@@ -4397,25 +4601,25 @@ misc_mëa_byãs
 vcou¡_byãs
 );
 
-1131 
+1193 
 vcou¡_addr
  +
 vcou¡_byãs
 ;
 
-1135 
+1197 
 	`íabÀ_úq
 ();
 
-1136 
+1198 
 	}
 }
 
-1137 
+1199 
 	$lﬂd_pm≠_èbÀ
 ()
 
-1139 
+1201 
 UINT32
  
 pm≠_addr
@@ -4423,13 +4627,13 @@ pm≠_addr
 PAGE_MAP_ADDR
 ;
 
-1140 
+1202 
 UINT32
  
 ãmp_∑ge_addr
 ;
 
-1141 
+1203 
 UINT32
  
 pm≠_byãs
@@ -4437,7 +4641,7 @@ pm≠_byãs
 BYTES_PER_PAGE
 ;
 
-1142 
+1204 
 UINT32
  
 pm≠_bound¨y
@@ -4447,7 +4651,7 @@ PAGE_MAP_ADDR
 NUM_LPAGES
  * (UINT32));
 
-1143 
+1205 
 UINT32
  
 m≠blk_lbn
@@ -4455,7 +4659,7 @@ m≠blk_lbn
 b™k
 ;
 
-1144 
+1206 
 BOOL32
  
 föished
@@ -4463,45 +4667,45 @@ föished
 FALSE
 ;
 
-1146 
+1208 
 	`Êash_föish
 ();
 
-1148 
+1210 
 m≠blk_lbn
  = 0; m≠blk_lb¿< 
 MAPBLKS_PER_BANK
 ; mapblk_lbn++)
 
-1150 
+1212 
 ãmp_∑ge_addr
  = 
 pm≠_addr
 ;
 
-1152 
+1214 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-1154 i‡(
+1216 i‡(
 föished
 )
 
-1158 i‡(
+1220 i‡(
 pm≠_addr
  >
 pm≠_bound¨y
 )
 
-1160 
+1222 
 föished
  = 
 TRUE
 ;
 
-1163 i‡(
+1225 i‡(
 pm≠_addr
  + 
 BYTES_PER_PAGE
@@ -4509,13 +4713,13 @@ BYTES_PER_PAGE
 pm≠_bound¨y
 )
 
-1165 
+1227 
 föished
  = 
 TRUE
 ;
 
-1166 
+1228 
 pm≠_byãs
  = (
 pm≠_bound¨y
@@ -4525,13 +4729,13 @@ pm≠_addr
 BYTES_PER_SECTOR
  - 1) / BYTES_PER_SECTOR * BYTES_PER_SECTOR;
 
-1169 
+1231 
 	`«nd_∑ge_±ªad
 (
 b™k
 ,
 
-1170 
+1232 
 	`gë_m≠blk_v≤
 (
 b™k
@@ -4541,7 +4745,7 @@ m≠blk_lbn
 PAGES_PER_BLK
 ,
 
-1171 
+1233 
 	`gë_m≠blk_v≤
 (
 b™k
@@ -4551,51 +4755,51 @@ m≠blk_lbn
 PAGES_PER_BLK
 ,
 
-1173 
+1235 
 pm≠_byãs
  / 
 BYTES_PER_SECTOR
 ,
 
-1174 
+1236 
 	`FTL_BUF
 (
 b™k
 ),
 
-1175 
+1237 
 RETURN_ON_ISSUE
 );
 
-1176 
+1238 
 pm≠_addr
  +
 pm≠_byãs
 ;
 
-1178 
+1240 
 	`Êash_föish
 ();
 
-1180 
+1242 
 pm≠_byãs
  = 
 BYTES_PER_PAGE
 ;
 
-1181 
+1243 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++)
 
-1183 i‡(
+1245 i‡(
 ãmp_∑ge_addr
  >
 pm≠_bound¨y
 )
 
-1187 i‡(
+1249 i‡(
 ãmp_∑ge_addr
  + 
 BYTES_PER_PAGE
@@ -4603,7 +4807,7 @@ BYTES_PER_PAGE
 pm≠_bound¨y
 )
 
-1189 
+1251 
 pm≠_byãs
  = (
 pm≠_bound¨y
@@ -4613,7 +4817,7 @@ pm≠_bound¨y
 BYTES_PER_SECTOR
  - 1) / BYTES_PER_SECTOR * BYTES_PER_SECTOR;
 
-1192 
+1254 
 	`mem_c›y
 (
 ãmp_∑ge_addr
@@ -4625,35 +4829,35 @@ b™k
 pm≠_byãs
 );
 
-1194 
+1256 
 ãmp_∑ge_addr
  +
 pm≠_byãs
 ;
 
-1196 i‡(
+1258 i‡(
 föished
 )
 
-1201 
+1263 
 	}
 }
 
-1202 
+1264 
 	$wrôe_f‹m©_m¨k
 ()
 
-1206 #ifde‡
+1268 #ifde‡
 __GNUC__
 
 
-1207 
+1269 
 UINT32
  
 size_of_fúmw¨e_image
 ;
 
-1208 
+1270 
 UINT32
  
 fúmw¨e_image_∑ges
@@ -4663,19 +4867,19 @@ size_of_fúmw¨e_image
 BYTES_PER_FW_PAGE
  - 1) / BYTES_PER_FW_PAGE;
 
-1210 
+1272 
 UINT32
  
 Image$$ER_CODE$$RO$$Lígth
 ;
 
-1211 
+1273 
 UINT32
  
 Image$$ER_RW$$RW$$Lígth
 ;
 
-1212 
+1274 
 UINT32
  
 fúmw¨e_image_byãs
@@ -4685,7 +4889,7 @@ Image$$ER_CODE$$RO$$Lígth
 Image$$ER_RW$$RW$$Lígth
 );
 
-1213 
+1275 
 UINT32
  
 fúmw¨e_image_∑ges
@@ -4695,7 +4899,7 @@ fúmw¨e_image_byãs
 BYTES_PER_FW_PAGE
  - 1) / BYTES_PER_FW_PAGE;
 
-1216 
+1278 
 UINT32
  
 f‹m©_m¨k_∑ge_off£t
@@ -4705,7 +4909,7 @@ FW_PAGE_OFFSET
 fúmw¨e_image_∑ges
 ;
 
-1218 
+1280 
 	`mem_£t_døm
 (
 FTL_BUF_ADDR
@@ -4713,7 +4917,7 @@ FTL_BUF_ADDR
 BYTES_PER_SECTOR
 );
 
-1220 
+1282 
 	`SETREG
 (
 FCP_CMD
@@ -4721,7 +4925,7 @@ FCP_CMD
 FC_COL_ROW_IN_PROG
 );
 
-1221 
+1283 
 	`SETREG
 (
 FCP_BANK
@@ -4729,7 +4933,7 @@ FCP_BANK
 	`REAL_BANK
 (0));
 
-1222 
+1284 
 	`SETREG
 (
 FCP_OPTION
@@ -4739,7 +4943,7 @@ FO_E
 FO_B_W_DRDY
 );
 
-1223 
+1285 
 	`SETREG
 (
 FCP_DMA_ADDR
@@ -4747,7 +4951,7 @@ FCP_DMA_ADDR
 FTL_BUF_ADDR
 );
 
-1224 
+1286 
 	`SETREG
 (
 FCP_DMA_CNT
@@ -4755,13 +4959,13 @@ FCP_DMA_CNT
 BYTES_PER_SECTOR
 );
 
-1225 
+1287 
 	`SETREG
 (
 FCP_COL
 , 0);
 
-1226 
+1288 
 	`SETREG
 (
 	`FCP_ROW_L
@@ -4769,7 +4973,7 @@ FCP_COL
 f‹m©_m¨k_∑ge_off£t
 );
 
-1227 
+1289 
 	`SETREG
 (
 	`FCP_ROW_H
@@ -4777,7 +4981,7 @@ f‹m©_m¨k_∑ge_off£t
 f‹m©_m¨k_∑ge_off£t
 );
 
-1231 
+1293 
 	`SETREG
 (
 FCP_ISSUE
@@ -4785,39 +4989,39 @@ FCP_ISSUE
 NULL
 );
 
-1234 (
+1296 (
 	`GETREG
 (
 WR_STAT
 ) & 0x00000001) != 0);
 
-1237 
+1299 
 	`BSP_FSM
 (0Ë!
 BANK_IDLE
 );
 
-1238 
+1300 
 	}
 }
 
-1239 
+1301 
 BOOL32
  
 	$check_f‹m©_m¨k
 ()
 
-1243 #ifde‡
+1305 #ifde‡
 __GNUC__
 
 
-1244 
+1306 
 UINT32
  
 size_of_fúmw¨e_image
 ;
 
-1245 
+1307 
 UINT32
  
 fúmw¨e_image_∑ges
@@ -4827,19 +5031,19 @@ size_of_fúmw¨e_image
 BYTES_PER_FW_PAGE
  - 1) / BYTES_PER_FW_PAGE;
 
-1247 
+1309 
 UINT32
  
 Image$$ER_CODE$$RO$$Lígth
 ;
 
-1248 
+1310 
 UINT32
  
 Image$$ER_RW$$RW$$Lígth
 ;
 
-1249 
+1311 
 UINT32
  
 fúmw¨e_image_byãs
@@ -4849,7 +5053,7 @@ Image$$ER_CODE$$RO$$Lígth
 Image$$ER_RW$$RW$$Lígth
 );
 
-1250 
+1312 
 UINT32
  
 fúmw¨e_image_∑ges
@@ -4859,7 +5063,7 @@ fúmw¨e_image_byãs
 BYTES_PER_FW_PAGE
  - 1) / BYTES_PER_FW_PAGE;
 
-1253 
+1315 
 UINT32
  
 f‹m©_m¨k_∑ge_off£t
@@ -4869,17 +5073,17 @@ FW_PAGE_OFFSET
 fúmw¨e_image_∑ges
 ;
 
-1254 
+1316 
 UINT32
  
 ãmp
 ;
 
-1256 
+1318 
 	`Êash_˛ór_úq
 ();
 
-1258 
+1320 
 	`SETREG
 (
 FCP_CMD
@@ -4887,7 +5091,7 @@ FCP_CMD
 FC_COL_ROW_READ_OUT
 );
 
-1259 
+1321 
 	`SETREG
 (
 FCP_BANK
@@ -4895,7 +5099,7 @@ FCP_BANK
 	`REAL_BANK
 (0));
 
-1260 
+1322 
 	`SETREG
 (
 FCP_OPTION
@@ -4903,7 +5107,7 @@ FCP_OPTION
 FO_E
 );
 
-1261 
+1323 
 	`SETREG
 (
 FCP_DMA_ADDR
@@ -4911,7 +5115,7 @@ FCP_DMA_ADDR
 FTL_BUF_ADDR
 );
 
-1262 
+1324 
 	`SETREG
 (
 FCP_DMA_CNT
@@ -4919,13 +5123,13 @@ FCP_DMA_CNT
 BYTES_PER_SECTOR
 );
 
-1263 
+1325 
 	`SETREG
 (
 FCP_COL
 , 0);
 
-1264 
+1326 
 	`SETREG
 (
 	`FCP_ROW_L
@@ -4933,7 +5137,7 @@ FCP_COL
 f‹m©_m¨k_∑ge_off£t
 );
 
-1265 
+1327 
 	`SETREG
 (
 	`FCP_ROW_H
@@ -4941,7 +5145,7 @@ f‹m©_m¨k_∑ge_off£t
 f‹m©_m¨k_∑ge_off£t
 );
 
-1269 
+1331 
 	`SETREG
 (
 FCP_ISSUE
@@ -4949,19 +5153,19 @@ FCP_ISSUE
 NULL
 );
 
-1272 (
+1334 (
 	`GETREG
 (
 WR_STAT
 ) & 0x00000001) != 0);
 
-1275 
+1337 
 	`BSP_FSM
 (0Ë!
 BANK_IDLE
 );
 
-1278 
+1340 
 ãmp
  = 
 	`BSP_INTR
@@ -4969,47 +5173,47 @@ BANK_IDLE
 FIRQ_ALL_FF
 ;
 
-1281 
+1343 
 	`CLR_BSP_INTR
 (0, 0xFF);
 
-1283 i‡(
+1345 i‡(
 ãmp
  != 0)
 
-1285  
+1347  
 FALSE
 ;
 
-1289  
+1351  
 TRUE
 ;
 
-1291 
+1353 
 	}
 }
 
-1294 
+1356 
 	$·l_i§
 ()
 
-1296 
+1358 
 UINT32
  
 b™k
 ;
 
-1297 
+1359 
 UINT32
  
 b•_öå_Êag
 ;
 
-1299 
+1361 
 	`u¨t_¥öt
 ("BSP interrupt occured...");
 
-1301 
+1363 
 	`SETREG
 (
 APB_INT_STS
@@ -5017,13 +5221,13 @@ APB_INT_STS
 INTR_FLASH
 );
 
-1303 
+1365 
 b™k
  = 0; b™k < 
 NUM_BANKS
 ; bank++) {
 
-1304 
+1366 
 	`BSP_FSM
 (
 b™k
@@ -5031,7 +5235,7 @@ b™k
 BANK_IDLE
 );
 
-1306 
+1368 
 b•_öå_Êag
  = 
 	`BSP_INTR
@@ -5039,11 +5243,11 @@ b•_öå_Êag
 b™k
 );
 
-1308 i‡(
+1370 i‡(
 b•_öå_Êag
  == 0) {
 
-1311 
+1373 
 UINT32
  
 fc
@@ -5055,7 +5259,7 @@ fc
 b™k
 ));
 
-1313 
+1375 
 	`CLR_BSP_INTR
 (
 b™k
@@ -5063,23 +5267,23 @@ b™k
 b•_öå_Êag
 );
 
-1316 i‡(
+1378 i‡(
 b•_öå_Êag
  & 
 FIRQ_DATA_CORRUPT
 ) {
 
-1317 
+1379 
 	`u¨t_¥ötf
 ("BSP i¡îru±áàb™k: 0x%x", 
 b™k
 );
 
-1318 
+1380 
 	`u¨t_¥öt
 ("FIRQ_DATA_CORRUPT occured...");
 
-1320 i‡(
+1382 i‡(
 b•_öå_Êag
  & (
 FIRQ_BADBLK_H
@@ -5087,13 +5291,13 @@ FIRQ_BADBLK_H
 FIRQ_BADBLK_L
 )) {
 
-1321 
+1383 
 	`u¨t_¥ötf
 ("BSP i¡îru±áàb™k: 0x%x", 
 b™k
 );
 
-1322 i‡(
+1384 i‡(
 fc
  =
 FC_COL_ROW_IN_PROG
@@ -5103,11 +5307,11 @@ FC_IN_PROG
 FC_PROG
 ) {
 
-1323 
+1385 
 	`u¨t_¥öt
 ("findÑuntime bad block when blockÖrogram...");
 
-1326 
+1388 
 	`u¨t_¥ötf
 ("födÑu¡imêbad block whí blockÉø£...vblock #: %d", 
 	`GETREG
@@ -5119,7 +5323,7 @@ b™k
 PAGES_PER_BLK
 );
 
-1327 
+1389 
 	`ASSERT
 (
 fc
@@ -5127,11 +5331,11 @@ fc
 FC_ERASE
 );
 
-1331 
+1393 
 	}
 }
 
-1370 
+1432 
 UINT32
  
 	$assign_√w_wrôe_vbn
@@ -5143,7 +5347,7 @@ b™k
 Õn
 )
 
-1372 
+1434 
 	`ASSERT
 (
 b™k
@@ -5151,19 +5355,19 @@ b™k
 NUM_BANKS
 );
 
-1374 
+1436 
 UINT32
  
 wrôe_vbn
 ;
 
-1375 
+1437 
 UINT32
  
 vblock
 ;
 
-1377 
+1439 
 wrôe_vbn
  = 
 	`gë_cur_wrôe_vbn
@@ -5171,109 +5375,101 @@ wrôe_vbn
 b™k
 );
 
-1378 
+1440 
 vblock
  = 
 wrôe_vbn
 ;
 
-1381 if((((
+1442 
+	`u¨t_¥ötf
+("öássign_√w_wrôe_vb¿fun˘i⁄, gë_vcou¡_block(b™k, wrôe_vbnË: %d",
+	`gë_vcou¡_block
+(
+b™k
+, 
+wrôe_vbn
+ - 
+fú°_bm≠_vblock
+[bank]));
+
+1443 if((((
 g_misc_mëa
 [
 b™k
 ].
 block_bôm≠
-[
-wrôe_vbn
-][(
+[(
 Õn
  % 
 PAGES_PER_BLK
-)/8]Ë>> (÷≤ % PAGES_PER_BLK)%8))*4 & 0x00000001Ë|| !(
+)/8]Ë>> (÷≤ % PAGES_PER_BLK)%8))*4 & 0x00000001Ë=0x1 || !(
 	`gë_vcou¡_block
-(bank,Üpn/PAGES_PER_BLK) < PAGES_PER_BLK - 1))
+(b™k, 
+wrôe_vbn
+ - 
+fú°_bm≠_vblock
+[bank]) < PAGES_PER_BLK))
 
-1384 
-	`mem_c›y
-(
-	`FTL_BUF
-(
-b™k
-), 
-g_misc_mëa
-[b™k].
-Õn_li°_of_cur_vblock_block
-, (
-UINT32
-Ë* 
-PAGES_PER_BLK
-);
+1445 
+	`u¨t_¥öt
+("test");
 
-1386 
-	`«nd_∑ge_±¥ogøm
-(
-b™k
-, 
-vblock
-, 
-PAGES_PER_BLK
- - 1, 0,
-
-1387 (((
-UINT32
-Ë* 
-PAGES_PER_BLK
- + 
-BYTES_PER_SECTOR
- - 1 ) / BYTES_PER_SECTOR), 
-	`FTL_BUF
-(
-b™k
-));
-
-1389 
-	`mem_£t_§am
-(
-g_misc_mëa
-[
-b™k
-].
-Õn_li°_of_cur_vblock_block
-, 0x00000000, (
-UINT32
-Ë* 
-PAGES_PER_BLK
-);
-
-1391 
+1447 
 	`öc_fuŒ_blk_˙t_block
 (
 b™k
 );
 
-1392 i‡(
+1448 i‡(
 	`is_fuŒ_Æl_blks_block
 (
 b™k
 ))
 
-1394 
+1450 
 	`g¨bage_cﬁÀ˘i⁄_block
 (
 b™k
 );
 
-1395  
+1451 if(
+	`gë_vcou¡_block
+(
+b™k
+, 
+wrôe_vbn
+ - 
+fú°_bm≠_vblock
+[b™k]Ë!
+VC_MAX
+Ë
+	`£t_vcou¡_block
+(bank, write_vbn - first_bmap_vblock[bank], 0);
+
+1453  
 	`gë_cur_wrôe_vbn
 (
 b™k
 );
 
-1400 
+1458 
 vblock
 ++;
 
-1401 
+1459 
+	`u¨t_¥ötf
+("gë_vcou¡_block(b™k, %dË: %d", 
+vblock
+, 
+	`gë_vcou¡_block
+(
+b™k
+, vblock - 
+fú°_bm≠_vblock
+[bank]));
+
+1460 
 	`ASSERT
 (
 vblock
@@ -5281,37 +5477,67 @@ vblock
 œ°_bm≠_block
 [
 b™k
-] - 1);
+]);
 
-1402 }
+1461 }
 	`gë_vcou¡_block
 (
 b™k
 , 
 vblock
-Ë=
+ - 
+fú°_bm≠_vblock
+[b™k]Ë=
 VC_MAX
  || 
 	`is_bad_block
 (bank, vblock));
 
-1406 i‡(
+1463 if(
+	`gë_vcou¡_block
+(
+b™k
+, 
+wrôe_vbn
+ - 
+fú°_bm≠_vblock
+[b™k]Ë!
+VC_MAX
+Ë
+	`£t_vcou¡_block
+(bank, write_vbn - first_bmap_vblock[bank], 0);
+
+1467 i‡(
 vblock
  !
 wrôe_vbn
 )
 
-1408 
+1469 
 wrôe_vbn
  = 
 vblock
 ;
 
-1412 
+1473 
 wrôe_vbn
 ++;
 
-1416 
+1475 
+	`mem£t
+(
+g_misc_mëa
+[
+b™k
+].
+block_bôm≠
+, 0, (
+PAGES_PER_BLK
+ / 8Ë* (
+UINT32
+));
+
+1479 
 	`£t_√w_wrôe_vbn
 (
 b™k
@@ -5319,15 +5545,15 @@ b™k
 wrôe_vbn
 );
 
-1417  
+1480  
 wrôe_vbn
 ;
 
-1418 
+1481 
 	}
 }
 
-1421 
+1484 
 	$·l_ªad_block
 (
 UINT32
@@ -5337,7 +5563,7 @@ lba
 num_£˘‹s
 )
 
-1423 
+1486 
 UINT32
  
 ªmaö_£˘s
@@ -5345,7 +5571,7 @@ UINT32
 num_£˘‹s_to_ªad
 ;
 
-1424 
+1487 
 UINT32
  
 Õn
@@ -5353,7 +5579,7 @@ UINT32
 £˘_off£t
 ;
 
-1425 
+1488 
 UINT32
  
 b™k
@@ -5361,7 +5587,7 @@ b™k
 v≤
 ;
 
-1427 
+1490 
 Õn
  = 
 lba
@@ -5369,7 +5595,7 @@ lba
 SECTORS_PER_PAGE
 ;
 
-1428 
+1491 
 £˘_off£t
  = 
 lba
@@ -5377,17 +5603,25 @@ lba
 SECTORS_PER_PAGE
 ;
 
-1429 
+1492 
 ªmaö_£˘s
  = 
 num_£˘‹s
 ;
 
-1431 
+1494 
+	`u¨t_¥ötf
+("·l_ªad_block(%d, %dË°¨t", 
+lba
+, 
+num_£˘‹s
+);
+
+1496 
 ªmaö_£˘s
  != 0)
 
-1433 i‡((
+1498 i‡((
 £˘_off£t
  + 
 ªmaö_£˘s
@@ -5395,13 +5629,13 @@ num_£˘‹s
 SECTORS_PER_PAGE
 )
 
-1435 
+1500 
 num_£˘‹s_to_ªad
  = 
 ªmaö_£˘s
 ;
 
-1439 
+1504 
 num_£˘‹s_to_ªad
  = 
 SECTORS_PER_PAGE
@@ -5409,15 +5643,17 @@ SECTORS_PER_PAGE
 £˘_off£t
 ;
 
-1441 
+1506 
 b™k
  = 
-	`gë_num_b™k
+	`gë_num_b™k_block
 (
 Õn
+ / 
+PAGES_PER_BLK
 );
 
-1442 
+1507 
 v≤
  = 
 	`gë_vbn
@@ -5431,13 +5667,13 @@ NUM_BMAP_BLOCK
 PAGES_PER_BLK
 );
 
-1443 
+1508 
 	`u¨t_¥ötf
 ("Ród from b™k %d\n", 
 b™k
 );
 
-1444 
+1509 
 	`u¨t_¥ötf
 ("RódÖagê‰omÜb¿%d,Ü≤ %d\n", 
 v≤
@@ -5447,37 +5683,53 @@ v≤
 PAGES_PER_BLK
 );
 
-1445 i‡(
+1510 i‡(
 v≤
  !
 NULL
 )
 
-1447 
+1512 
 	`«nd_∑ge_±ªad_to_ho°
 (
 b™k
 ,
 
-1448 
+1513 
 v≤
 ,
 
-1449 
+1514 
 Õn
  % 
 PAGES_PER_BLK
 ,
 
-1450 
+1515 
 £˘_off£t
 ,
 
-1451 
+1516 
 num_£˘‹s_to_ªad
 );
 
-1456 
+1517 
+	`u¨t_¥ötf
+("«nd_∑ge_±ªad_to_ho°(%d, %d, %d, %d, %d);", 
+b™k
+, 
+v≤
+, 
+Õn
+ % 
+PAGES_PER_BLK
+, 
+£˘_off£t
+, 
+num_£˘‹s_to_ªad
+);
+
+1522 
 UINT32
  
 √xt_ªad_buf_id
@@ -5487,11 +5739,11 @@ g_·l_ªad_buf_id
 NUM_RD_BUFFERS
 ;
 
-1458 #i‡
+1524 #i‡
 OPTION_FTL_TEST
  == 0
 
-1459 
+1525 
 √xt_ªad_buf_id
  =
 	`GETREG
@@ -5499,7 +5751,7 @@ OPTION_FTL_TEST
 SATA_RBUF_PTR
 ));
 
-1466 
+1532 
 	`mem_£t_døm
 (
 	`RD_BUF_PTR
@@ -5511,17 +5763,17 @@ g_·l_ªad_buf_id
 BYTES_PER_SECTOR
 ,
 
-1467 0xFFFFFFFF, 
+1533 0xFFFFFFFF, 
 num_£˘‹s_to_ªad
 *
 BYTES_PER_SECTOR
 );
 
-1469 
+1535 
 	`Êash_föish
 ();
 
-1471 
+1537 
 	`SETREG
 (
 BM_STACK_RDSET
@@ -5529,41 +5781,41 @@ BM_STACK_RDSET
 √xt_ªad_buf_id
 );
 
-1472 
+1538 
 	`SETREG
 (
 BM_STACK_RESET
 , 0x02);
 
-1474 
+1540 
 g_·l_ªad_buf_id
  = 
 √xt_ªad_buf_id
 ;
 
-1476 
+1542 
 £˘_off£t
  = 0;
 
-1477 
+1543 
 ªmaö_£˘s
  -
 num_£˘‹s_to_ªad
 ;
 
-1478 
+1544 
 Õn
 ++;
 
-1480 
+1546 
 	`u¨t_¥ötf
 ("read function success");
 
-1481 
+1547 
 	}
 }
 
-1487 
+1553 
 	$·l_wrôe_block
 (
 UINT32
@@ -5573,7 +5825,7 @@ lba
 num_£˘‹s
 )
 
-1489 
+1555 
 UINT32
  
 ªmaö_£˘s
@@ -5581,7 +5833,7 @@ UINT32
 num_£˘‹s_to_wrôe
 ;
 
-1490 
+1556 
 UINT32
  
 Õn
@@ -5589,7 +5841,7 @@ UINT32
 £˘_off£t
 ;
 
-1492 
+1558 
 Õn
  = 
 lba
@@ -5597,7 +5849,7 @@ lba
 SECTORS_PER_PAGE
 ;
 
-1493 
+1559 
 £˘_off£t
  = 
 lba
@@ -5605,17 +5857,17 @@ lba
 SECTORS_PER_PAGE
 ;
 
-1494 
+1560 
 ªmaö_£˘s
  = 
 num_£˘‹s
 ;
 
-1495 
+1561 
 	`u¨t_¥ötf
 ("----------------------------------------------------------------------");
 
-1496 
+1562 
 	`u¨t_¥ötf
 ("lb®: %d,Õ¿: %d",
 lba
@@ -5623,11 +5875,11 @@ lba
 Õn
 );
 
-1497 
+1563 
 ªmaö_£˘s
  != 0)
 
-1499 i‡((
+1565 i‡((
 £˘_off£t
  + 
 ªmaö_£˘s
@@ -5635,13 +5887,13 @@ lba
 SECTORS_PER_PAGE
 )
 
-1501 
+1567 
 num_£˘‹s_to_wrôe
  = 
 ªmaö_£˘s
 ;
 
-1505 
+1571 
 num_£˘‹s_to_wrôe
  = 
 SECTORS_PER_PAGE
@@ -5649,7 +5901,7 @@ SECTORS_PER_PAGE
 £˘_off£t
 ;
 
-1508 
+1574 
 	`wrôe_∑ge_block
 (
 Õn
@@ -5659,25 +5911,25 @@ SECTORS_PER_PAGE
 num_£˘‹s_to_wrôe
 );
 
-1510 
+1576 
 £˘_off£t
  = 0;
 
-1511 
+1577 
 ªmaö_£˘s
  -
 num_£˘‹s_to_wrôe
 ;
 
-1512 
+1578 
 Õn
 ++;
 
-1514 
+1580 
 	}
 }
 
-1517 
+1583 
 	$wrôe_∑ge_block
 (
 UINT32
@@ -5689,7 +5941,7 @@ UINT32
 num_£˘‹s
 )
 
-1519 
+1585 
 	`CHECK_LBLOCK
 (
 Õn
@@ -5697,7 +5949,7 @@ num_£˘‹s
 PAGES_PER_BLK
 );
 
-1520 
+1586 
 	`ASSERT
 (
 £˘_off£t
@@ -5705,7 +5957,7 @@ PAGES_PER_BLK
 SECTORS_PER_PAGE
 );
 
-1521 
+1587 
 	`ASSERT
 (
 num_£˘‹s
@@ -5713,7 +5965,7 @@ num_£˘‹s
 SECTORS_PER_PAGE
 );
 
-1523 
+1589 
 UINT32
  
 b™k
@@ -5723,7 +5975,7 @@ b™k
 √w_vbn
 ;
 
-1524 
+1590 
 UINT32
  
 vblock
@@ -5735,7 +5987,7 @@ vblock
 cﬁumn_˙t
 ;
 
-1525 
+1591 
 UINT32
  
 lbn
@@ -5745,27 +5997,29 @@ lbn
 PAGES_PER_BLK
 ;
 
-1528 
+1594 
 b™k
  = 
-	`gë_num_b™k
+	`gë_num_b™k_block
 (
 Õn
+ / 
+PAGES_PER_BLK
 );
 
-1530 
+1596 
 ∑ge_off£t
  = 
 £˘_off£t
 ;
 
-1531 
+1597 
 cﬁumn_˙t
  = 
 num_£˘‹s
 ;
 
-1532 
+1598 
 ∑ge_num
  = 
 Õn
@@ -5773,7 +6027,7 @@ num_£˘‹s
 PAGES_PER_BLK
 ;
 
-1534 
+1600 
 √w_vbn
  = 
 	`assign_√w_wrôe_vbn
@@ -5783,7 +6037,7 @@ b™k
 Õn
 );
 
-1535 
+1601 
 ﬁd_vbn
  = 
 	`gë_vbn
@@ -5791,7 +6045,7 @@ b™k
 lbn
 );
 
-1537 
+1603 
 g_·l_°©i°ics
 [
 b™k
@@ -5799,413 +6053,13 @@ b™k
 ∑ge_wcou¡
 ++;
 
-1540 i‡(((
-g_misc_mëa
-[
-b™k
-].
-block_bôm≠
-[
-√w_vbn
-][(
-Õn
- % 
-PAGES_PER_BLK
-) / 8] >> (lpn % PAGES_PER_BLK) % 8)*4) & 0x00000001 == 1)
-
-1542 
-	`u¨t_¥ötf
-("test");
-
-1543 
-UINT32
- 
-§c_lbn
-;
-
-1544 
-UINT32
- 
-vt_vblock
-;
-
-1545 
-UINT32
- 
-‰ì_v≤
-;
-
-1546 
-UINT32
- 
-vcou¡
-;
-
-1547 
-UINT32
- 
-§c_∑ge
-;
-
-1548 
-UINT32
- 
-gc_vblock
-;
-
-1550 
-g_·l_°©i°ics
-[
-b™k
-].
-gc_˙t
-++;
-
-1552 
-vt_vblock
- = 
-ﬁd_vbn
-;
-
-1553 
-vcou¡
- = 
-	`gë_vcou¡_block
-(
-b™k
-, 
-vt_vblock
-);
-
-1555 
-gc_vblock
- = 
-√w_vbn
-;
-
-1556 
-‰ì_v≤
- = 
-gc_vblock
- * 
-PAGES_PER_BLK
-;
-
-1559 
-§c_∑ge
- = 0; src_∑gê< (
-PAGES_PER_BLK
- - 1); src_page++)
-
-1562 
-§c_lbn
- = 
-	`gë_lbn
-(
-b™k
-,
-§c_∑ge
-);
-
-1565 i‡(
-	`gë_vbn
-(
-§c_lbn
-Ë!
-vt_vblock
-)
-
-1573 
-	`«nd_∑ge_c›yback
-(
-b™k
-,
-
-1574 
-vt_vblock
-,
-
-1575 
-§c_∑ge
-,
-
-1576 
-‰ì_v≤
- / 
-PAGES_PER_BLK
-,
-
-1577 
-‰ì_v≤
- % 
-PAGES_PER_BLK
-);
-
-1580 
-	`£t_vbn
-(
-§c_lbn
-, 
-‰ì_v≤
- % 
-PAGES_PER_BLK
-);
-
-1581 
-	`£t_lbn
-(
-b™k
-, (
-‰ì_v≤
- % 
-PAGES_PER_BLK
-), 
-§c_lbn
-);
-
-1583 
-‰ì_v≤
-++;
-
-1586 
-	`«nd_block_îa£
-(
-b™k
-, 
-vt_vblock
-);
-
-1589 
-	`£t_vcou¡_block
-(
-b™k
-, 
-vt_vblock
-, 
-PAGES_PER_BLK
- - 1);
-
-1590 
-	`£t_vcou¡_block
-(
-b™k
-, 
-gc_vblock
-, 
-vcou¡
-);
-
-1594 
-vblock
- = 
-ﬁd_vbn
-;
-
-1605 i‡(
-num_£˘‹s
- !
-SECTORS_PER_PAGE
-)
-
-1610 i‡((
-num_£˘‹s
- <8Ë&& (
-∑ge_off£t
- != 0))
-
-1613 
-	`«nd_∑ge_ªad
-(
-b™k
-,
-
-1614 
-vblock
-,
-
-1615 
-∑ge_num
-,
-
-1616 
-	`FTL_BUF
-(
-b™k
-));
-
-1618 i‡(
-∑ge_off£t
- != 0)
-
-1620 
-	`mem_c›y
-(
-	`WR_BUF_PTR
-(
-g_·l_wrôe_buf_id
-),
-
-1621 
-	`FTL_BUF
-(
-b™k
-),
-
-1622 
-∑ge_off£t
- * 
-BYTES_PER_SECTOR
-);
-
-1625 i‡((
-∑ge_off£t
- + 
-cﬁumn_˙t
-Ë< 
-SECTORS_PER_PAGE
-)
-
-1627 
-UINT32
- c⁄° 
-rhﬁe_ba£
- = (
-∑ge_off£t
- + 
-cﬁumn_˙t
-Ë* 
-BYTES_PER_SECTOR
-;
-
-1629 
-	`mem_c›y
-(
-	`WR_BUF_PTR
-(
-g_·l_wrôe_buf_id
-Ë+ 
-rhﬁe_ba£
-,
-
-1630 
-	`FTL_BUF
-(
-b™k
-Ë+ 
-rhﬁe_ba£
-,
-
-1631 
-BYTES_PER_PAGE
- - 
-rhﬁe_ba£
-);
-
-1638 i‡(
-∑ge_off£t
- != 0)
-
-1640 
-	`«nd_∑ge_±ªad
-(
-b™k
-,
-
-1641 
-vblock
-,
-
-1642 
-∑ge_num
-,
-
-1644 
-∑ge_off£t
-,
-
-1645 
-	`WR_BUF_PTR
-(
-g_·l_wrôe_buf_id
-),
-
-1646 
-RETURN_ON_ISSUE
-);
-
-1649 i‡((
-∑ge_off£t
- + 
-cﬁumn_˙t
-Ë< 
-SECTORS_PER_PAGE
-)
-
-1651 
-	`«nd_∑ge_±ªad
-(
-b™k
-,
-
-1652 
-vblock
-,
-
-1653 
-∑ge_num
-,
-
-1654 
-∑ge_off£t
- + 
-cﬁumn_˙t
-,
-
-1655 
-SECTORS_PER_PAGE
- - (
-∑ge_off£t
- + 
-cﬁumn_˙t
-),
-
-1656 
-	`WR_BUF_PTR
-(
-g_·l_wrôe_buf_id
-),
-
-1657 
-RETURN_ON_ISSUE
-);
-
-1662 
-∑ge_off£t
- = 0;
-
-1663 
-cﬁumn_˙t
- = 
-SECTORS_PER_PAGE
-;
-
-1666 
-	`£t_vcou¡_block
-(
-b™k
-, 
-vblock
-, 
-	`gë_vcou¡_block
-(bank, vblock) - 1);
-
-1670 
+1605 
 vblock
  = 
 √w_vbn
 ;
 
-1671 
+1606 
 ∑ge_num
  = 
 Õn
@@ -6213,39 +6067,39 @@ vblock
 PAGES_PER_BLK
 ;
 
-1673 
+1608 
 	`u¨t_¥ötf
 ("Wrôêd©®tÿlb¿%d,Ü≤ %d, # b™k†%d\n", 
 vblock
 , 
 ∑ge_num
 , 
-NUM_BANKS
+b™k
 );
 
-1676 
+1611 
 	`«nd_∑ge_±¥ogøm_‰om_ho°
 (
 b™k
 ,
 
-1677 
+1612 
 vblock
 ,
 
-1678 
+1613 
 ∑ge_num
 ,
 
-1679 
+1614 
 ∑ge_off£t
 ,
 
-1680 
+1615 
 cﬁumn_˙t
 );
 
-1682 
+1617 
 	`£t_lbn
 (
 b™k
@@ -6255,7 +6109,7 @@ b™k
 lbn
 );
 
-1683 
+1618 
 	`£t_vbn
 (
 b™k
@@ -6267,7 +6121,7 @@ lbn
 √w_vbn
 );
 
-1684 
+1619 
 	`u¨t_¥ötf
 ("Gë vb¿%d\n", 
 	`gë_vbn
@@ -6275,17 +6129,19 @@ lbn
 lbn
 ));
 
-1685 
+1620 
 	`£t_vcou¡_block
 (
 b™k
 , 
 vblock
-, 
+ - 
+fú°_bm≠_vblock
+[b™k], 
 	`gë_vcou¡_block
-(bank, vblock) + 1);
+(bank, vblock - first_bmap_vblock[bank]) + 1);
 
-1686 
+1621 
 	`£t_√w_wrôe_vbn
 (
 b™k
@@ -6293,43 +6149,51 @@ b™k
 √w_vbn
 );
 
-1687 
+1622 
 	`u¨t_¥ötf
 ("lb¿: %d",
 lbn
 );
 
-1688 
+1623 
 	`u¨t_¥ötf
 ("∑ge_num : %d",
 ∑ge_num
 );
 
-1689 
+1624 
 	`u¨t_¥ötf
 ("vb¿: %d",
 √w_vbn
 );
 
-1692 
+1627 
 g_misc_mëa
 [
 b™k
 ].
 block_bôm≠
-[
-√w_vbn
-][(
+[(
 Õn
  % 
 PAGES_PER_BLK
-) / 8] = g_misc_meta[bank].block_bitmap[new_vbn][(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
+) / 8] = g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
 
-1693 
+1628 
+	`u¨t_¥ötf
+("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", 
+g_misc_mëa
+[
+b™k
+].
+block_bôm≠
+[0], g_misc_meta[bank].block_bitmap[1], g_misc_meta[bank].block_bitmap[2], g_misc_meta[bank].block_bitmap[3], g_misc_meta[bank].block_bitmap[4], g_misc_meta[bank].block_bitmap[5], g_misc_meta[bank].block_bitmap[6], g_misc_meta[bank].block_bitmap[7], g_misc_meta[bank].block_bitmap[8], g_misc_meta[bank].block_bitmap[9], g_misc_meta[bank].block_bitmap[10], g_misc_meta[bank].block_bitmap[11], g_misc_meta[bank].block_bitmap[12], g_misc_meta[bank].block_bitmap[13], g_misc_meta[bank].block_bitmap[14], g_misc_meta[bank].block_bitmap[15]);
+
+1629 
 	}
 }
 
-1700 
+1636 
 UINT32
  
 	$gë_vbn
@@ -6339,13 +6203,13 @@ UINT32
 lbn
 )
 
-1702 
+1638 
 	`CHECK_LBLOCK
 (
 lbn
 );
 
-1703  
+1639  
 	`ªad_døm_32
 (
 BLOCK_MAP_ADDR
@@ -6355,11 +6219,11 @@ lbn
 UINT32
 ));
 
-1704 
+1640 
 	}
 }
 
-1706 
+1642 
 	$£t_vbn
 (
 UINT32
@@ -6369,13 +6233,13 @@ lbn
 vbn
 )
 
-1708 
+1644 
 	`CHECK_LBLOCK
 (
 lbn
 );
 
-1709 
+1645 
 	`ASSERT
 (
 vbn
@@ -6385,7 +6249,7 @@ VBLKS_PER_BANK
 NUM_BMAP_BLOCK
 ));
 
-1711 
+1647 
 	`wrôe_døm_32
 (
 BLOCK_MAP_ADDR
@@ -6397,11 +6261,11 @@ UINT32
 vbn
 );
 
-1712 
+1648 
 	}
 }
 
-1715 
+1651 
 UINT32
  
 	$gë_vcou¡_block
@@ -6413,13 +6277,13 @@ b™k
 vblock
 )
 
-1717 
+1653 
 UINT32
  
 vcou¡
 ;
 
-1719 
+1655 
 	`ASSERT
 (
 b™k
@@ -6427,7 +6291,7 @@ b™k
 NUM_BANKS
 );
 
-1721 
+1657 
 vcou¡
  = 
 	`ªad_døm_16
@@ -6443,25 +6307,25 @@ vblock
 UINT16
 )));
 
-1722 
+1658 
 	`ASSERT
 ((
 vcou¡
- < 
+ <
 PAGES_PER_BLK
 Ë|| (vcou¡ =
 VC_MAX
 ));
 
-1724  
+1660  
 vcou¡
 ;
 
-1725 
+1661 
 	}
 }
 
-1727 
+1663 
 	$£t_vcou¡_block
 (
 UINT32
@@ -6473,7 +6337,7 @@ vblock
 vcou¡
 )
 
-1729 
+1665 
 	`ASSERT
 (
 b™k
@@ -6481,17 +6345,17 @@ b™k
 NUM_BANKS
 );
 
-1730 
+1666 
 	`ASSERT
 ((
 vcou¡
- < 
+ <
 PAGES_PER_BLK
 Ë|| (vcou¡ =
 VC_MAX
 ));
 
-1732 
+1668 
 	`wrôe_døm_16
 (
 BLOCK_VCOUNT_ADDR
@@ -6507,11 +6371,11 @@ UINT16
 vcou¡
 );
 
-1733 
+1669 
 	}
 }
 
-1741 
+1677 
 	$g¨bage_cﬁÀ˘i⁄_block
 (
 UINT32
@@ -6519,7 +6383,7 @@ UINT32
 b™k
 )
 
-1743 
+1679 
 	`ASSERT
 (
 b™k
@@ -6527,7 +6391,7 @@ b™k
 NUM_BANKS
 );
 
-1744 
+1680 
 g_·l_°©i°ics
 [
 b™k
@@ -6535,43 +6399,37 @@ b™k
 gc_˙t
 ++;
 
-1746 
+1682 
 UINT32
  
 §c_lbn
 ;
 
-1747 
+1683 
 UINT32
  
 vt_vblock
 ;
 
-1748 
-UINT32
- 
-‰ì_v≤
-;
-
-1749 
+1684 
 UINT32
  
 vcou¡
 ;
 
-1750 
+1685 
 UINT32
  
 §c_∑ge
 ;
 
-1751 
+1686 
 UINT32
  
 gc_vblock
 ;
 
-1753 
+1688 
 g_·l_°©i°ics
 [
 b™k
@@ -6579,7 +6437,11 @@ b™k
 gc_˙t
 ++;
 
-1755 
+1691 
+	`u¨t_¥ötf
+("garbage_collection_block function start");
+
+1692 
 vt_vblock
  = 
 	`gë_vt_vblock_block
@@ -6587,7 +6449,7 @@ vt_vblock
 b™k
 );
 
-1756 
+1693 
 vcou¡
  = 
 	`gë_vcou¡_block
@@ -6595,9 +6457,11 @@ vcou¡
 b™k
 , 
 vt_vblock
-);
+ - 
+fú°_bm≠_vblock
+[bank]);
 
-1757 
+1694 
 gc_vblock
  = 
 	`gë_gc_vblock_block
@@ -6605,15 +6469,21 @@ gc_vblock
 b™k
 );
 
-1758 
-‰ì_v≤
- = 
+1696 
+	`u¨t_¥ötf
+("g¨bage_cﬁÀ˘i⁄ b™k %d, vblock %d, vblock\'†vcou¡ : %d, gc_vblock %d, gc_vblock\'†vcou¡ : %d",
+b™k
+, 
+vt_vblock
+, 
+	`gë_vcou¡_block
+(b™k, vt_vblock - 
+fú°_bm≠_vblock
+[b™k]), 
 gc_vblock
- * 
-PAGES_PER_BLK
-;
+, get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]));
 
-1762 
+1698 
 	`ASSERT
 (
 vt_vblock
@@ -6621,15 +6491,15 @@ vt_vblock
 gc_vblock
 );
 
-1763 
+1699 
 	`ASSERT
 (
 vcou¡
  < (
 PAGES_PER_BLK
- - 1));
+ + 1));
 
-1764 
+1700 
 	`ASSERT
 (
 	`gë_vcou¡_block
@@ -6637,155 +6507,13 @@ PAGES_PER_BLK
 b™k
 , 
 gc_vblock
-Ë=
+ - 
+fú°_bm≠_vblock
+[b™k]Ë=
 VC_MAX
 );
 
-1765 
-	`ASSERT
-(!
-	`is_bad_block
-(
-b™k
-, 
-gc_vblock
-));
-
-1769 
-	`«nd_∑ge_±ªad
-(
-b™k
-, 
-vt_vblock
-, 
-PAGES_PER_BLK
- - 1, 0,
-
-1770 (((
-UINT32
-Ë* 
-PAGES_PER_BLK
- + 
-BYTES_PER_SECTOR
- - 1 ) / BYTES_PER_SECTOR), 
-	`FTL_BUF
-(
-b™k
-), 
-RETURN_WHEN_DONE
-);
-
-1771 
-	`mem_c›y
-(
-g_misc_mëa
-[
-b™k
-].
-Õn_li°_of_cur_vblock
-, 
-	`FTL_BUF
-(b™k), (
-UINT32
-Ë* 
-PAGES_PER_BLK
-);
-
-1773 
-§c_∑ge
- = 0; src_∑gê< (
-PAGES_PER_BLK
- - 1); src_page++)
-
-1776 
-§c_lbn
- = 
-	`gë_lbn
-(
-b™k
-,
-§c_∑ge
-);
-
-1779 i‡(
-	`gë_vbn
-(
-§c_lbn
-Ë!
-vt_vblock
-)
-
-1787 
-	`«nd_∑ge_c›yback
-(
-b™k
-,
-
-1788 
-vt_vblock
-,
-
-1789 
-§c_∑ge
-,
-
-1790 
-‰ì_v≤
- / 
-PAGES_PER_BLK
-,
-
-1791 
-‰ì_v≤
- % 
-PAGES_PER_BLK
-);
-
-1794 
-	`£t_vbn
-(
-§c_lbn
-, 
-‰ì_v≤
- % 
-PAGES_PER_BLK
-);
-
-1795 
-	`£t_lbn
-(
-b™k
-, (
-‰ì_v≤
- % 
-PAGES_PER_BLK
-), 
-§c_lbn
-);
-
-1797 
-‰ì_v≤
-++;
-
-1800 #i‡
-OPTION_ENABLE_ASSERT
-
-
-1801 i‡(
-vcou¡
- == 0)
-
-1803 
-	`ASSERT
-(
-‰ì_v≤
- =(
-gc_vblock
- * 
-PAGES_PER_BLK
-));
-
-1807 
+1710 
 	`«nd_block_îa£
 (
 b™k
@@ -6793,77 +6521,43 @@ b™k
 vt_vblock
 );
 
-1808 
-	`ASSERT
-((
-‰ì_v≤
- % 
-PAGES_PER_BLK
-) < (PAGES_PER_BLK - 2));
-
-1809 
-	`ASSERT
-((
-‰ì_v≤
- % 
-PAGES_PER_BLK
- =
-vcou¡
-));
-
-1811 
+1712 
 	`u¨t_¥ötf
 ("g¯∑gêcou¡ : %d", 
 vcou¡
 );
 
-1814 
-	`mem£t
-(
-g_misc_mëa
-[
-b™k
-].
-block_bôm≠
-[
-‰ì_v≤
- / 
-PAGES_PER_BLK
-], 0, (PAGES_PER_BLK / 8Ë* (
-UINT32
-));
-
-1815 
+1715 
 	`£t_vcou¡_block
 (
 b™k
 , 
 vt_vblock
-, 
+ - 
+fú°_bm≠_vblock
+[b™k], 
 VC_MAX
 );
 
-1816 
+1716 
 	`£t_vcou¡_block
 (
 b™k
 , 
 gc_vblock
-, 
-vcou¡
-);
+ - 
+fú°_bm≠_vblock
+[bank], 0);
 
-1817 
+1717 
 	`£t_√w_wrôe_vbn
 (
 b™k
 , 
-‰ì_v≤
- / 
-PAGES_PER_BLK
+gc_vblock
 );
 
-1818 
+1718 
 	`£t_gc_vblock_block
 (
 b™k
@@ -6871,21 +6565,21 @@ b™k
 vt_vblock
 );
 
-1819 
+1719 
 	`dec_fuŒ_blk_˙t_block
 (
 b™k
 );
 
-1820 
+1721 
 	`u¨t_¥öt
 ("garbage_collectionÉnd");
 
-1821 
+1722 
 	}
 }
 
-1830 
+1731 
 UINT32
  
 	$gë_vt_vblock_block
@@ -6895,7 +6589,7 @@ UINT32
 b™k
 )
 
-1832 
+1733 
 	`ASSERT
 (
 b™k
@@ -6903,13 +6597,13 @@ b™k
 NUM_BANKS
 );
 
-1834 
+1735 
 UINT32
  
 vblock
 ;
 
-1837 
+1739 
 vblock
  = 
 	`mem_£¨ch_mö_max
@@ -6923,55 +6617,53 @@ NUM_BMAP_BLOCK
 UINT16
 )),
 
-1838 (
+1740 (
 UINT16
 ),
 
-1839 
+1741 
 NUM_BMAP_BLOCK
 ,
 
-1840 
+1742 
 MU_CMD_SEARCH_MIN_DRAM
 );
 
-1842 
-	`ASSERT
-(
-	`is_bad_block
-(
-b™k
-, 
-vblock
-Ë=
-FALSE
-);
-
-1843 
-	`ASSERT
-(
-vblock
- < 
-NUM_BMAP_BLOCK
-);
-
-1844 
+1745 
 	`ASSERT
 (
 	`gë_vcou¡_block
 (
 b™k
-, 
+,
 vblock
-Ë< (
+ - 
+fú°_bm≠_vblock
+[b™k]Ë< (
 PAGES_PER_BLK
- - 1));
+ + 1));
 
-1847  
+1747 
+	`u¨t_¥ötf
+("ö g¨bage_cﬁÀ˘i⁄(%d), vt_vblock i†%d\àvt_vblock\'†vcou¡ : %d", 
+b™k
+, 
+fú°_bm≠_vblock
+[b™k] + 
+vblock
+,
+	`gë_vcou¡_block
+(bank, vblock - first_bmap_vblock[bank]));
+
+1748  
+fú°_bm≠_vblock
+[
+b™k
+] + 
 vblock
 ;
 
-1848 
+1749 
 	}
 }
 
@@ -43941,6 +43633,10 @@ io_˙t
 NUM_PSECTORS_32KB
 );
 
+124 
+	`u¨t_¥öt
+("ftlÅestÖassed!");
+
 125 
 	}
 }
@@ -44139,7 +43835,7 @@ UINT32
 UINT32
  
 lo›
- = 0;Üoop < 5;Üoop++)
+ = 0;Üoop < 20;Üoop++)
 
 172 
 wr_buf_addr
@@ -44309,11 +44005,15 @@ BYTES_PER_SECTOR
 
 217 
 	`u¨t_¥ötf
+("-------------------------------------------------------------------------------------");
+
+218 
+	`u¨t_¥ötf
 ("RódÅe°Ü≤ %d", 
 lba
 );
 
-218 
+219 
 	`·l_ªad_block
 (
 lba
@@ -44321,17 +44021,17 @@ lba
 num_£˘‹s
 );
 
-220 
+221 
 	`Êash_föish
 ();
 
-223 
+224 
 j
  = 0; j < 
 num_£˘‹s
 ; j++)
 
-225 
+226 
 UINT32
  
 ßm∂e
@@ -44341,13 +44041,13 @@ UINT32
 rd_buf_addr
 );
 
-227 i‡(
+228 i‡(
 ßm∂e
  !
 d©a
 )
 
-229 
+230 
 	`u¨t_¥ötf
 ("·»ã° faû...io#: %d, %d", 
 lba
@@ -44355,7 +44055,7 @@ lba
 num_£˘‹s
 );
 
-230 
+231 
 	`u¨t_¥ötf
 ("ßm∂êd©®%d should bê%d", 
 ßm∂e
@@ -44363,7 +44063,7 @@ num_£˘‹s
 d©a
 );
 
-231 
+232 
 	`Àd_blök
 ();
 
@@ -44578,7 +44278,7 @@ d©a
 ++;
 
 287 
-	`·l_wrôe
+	`·l_wrôe_block
 (
 lba
 , 
@@ -44600,7 +44300,7 @@ BYTES_PER_SECTOR
 );
 
 291 
-	`·l_ªad
+	`·l_ªad_block
 (
 lba
 , 
