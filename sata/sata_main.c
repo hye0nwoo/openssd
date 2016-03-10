@@ -79,6 +79,7 @@ __inline ATA_FUNCTION_T search_ata_function(UINT32 command_code)
 
 void Main(void)
 {
+	UINT8 is_block = 0;
 	while (1)
 	{
 		if (eventq_get_count())
@@ -87,13 +88,24 @@ void Main(void)
 
 			eventq_get(&cmd);
 
+			is_block = (cmd.sector_count >> 28);
 			if (cmd.cmd_type == READ)
 			{
-				ftl_read(cmd.lba, cmd.sector_count);
+				if (is_block) {
+					ftl_read_block(cmd.lba,
+							cmd.sector_count & 0x0FFFFFFF);
+				} else {
+					ftl_read(cmd.lba, cmd.sector_count);
+				}
 			}
 			else
 			{
-				ftl_write(cmd.lba, cmd.sector_count);
+				if (is_block) {
+					ftl_write_block(cmd.lba,
+							cmd.sector_count & 0x0FFFFFFF);
+				} else {
+					ftl_write(cmd.lba, cmd.sector_count);
+				}
 			}
 		}
 		else if (g_sata_context.slow_cmd.status == SLOW_CMD_STATUS_PENDING)
