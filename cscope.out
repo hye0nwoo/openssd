@@ -1,4 +1,4 @@
-cscope 15 /home/vldbhw/openssd_20151230               0000374676
+cscope 15 /home/vldbhw/openssd_20151230               0000375397
 	@ftl_greedy/ftl.c
 
 28 
@@ -5929,7 +5929,23 @@ num_£˘‹s_to_wrôe
 	}
 }
 
-1583 
+1583 
+	$is_wrôãn
+(
+UINT32
+ 
+b™k
+, UINT32 
+lbn
+, UINT32 
+Õn
+)
+
+1586 
+	}
+}
+
+1587 
 	$wrôe_∑ge_block
 (
 UINT32
@@ -5941,7 +5957,7 @@ UINT32
 num_£˘‹s
 )
 
-1585 
+1589 
 	`CHECK_LBLOCK
 (
 Õn
@@ -5949,7 +5965,7 @@ num_£˘‹s
 PAGES_PER_BLK
 );
 
-1586 
+1590 
 	`ASSERT
 (
 £˘_off£t
@@ -5957,7 +5973,7 @@ PAGES_PER_BLK
 SECTORS_PER_PAGE
 );
 
-1587 
+1591 
 	`ASSERT
 (
 num_£˘‹s
@@ -5965,7 +5981,7 @@ num_£˘‹s
 SECTORS_PER_PAGE
 );
 
-1589 
+1593 
 UINT32
  
 b™k
@@ -5975,7 +5991,7 @@ b™k
 √w_vbn
 ;
 
-1590 
+1594 
 UINT32
  
 vblock
@@ -5987,7 +6003,7 @@ vblock
 cﬁumn_˙t
 ;
 
-1591 
+1595 
 UINT32
  
 lbn
@@ -5997,7 +6013,7 @@ lbn
 PAGES_PER_BLK
 ;
 
-1594 
+1598 
 b™k
  = 
 	`gë_num_b™k_block
@@ -6007,19 +6023,19 @@ b™k
 PAGES_PER_BLK
 );
 
-1596 
+1600 
 ∑ge_off£t
  = 
 £˘_off£t
 ;
 
-1597 
+1601 
 cﬁumn_˙t
  = 
 num_£˘‹s
 ;
 
-1598 
+1602 
 ∑ge_num
  = 
 Õn
@@ -6027,7 +6043,7 @@ num_£˘‹s
 PAGES_PER_BLK
 ;
 
-1600 
+1604 
 √w_vbn
  = 
 	`assign_√w_wrôe_vbn
@@ -6037,7 +6053,7 @@ b™k
 Õn
 );
 
-1601 
+1605 
 ﬁd_vbn
  = 
 	`gë_vbn
@@ -6045,7 +6061,7 @@ b™k
 lbn
 );
 
-1603 
+1607 
 g_·l_°©i°ics
 [
 b™k
@@ -6053,13 +6069,13 @@ b™k
 ∑ge_wcou¡
 ++;
 
-1605 
+1609 
 vblock
  = 
 √w_vbn
 ;
 
-1606 
+1610 
 ∑ge_num
  = 
 Õn
@@ -6067,7 +6083,7 @@ vblock
 PAGES_PER_BLK
 ;
 
-1608 
+1612 
 	`u¨t_¥ötf
 ("Wrôêd©®tÿlb¿%d,Ü≤ %d, # b™k†%d\n", 
 vblock
@@ -6077,29 +6093,29 @@ vblock
 b™k
 );
 
-1611 
+1615 
 	`«nd_∑ge_±¥ogøm_‰om_ho°
 (
 b™k
 ,
 
-1612 
+1616 
 vblock
 ,
 
-1613 
+1617 
 ∑ge_num
 ,
 
-1614 
+1618 
 ∑ge_off£t
 ,
 
-1615 
+1619 
 cﬁumn_˙t
 );
 
-1617 
+1621 
 	`£t_lbn
 (
 b™k
@@ -6109,7 +6125,7 @@ b™k
 lbn
 );
 
-1618 
+1622 
 	`£t_vbn
 (
 b™k
@@ -6121,7 +6137,7 @@ lbn
 √w_vbn
 );
 
-1619 
+1623 
 	`u¨t_¥ötf
 ("Gë vb¿%d\n", 
 	`gë_vbn
@@ -6129,7 +6145,7 @@ lbn
 lbn
 ));
 
-1620 
+1624 
 	`£t_vcou¡_block
 (
 b™k
@@ -6141,7 +6157,7 @@ fú°_bm≠_vblock
 	`gë_vcou¡_block
 (bank, vblock - first_bmap_vblock[bank]) + 1);
 
-1621 
+1625 
 	`£t_√w_wrôe_vbn
 (
 b™k
@@ -6149,25 +6165,25 @@ b™k
 √w_vbn
 );
 
-1622 
+1626 
 	`u¨t_¥ötf
 ("lb¿: %d",
 lbn
 );
 
-1623 
+1627 
 	`u¨t_¥ötf
 ("∑ge_num : %d",
 ∑ge_num
 );
 
-1624 
+1628 
 	`u¨t_¥ötf
 ("vb¿: %d",
 √w_vbn
 );
 
-1627 
+1631 
 g_misc_mëa
 [
 b™k
@@ -6179,7 +6195,7 @@ block_bôm≠
 PAGES_PER_BLK
 ) / 8] = g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
 
-1628 
+1632 
 	`u¨t_¥ötf
 ("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", 
 g_misc_mëa
@@ -6189,11 +6205,11 @@ b™k
 block_bôm≠
 [0], g_misc_meta[bank].block_bitmap[1], g_misc_meta[bank].block_bitmap[2], g_misc_meta[bank].block_bitmap[3], g_misc_meta[bank].block_bitmap[4], g_misc_meta[bank].block_bitmap[5], g_misc_meta[bank].block_bitmap[6], g_misc_meta[bank].block_bitmap[7], g_misc_meta[bank].block_bitmap[8], g_misc_meta[bank].block_bitmap[9], g_misc_meta[bank].block_bitmap[10], g_misc_meta[bank].block_bitmap[11], g_misc_meta[bank].block_bitmap[12], g_misc_meta[bank].block_bitmap[13], g_misc_meta[bank].block_bitmap[14], g_misc_meta[bank].block_bitmap[15]);
 
-1629 
+1633 
 	}
 }
 
-1636 
+1640 
 UINT32
  
 	$gë_vbn
@@ -6203,13 +6219,13 @@ UINT32
 lbn
 )
 
-1638 
+1642 
 	`CHECK_LBLOCK
 (
 lbn
 );
 
-1639  
+1643  
 	`ªad_døm_32
 (
 BLOCK_MAP_ADDR
@@ -6219,11 +6235,11 @@ lbn
 UINT32
 ));
 
-1640 
+1644 
 	}
 }
 
-1642 
+1646 
 	$£t_vbn
 (
 UINT32
@@ -6233,13 +6249,13 @@ lbn
 vbn
 )
 
-1644 
+1648 
 	`CHECK_LBLOCK
 (
 lbn
 );
 
-1645 
+1649 
 	`ASSERT
 (
 vbn
@@ -6249,7 +6265,7 @@ VBLKS_PER_BANK
 NUM_BMAP_BLOCK
 ));
 
-1647 
+1651 
 	`wrôe_døm_32
 (
 BLOCK_MAP_ADDR
@@ -6261,11 +6277,11 @@ UINT32
 vbn
 );
 
-1648 
+1652 
 	}
 }
 
-1651 
+1655 
 UINT32
  
 	$gë_vcou¡_block
@@ -6277,13 +6293,13 @@ b™k
 vblock
 )
 
-1653 
+1657 
 UINT32
  
 vcou¡
 ;
 
-1655 
+1659 
 	`ASSERT
 (
 b™k
@@ -6291,7 +6307,7 @@ b™k
 NUM_BANKS
 );
 
-1657 
+1661 
 vcou¡
  = 
 	`ªad_døm_16
@@ -6307,7 +6323,7 @@ vblock
 UINT16
 )));
 
-1658 
+1662 
 	`ASSERT
 ((
 vcou¡
@@ -6317,15 +6333,15 @@ PAGES_PER_BLK
 VC_MAX
 ));
 
-1660  
+1664  
 vcou¡
 ;
 
-1661 
+1665 
 	}
 }
 
-1663 
+1667 
 	$£t_vcou¡_block
 (
 UINT32
@@ -6337,7 +6353,7 @@ vblock
 vcou¡
 )
 
-1665 
+1669 
 	`ASSERT
 (
 b™k
@@ -6345,7 +6361,7 @@ b™k
 NUM_BANKS
 );
 
-1666 
+1670 
 	`ASSERT
 ((
 vcou¡
@@ -6355,7 +6371,7 @@ PAGES_PER_BLK
 VC_MAX
 ));
 
-1668 
+1672 
 	`wrôe_døm_16
 (
 BLOCK_VCOUNT_ADDR
@@ -6371,11 +6387,11 @@ UINT16
 vcou¡
 );
 
-1669 
+1673 
 	}
 }
 
-1677 
+1681 
 	$g¨bage_cﬁÀ˘i⁄_block
 (
 UINT32
@@ -6383,7 +6399,7 @@ UINT32
 b™k
 )
 
-1679 
+1683 
 	`ASSERT
 (
 b™k
@@ -6391,7 +6407,7 @@ b™k
 NUM_BANKS
 );
 
-1680 
+1684 
 g_·l_°©i°ics
 [
 b™k
@@ -6399,37 +6415,37 @@ b™k
 gc_˙t
 ++;
 
-1682 
+1686 
 UINT32
  
 §c_lbn
 ;
 
-1683 
+1687 
 UINT32
  
 vt_vblock
 ;
 
-1684 
+1688 
 UINT32
  
 vcou¡
 ;
 
-1685 
+1689 
 UINT32
  
 §c_∑ge
 ;
 
-1686 
+1690 
 UINT32
  
 gc_vblock
 ;
 
-1688 
+1692 
 g_·l_°©i°ics
 [
 b™k
@@ -6437,11 +6453,11 @@ b™k
 gc_˙t
 ++;
 
-1691 
+1695 
 	`u¨t_¥ötf
 ("garbage_collection_block function start");
 
-1692 
+1696 
 vt_vblock
  = 
 	`gë_vt_vblock_block
@@ -6449,7 +6465,7 @@ vt_vblock
 b™k
 );
 
-1693 
+1697 
 vcou¡
  = 
 	`gë_vcou¡_block
@@ -6461,7 +6477,7 @@ vt_vblock
 fú°_bm≠_vblock
 [bank]);
 
-1694 
+1698 
 gc_vblock
  = 
 	`gë_gc_vblock_block
@@ -6469,7 +6485,7 @@ gc_vblock
 b™k
 );
 
-1696 
+1700 
 	`u¨t_¥ötf
 ("g¨bage_cﬁÀ˘i⁄ b™k %d, vblock %d, vblock\'†vcou¡ : %d, gc_vblock %d, gc_vblock\'†vcou¡ : %d",
 b™k
@@ -6483,7 +6499,7 @@ fú°_bm≠_vblock
 gc_vblock
 , get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]));
 
-1698 
+1702 
 	`ASSERT
 (
 vt_vblock
@@ -6491,7 +6507,7 @@ vt_vblock
 gc_vblock
 );
 
-1699 
+1703 
 	`ASSERT
 (
 vcou¡
@@ -6499,7 +6515,7 @@ vcou¡
 PAGES_PER_BLK
  + 1));
 
-1700 
+1704 
 	`ASSERT
 (
 	`gë_vcou¡_block
@@ -6513,7 +6529,7 @@ fú°_bm≠_vblock
 VC_MAX
 );
 
-1710 
+1714 
 	`«nd_block_îa£
 (
 b™k
@@ -6521,13 +6537,13 @@ b™k
 vt_vblock
 );
 
-1712 
+1716 
 	`u¨t_¥ötf
 ("g¯∑gêcou¡ : %d", 
 vcou¡
 );
 
-1715 
+1719 
 	`£t_vcou¡_block
 (
 b™k
@@ -6539,7 +6555,7 @@ fú°_bm≠_vblock
 VC_MAX
 );
 
-1716 
+1720 
 	`£t_vcou¡_block
 (
 b™k
@@ -6549,7 +6565,7 @@ gc_vblock
 fú°_bm≠_vblock
 [bank], 0);
 
-1717 
+1721 
 	`£t_√w_wrôe_vbn
 (
 b™k
@@ -6557,7 +6573,7 @@ b™k
 gc_vblock
 );
 
-1718 
+1722 
 	`£t_gc_vblock_block
 (
 b™k
@@ -6565,21 +6581,21 @@ b™k
 vt_vblock
 );
 
-1719 
+1723 
 	`dec_fuŒ_blk_˙t_block
 (
 b™k
 );
 
-1721 
+1725 
 	`u¨t_¥öt
 ("garbage_collectionÉnd");
 
-1722 
+1726 
 	}
 }
 
-1731 
+1735 
 UINT32
  
 	$gë_vt_vblock_block
@@ -6589,7 +6605,7 @@ UINT32
 b™k
 )
 
-1733 
+1737 
 	`ASSERT
 (
 b™k
@@ -6597,13 +6613,13 @@ b™k
 NUM_BANKS
 );
 
-1735 
+1739 
 UINT32
  
 vblock
 ;
 
-1739 
+1743 
 vblock
  = 
 	`mem_£¨ch_mö_max
@@ -6617,19 +6633,19 @@ NUM_BMAP_BLOCK
 UINT16
 )),
 
-1740 (
+1744 (
 UINT16
 ),
 
-1741 
+1745 
 NUM_BMAP_BLOCK
 ,
 
-1742 
+1746 
 MU_CMD_SEARCH_MIN_DRAM
 );
 
-1745 
+1749 
 	`ASSERT
 (
 	`gë_vcou¡_block
@@ -6643,7 +6659,7 @@ fú°_bm≠_vblock
 PAGES_PER_BLK
  + 1));
 
-1747 
+1751 
 	`u¨t_¥ötf
 ("ö g¨bage_cﬁÀ˘i⁄(%d), vt_vblock i†%d\àvt_vblock\'†vcou¡ : %d", 
 b™k
@@ -6655,7 +6671,7 @@ vblock
 	`gë_vcou¡_block
 (bank, vblock - first_bmap_vblock[bank]));
 
-1748  
+1752  
 fú°_bm≠_vblock
 [
 b™k
@@ -6663,7 +6679,7 @@ b™k
 vblock
 ;
 
-1749 
+1753 
 	}
 }
 
@@ -11255,7 +11271,7 @@ K9LCG08U1M
 
 30 
 	#OPTION_UART_DEBUG
- 1
+ 0
 
 31 
 	#OPTION_SLOW_SATA
@@ -31064,9 +31080,21 @@ cmd_code
 , 
 cmd_ty≥
 , 
+fis_d0
+, 
 fis_d1
 , 
+fis_d2
+, 
 fis_d3
+, 
+fis_d4
+;
+
+100 
+UINT8
+ 
+is_block
 ;
 
 101 
@@ -31086,6 +31114,14 @@ cmd_code
 ];
 
 103 
+fis_d0
+ = 
+	`GETREG
+(
+SATA_FIS_H2D_0
+);
+
+104 
 fis_d1
  = 
 	`GETREG
@@ -31093,7 +31129,15 @@ fis_d1
 SATA_FIS_H2D_1
 );
 
-104 
+105 
+fis_d2
+ = 
+	`GETREG
+(
+SATA_FIS_H2D_2
+);
+
+106 
 fis_d3
  = 
 	`GETREG
@@ -31101,19 +31145,49 @@ fis_d3
 SATA_FIS_H2D_3
 );
 
-106 i‡(
+107 
+fis_d4
+ = 
+	`GETREG
+(
+SATA_FIS_H2D_4
+);
+
+109 
+is_block
+ = (
+fis_d2
+ >> 5);
+
+110 
+	`SETREG
+(
+SATA_FIS_H2D_2
+, 
+	`GETREG
+(SATA_FIS_H2D_2) & 0xFFFFFF1F);
+
+111 
+	`u¨t_¥ötf
+("i†block m≠: %u\n", 
+is_block
+, 
+fis_d2
+);
+
+112 i‡(
 cmd_ty≥
  & 
 ATR_LBA_NOR
 )
 
-108 i‡((
+114 i‡((
 fis_d1
  & 
 BIT30
 ) == 0)
 
-110 
+116 
 UINT32
  
 cylödî
@@ -31121,7 +31195,7 @@ cylödî
 fis_d1
  & 0x00FFFF00) >> 8;
 
-111 
+117 
 UINT32
  
 hód
@@ -31129,7 +31203,7 @@ hód
 fis_d1
  & 0x0F000000) >> 24;
 
-112 
+118 
 UINT32
  
 £˘‹
@@ -31137,7 +31211,7 @@ UINT32
 fis_d1
  & 0x000000FF;
 
-114 
+120 
 lba
  = (
 cylödî
@@ -31153,19 +31227,19 @@ chs_cur_£˘‹s
 £˘‹
  - 1;
 
-118 
+124 
 lba
  = 
 fis_d1
  & 0x0FFFFFFF;
 
-121 
+127 
 £˘‹_cou¡
  = 
 fis_d3
  & 0x000000FF;
 
-123 i‡(
+129 i‡(
 £˘‹_cou¡
  =0 && (
 cmd_ty≥
@@ -31173,17 +31247,17 @@ cmd_ty≥
 ATR_NO_SECT
 ) == 0)
 
-125 
+131 
 £˘‹_cou¡
  = 0x100;
 
-128 i‡(
+134 i‡(
 cmd_ty≥
  & 
 ATR_LBA_EXT
 )
 
-130 
+136 
 lba
  = (
 fis_d1
@@ -31193,13 +31267,13 @@ fis_d1
 SATA_FIS_H2D_2
 ) << 24);
 
-131 
+137 
 £˘‹_cou¡
  = 
 fis_d3
  & 0x0000FFFF;
 
-133 i‡(
+139 i‡(
 £˘‹_cou¡
  =0 && (
 cmd_ty≥
@@ -31207,19 +31281,19 @@ cmd_ty≥
 ATR_NO_SECT
 ) == 0)
 
-135 
+141 
 £˘‹_cou¡
  = 0x10000;
 
-140 
+146 
 lba
  = 0;
 
-141 
+147 
 £˘‹_cou¡
  = 0;
 
-144 i‡(
+150 i‡(
 lba
  + 
 £˘‹_cou¡
@@ -31231,13 +31305,13 @@ cmd_ty≥
 ATR_NO_SECT
 ) == 0)
 
-146 
+152 
 	`£nd_°©us_to_ho°
 (
 B_IDNF
 );
 
-148 i‡(
+154 i‡(
 cmd_ty≥
  & (
 CCL_FTL_H2D
@@ -31245,13 +31319,13 @@ CCL_FTL_H2D
 CCL_FTL_D2H
 ))
 
-150 
+156 
 UINT32
  
 a˘i⁄_Êags
 ;
 
-152 
+158 
 	`SETREG
 (
 SATA_LBA
@@ -31259,27 +31333,29 @@ SATA_LBA
 lba
 );
 
-153 
+159 
 	`SETREG
 (
 SATA_SECT_CNT
 , 
 £˘‹_cou¡
-);
+ | (
+is_block
+ << 28));
 
-155 i‡(
+161 i‡(
 cmd_ty≥
  & 
 CCL_FTL_H2D
 )
 
-157 
+163 
 	`SETREG
 (
 SATA_INSERT_EQ_W
 , 1);
 
-159 i‡(
+165 i‡(
 cmd_code
  =
 ATA_WRITE_DMA
@@ -31287,7 +31363,7 @@ ATA_WRITE_DMA
 ATA_WRITE_DMA_EXT
 )
 
-161 
+167 
 a˘i⁄_Êags
  = 
 DMA_WRITE
@@ -31295,7 +31371,7 @@ DMA_WRITE
 COMPLETE
 ;
 
-165 
+171 
 UINT32
  
 fis_ty≥
@@ -31303,7 +31379,7 @@ fis_ty≥
 FISTYPE_PIO_SETUP
 ;
 
-166 
+172 
 UINT32
  
 Êags
@@ -31311,7 +31387,7 @@ UINT32
 B_IRQ
 ;
 
-167 
+173 
 UINT32
  
 °©us
@@ -31323,7 +31399,7 @@ BIT4
 B_DRQ
 ;
 
-168 
+174 
 UINT32
  
 e_°©us
@@ -31333,7 +31409,7 @@ B_DRDY
 BIT4
 ;
 
-170 
+176 
 	`SETREG
 (
 SATA_FIS_D2H_0
@@ -31345,7 +31421,7 @@ fis_ty≥
 °©us
  << 16));
 
-171 
+177 
 	`SETREG
 (
 SATA_FIS_D2H_1
@@ -31355,7 +31431,7 @@ SATA_FIS_D2H_1
 SATA_FIS_H2D_1
 ));
 
-172 
+178 
 	`SETREG
 (
 SATA_FIS_D2H_2
@@ -31365,7 +31441,7 @@ SATA_FIS_D2H_2
 SATA_FIS_H2D_2
 ) & 0x00FFFFFF);
 
-173 
+179 
 	`SETREG
 (
 SATA_FIS_D2H_3
@@ -31377,7 +31453,7 @@ e_°©us
 SATA_FIS_H2D_3
 ) & 0x0000FFFF));
 
-174 
+180 
 	`SETREG
 (
 SATA_FIS_D2H_4
@@ -31385,13 +31461,13 @@ SATA_FIS_D2H_4
 BYTES_PER_SECTOR
 );
 
-176 
+182 
 	`SETREG
 (
 SATA_FIS_D2H_LEN
 , 5);
 
-178 
+184 
 a˘i⁄_Êags
  = 
 PIO_WRITE
@@ -31399,13 +31475,13 @@ PIO_WRITE
 COMPLETE
 ;
 
-183 
+189 
 	`SETREG
 (
 SATA_INSERT_EQ_R
 , 1);
 
-185 i‡(
+191 i‡(
 cmd_code
  =
 ATA_READ_DMA
@@ -31413,7 +31489,7 @@ ATA_READ_DMA
 ATA_READ_DMA_EXT
 )
 
-187 
+193 
 a˘i⁄_Êags
  = 
 DMA_READ
@@ -31421,7 +31497,7 @@ DMA_READ
 COMPLETE
 ;
 
-191 
+197 
 UINT32
  
 fis_ty≥
@@ -31429,7 +31505,7 @@ fis_ty≥
 FISTYPE_PIO_SETUP
 ;
 
-192 
+198 
 UINT32
  
 Êags
@@ -31437,7 +31513,7 @@ UINT32
 B_IRQ
 ;
 
-193 
+199 
 UINT32
  
 °©us
@@ -31449,7 +31525,7 @@ BIT4
 B_DRQ
 ;
 
-194 
+200 
 UINT32
  
 e_°©us
@@ -31459,7 +31535,7 @@ B_DRDY
 BIT4
 ;
 
-196 
+202 
 	`SETREG
 (
 SATA_FIS_D2H_0
@@ -31471,7 +31547,7 @@ fis_ty≥
 °©us
  << 16));
 
-197 
+203 
 	`SETREG
 (
 SATA_FIS_D2H_1
@@ -31481,7 +31557,7 @@ SATA_FIS_D2H_1
 SATA_FIS_H2D_1
 ));
 
-198 
+204 
 	`SETREG
 (
 SATA_FIS_D2H_2
@@ -31491,7 +31567,7 @@ SATA_FIS_D2H_2
 SATA_FIS_H2D_2
 ) & 0x00FFFFFF);
 
-199 
+205 
 	`SETREG
 (
 SATA_FIS_D2H_3
@@ -31503,7 +31579,7 @@ e_°©us
 SATA_FIS_H2D_3
 ) & 0x0000FFFF));
 
-200 
+206 
 	`SETREG
 (
 SATA_FIS_D2H_4
@@ -31511,13 +31587,13 @@ SATA_FIS_D2H_4
 BYTES_PER_SECTOR
 );
 
-202 
+208 
 	`SETREG
 (
 SATA_FIS_D2H_LEN
 , 5);
 
-204 
+210 
 a˘i⁄_Êags
  = 
 PIO_READ
@@ -31527,7 +31603,7 @@ COMPLETE
 CLR_STAT_PIO_SETUP
 ;
 
-208 
+214 
 	`SETREG
 (
 SATA_XFER_BYTES
@@ -31537,7 +31613,7 @@ SATA_XFER_BYTES
 BYTES_PER_SECTOR
 );
 
-209 
+215 
 	`SETREG
 (
 SATA_SECT_OFFSET
@@ -31545,13 +31621,13 @@ SATA_SECT_OFFSET
 lba
 );
 
-211 i‡(
+217 i‡(
 	`GETREG
 (
 SATA_EQ_STATUS
 ) >> 31)
 
-213 
+219 
 g_ßè_c⁄ãxt
 .
 eq_fuŒ
@@ -31559,13 +31635,13 @@ eq_fuŒ
 TRUE
 ;
 
-214 
+220 
 g_ßè_a˘i⁄_Êags
  = 
 a˘i⁄_Êags
 ;
 
-218 
+224 
 	`SETREG
 (
 SATA_CTRL_2
@@ -31573,7 +31649,7 @@ SATA_CTRL_2
 a˘i⁄_Êags
 );
 
-223 
+229 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31583,7 +31659,7 @@ g_ßè_c⁄ãxt
 SLOW_CMD_STATUS_PENDING
 ;
 
-224 
+230 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31593,7 +31669,7 @@ code
 cmd_code
 ;
 
-225 
+231 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31601,7 +31677,7 @@ g_ßè_c⁄ãxt
 lba
  =Üba;
 
-226 
+232 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31609,15 +31685,15 @@ g_ßè_c⁄ãxt
 £˘‹_cou¡
  = sector_count;
 
-228 
+235 
 	}
 }
 
-230 #ifde‡
+237 #ifde‡
 __GNUC__
 
 
-231 
+238 
 	$fiq_h™dÀr
 (Ë
 	`__©åibuã__
@@ -31625,17 +31701,17 @@ __GNUC__
 	`öãºu±
  ("FIQ")));
 
-232 
+239 
 	$fiq_h™dÀr
 ()
 
-234 
+241 
 __úq
  
 	$fiq_h™dÀr
 ()
 
-237 
+244 
 UINT32
  
 unmasked_öt_°©
@@ -31645,7 +31721,7 @@ unmasked_öt_°©
 SATA_INT_STAT
 );
 
-238 
+245 
 UINT32
  
 masked_öt_°©
@@ -31657,45 +31733,45 @@ unmasked_öt_°©
 SATA_INT_ENABLE
 );
 
-239 
+246 
 UINT32
  
 öå_¥o˚s£d
  = 0;
 
-241 i‡(
+248 i‡(
 masked_öt_°©
  & 
 CMD_RECV
 )
 
-243 
+250 
 	`h™dÀ_gŸ_cfis
 ();
 
-244 
+251 
 öå_¥o˚s£d
  = 
 CMD_RECV
 ;
 
-246 i‡(
+253 i‡(
 masked_öt_°©
  & 
 OPERATION_ERR
 )
 
-248 
+255 
 	`Àd_blök
 ();
 
-250 i‡(
+257 i‡(
 masked_öt_°©
  & 
 REG_FIS_RECV
 )
 
-252 i‡((
+259 i‡((
 	`GETREG
 (
 SATA_FIS_H2D_0
@@ -31703,15 +31779,15 @@ SATA_FIS_H2D_0
 FISTYPE_REGISTER_H2D
 )
 
-254 
+261 
 	`h™dÀ_§°
 ();
 
-255 
+262 
 öå_¥o˚s£d
  = 0;
 
-259 i‡(
+266 i‡(
 	`GETREG
 (
 SATA_ERROR
@@ -31719,41 +31795,41 @@ SATA_ERROR
 BIT25
 )
 
-261 
+268 
 	`£nd_¥imôive_R_XX
 (
 SEND_R_ERR
 );
 
-262 
+269 
 	`SETREG
 (
 SATA_ERROR
 , 0xFFFFFFFF);
 
-266 
+273 
 	`£nd_¥imôive_R_XX
 (
 SEND_R_OK
 );
 
-269 
+276 
 öå_¥o˚s£d
  = 
 REG_FIS_RECV
 ;
 
-272 i‡(
+279 i‡(
 masked_öt_°©
  & 
 PHY_ONLINE
 )
 
-274 
+281 
 öå_¥o˚s£d
  = 0xFFFFFFFF;
 
-276 
+283 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31763,7 +31839,7 @@ code
 ATA_SRST
 ;
 
-277 
+284 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31773,7 +31849,7 @@ g_ßè_c⁄ãxt
 SLOW_CMD_STATUS_PENDING
 ;
 
-278 
+285 
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -31783,7 +31859,7 @@ lba
 FALSE
 ;
 
-280 
+287 
 	`SETREG
 (
 SATA_INT_ENABLE
@@ -31797,13 +31873,13 @@ REG_FIS_RECV
 NCQ_CMD_RECV
 );
 
-284 
+291 
 öå_¥o˚s£d
  = 
 masked_öt_°©
 ;
 
-287 
+294 
 	`SETREG
 (
 SATA_INT_STAT
@@ -31811,7 +31887,7 @@ SATA_INT_STAT
 öå_¥o˚s£d
 );
 
-288 
+295 
 	`SETREG
 (
 APB_INT_STS
@@ -31819,7 +31895,7 @@ APB_INT_STS
 INTR_SATA
 );
 
-289 
+296 
 	}
 }
 
@@ -32069,23 +32145,37 @@ INVALID32
 	$Maö
 ()
 
-84 i‡(
+82 
+UINT8
+ 
+is_block
+ = 0;
+
+85 i‡(
 	`evítq_gë_cou¡
 ())
 
-86 
+87 
 CMD_T
  
 cmd
 ;
 
-88 
+89 
 	`evítq_gë
 (&
 cmd
 );
 
-90 i‡(
+91 
+is_block
+ = (
+cmd
+.
+£˘‹_cou¡
+ >> 28);
+
+92 i‡(
 cmd
 .
 cmd_ty≥
@@ -32093,7 +32183,25 @@ cmd_ty≥
 READ
 )
 
-92 
+94 i‡(
+is_block
+) {
+
+95 
+	`·l_ªad_block
+(
+cmd
+.
+lba
+,
+
+96 
+cmd
+.
+£˘‹_cou¡
+ & 0x0FFFFFFF);
+
+98 
 	`·l_ªad
 (
 cmd
@@ -32103,7 +32211,25 @@ lba
 £˘‹_cou¡
 );
 
-96 
+103 i‡(
+is_block
+) {
+
+104 
+	`·l_wrôe_block
+(
+cmd
+.
+lba
+,
+
+105 
+cmd
+.
+£˘‹_cou¡
+ & 0x0FFFFFFF);
+
+107 
 	`·l_wrôe
 (
 cmd
@@ -32113,7 +32239,7 @@ lba
 £˘‹_cou¡
 );
 
-99 i‡(
+111 i‡(
 g_ßè_c⁄ãxt
 .
 ¶ow_cmd
@@ -32123,7 +32249,7 @@ g_ßè_c⁄ãxt
 SLOW_CMD_STATUS_PENDING
 )
 
-101 (*
+113 (*
 ©a_fun˘i⁄
 )(
 UINT32
@@ -32133,7 +32259,7 @@ lba
 £˘‹_cou¡
 );
 
-103 
+115 
 ¶ow_cmd_t
 * 
 ¶ow_cmd
@@ -32141,7 +32267,7 @@ lba
 g_ßè_c⁄ãxt
 .slow_cmd;
 
-104 
+116 
 ¶ow_cmd
 ->
 °©us
@@ -32149,7 +32275,7 @@ g_ßè_c⁄ãxt
 SLOW_CMD_STATUS_BUSY
 ;
 
-106 
+118 
 ©a_fun˘i⁄
  = 
 	`£¨ch_©a_fun˘i⁄
@@ -32159,7 +32285,7 @@ SLOW_CMD_STATUS_BUSY
 code
 );
 
-107 
+119 
 	`©a_fun˘i⁄
 (
 ¶ow_cmd
@@ -32169,7 +32295,7 @@ lba
 £˘‹_cou¡
 );
 
-109 
+121 
 ¶ow_cmd
 ->
 °©us
@@ -32177,25 +32303,25 @@ lba
 SLOW_CMD_STATUS_NONE
 ;
 
-116 
+128 
 	}
 }
 
-118 
+130 
 	$ßè_ª£t
 ()
 
-120 
+132 
 	`dißbÀ_öãºu±
 ();
 
-122 
+134 
 	`mem_£t_§am
 (&
 g_ßè_c⁄ãxt
 , 0, (g_sata_context));
 
-124 
+136 
 g_ßè_c⁄ãxt
 .
 wrôe_ˇche_íabÀd
@@ -32203,7 +32329,7 @@ wrôe_ˇche_íabÀd
 TRUE
 ;
 
-125 
+137 
 g_ßè_c⁄ãxt
 .
 ªad_look_ahód_íabÀd
@@ -32211,7 +32337,7 @@ g_ßè_c⁄ãxt
 TRUE
 ;
 
-127 
+139 
 	`SETREG
 (
 PMU_Re£tC⁄
@@ -32227,17 +32353,17 @@ RESET_PMCLK
 RESET_PHYDOMAIN
 );
 
-128 
+140 
 	`dñay
 (100);
 
-130 
+142 
 	`SETREG
 (
 PHY_DEBUG
 , 0x400A040E);
 
-131 (
+143 (
 	`GETREG
 (
 PHY_DEBUG
@@ -32245,7 +32371,7 @@ PHY_DEBUG
 BIT30
 ) == 1);
 
-133 
+145 
 	`SETREG
 (
 SATA_BUF_PAGE_SIZE
@@ -32253,7 +32379,7 @@ SATA_BUF_PAGE_SIZE
 BYTES_PER_PAGE
 );
 
-134 
+146 
 	`SETREG
 (
 SATA_WBUF_BASE
@@ -32263,7 +32389,7 @@ WR_BUF_ADDR
 DRAM_BASE
 ));
 
-135 
+147 
 	`SETREG
 (
 SATA_RBUF_BASE
@@ -32273,7 +32399,7 @@ RD_BUF_ADDR
 DRAM_BASE
 ));
 
-136 
+148 
 	`SETREG
 (
 SATA_WBUF_SIZE
@@ -32281,7 +32407,7 @@ SATA_WBUF_SIZE
 NUM_WR_BUFFERS
 );
 
-137 
+149 
 	`SETREG
 (
 SATA_RBUF_SIZE
@@ -32289,13 +32415,13 @@ SATA_RBUF_SIZE
 NUM_RD_BUFFERS
 );
 
-138 
+150 
 	`SETREG
 (
 SATA_WBUF_MARGIN
 , 16);
 
-139 
+151 
 	`SETREG
 (
 SATA_RESET_WBUF_PTR
@@ -32303,7 +32429,7 @@ SATA_RESET_WBUF_PTR
 BIT0
 );
 
-140 
+152 
 	`SETREG
 (
 SATA_RESET_RBUF_PTR
@@ -32311,7 +32437,7 @@ SATA_RESET_RBUF_PTR
 BIT0
 );
 
-142 
+154 
 	`SETREG
 (
 SATA_NCQ_BASE
@@ -32321,7 +32447,7 @@ g_ßè_ncq
 queue
 );
 
-144 
+156 
 	`SETREG
 (
 SATA_EQ_CFG_1
@@ -32337,7 +32463,7 @@ BIT16
 NUM_BANKS
  / 2) << 24));
 
-145 
+157 
 	`SETREG
 (
 SATA_EQ_CFG_2
@@ -32345,7 +32471,7 @@ SATA_EQ_CFG_2
 EQ_MARGIN
  & 0xF) << 16);
 
-147 
+159 
 	`SETREG
 (
 SATA_CFG_10
@@ -32353,7 +32479,7 @@ SATA_CFG_10
 BIT0
 );
 
-149 
+161 
 	`SETREG
 (
 SATA_NCQ_CTRL
@@ -32363,7 +32489,7 @@ AUTOINC
 FLUSH_NCQ
 );
 
-150 
+162 
 	`SETREG
 (
 SATA_NCQ_CTRL
@@ -32371,7 +32497,7 @@ SATA_NCQ_CTRL
 AUTOINC
 );
 
-151 
+163 
 	`SETREG
 (
 SATA_CFG_5
@@ -32391,13 +32517,13 @@ BSO_TX_SSC
 BIT4
 *0x05);
 
-152 
+164 
 	`SETREG
 (
 SATA_CFG_8
 , 0);
 
-153 
+165 
 	`SETREG
 (
 SATA_CFG_9
@@ -32405,7 +32531,7 @@ SATA_CFG_9
 BIT20
 );
 
-155 
+167 
 	`SETREG
 (
 SATA_MAX_LBA
@@ -32413,7 +32539,7 @@ SATA_MAX_LBA
 MAX_LBA
 );
 
-157 
+169 
 	`SETREG
 (
 APB_INT_STS
@@ -32421,35 +32547,35 @@ APB_INT_STS
 INTR_SATA
 );
 
-159 #i‡
+171 #i‡
 OPTION_SLOW_SATA
 
 
-160 
+172 
 	`SETREG
 (
 SATA_PHY_CTRL
 , 0x00000310);
 
-162 
+174 
 	`SETREG
 (
 SATA_PHY_CTRL
 , 0x00000300);
 
-165 
+177 
 	`SETREG
 (
 SATA_ERROR
 , 0xFFFFFFFF);
 
-166 
+178 
 	`SETREG
 (
 SATA_INT_STAT
 , 0xFFFFFFFF);
 
-168 
+180 
 	`SETREG
 (
 SATA_CTRL_1
@@ -32457,7 +32583,7 @@ SATA_CTRL_1
 BIT31
 );
 
-170 (
+182 (
 	`GETREG
 (
 SATA_INT_STAT
@@ -32465,7 +32591,7 @@ SATA_INT_STAT
 PHY_ONLINE
 ) == 0);
 
-172 
+184 
 	`SETREG
 (
 SATA_CTRL_1
@@ -32477,7 +32603,7 @@ BIT25
 BIT24
 );
 
-174 
+186 
 	`SETREG
 (
 SATA_INT_ENABLE
@@ -32485,15 +32611,15 @@ SATA_INT_ENABLE
 PHY_ONLINE
 );
 
-176 
+188 
 	`íabÀ_öãºu±
 ();
 
-177 
+189 
 	}
 }
 
-179 
+191 
 	$dñay
 (
 UINT32
@@ -32501,31 +32627,31 @@ UINT32
 cou¡
 )
 
-181 vﬁ©ûê
+193 vﬁ©ûê
 UINT32
  
 ãmp
 ;
 
-182 
+194 
 UINT32
  
 i
 ;
 
-184 
+196 
 i
  = 0; i < 
 cou¡
 ; i++)
 
-186 
+198 
 ãmp
  = 
 i
 ;
 
-188 
+200 
 	}
 }
 

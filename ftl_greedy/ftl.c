@@ -788,6 +788,12 @@ static void garbage_collection(UINT32 const bank)
 #endif
     // 3. erase victim block
     nand_block_erase(bank, vt_vblock);
+    if(!((free_vpn % PAGES_PER_BLK) < (PAGES_PER_BLK - 2)))
+    {
+        uart_printf("bank : %d, free_vpn %% PAGES_PER_BLK : %d",bank, free_vpn % PAGES_PER_BLK);
+        uart_printf("vt block number : %d, gc block number : %d",vt_vblock, gc_vblock);
+        uart_printf("get_vcount(bank, vt_vblock) : %d",get_vcount(bank, vt_vblock));
+    }
     ASSERT((free_vpn % PAGES_PER_BLK) < (PAGES_PER_BLK - 2));
     ASSERT((free_vpn % PAGES_PER_BLK == vcount));
 
@@ -1439,11 +1445,10 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
     write_vbn   = get_cur_write_vbn(bank);
     vblock      = write_vbn;
 
-    uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]));
+    //uart_printf("in assign_new_write_vbn function, get_vcount_block(bank, write_vbn) : %d",get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]));
     if((((g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK)/8]) >> ((lpn % PAGES_PER_BLK)%8))*4  & 0x00000001) == 0x1 || !(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) < PAGES_PER_BLK))
     {
-        uart_print("test");
-
+    
         inc_full_blk_cnt_block(bank);
         if (is_full_all_blks_block(bank))
         {
@@ -1456,7 +1461,7 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
         do
         {
             vblock++;
-            uart_printf("get_vcount_block(bank, %d) : %d", vblock, get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
+            //uart_printf("get_vcount_block(bank, %d) : %d", vblock, get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
             ASSERT(vblock != last_bmap_block[bank]);
         }while (get_vcount_block(bank, vblock - first_bmap_vblock[bank]) == VC_MAX || is_bad_block(bank, vblock));
         
@@ -1491,7 +1496,7 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
     sect_offset  = lba % SECTORS_PER_PAGE;
     remain_sects = num_sectors;
 
-    uart_printf("ftl_read_block(%d, %d) start", lba, num_sectors);
+    //uart_printf("ftl_read_block(%d, %d) start", lba, num_sectors);
 
     while (remain_sects != 0)
     {
@@ -1505,8 +1510,8 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
         }
         bank = get_num_bank_block(lpn / PAGES_PER_BLK); // page striping
         vpn  = get_vbn(bank * NUM_BMAP_BLOCK + lpn / PAGES_PER_BLK);
-        uart_printf("Read from bank %d\n", bank);
-        uart_printf("Read page from lbn %d, lpn %d\n", vpn, lpn / PAGES_PER_BLK);
+        //uart_printf("Read from bank %d\n", bank);
+        //uart_printf("Read page from lbn %d, lpn %d\n", vpn, lpn / PAGES_PER_BLK);
         if (vpn != NULL)
         {
             nand_page_ptread_to_host(bank,
@@ -1514,7 +1519,7 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
                                      lpn % PAGES_PER_BLK,
                                      sect_offset,
                                      num_sectors_to_read);
-            uart_printf("nand_page_ptread_to_host(%d, %d, %d, %d, %d);", bank, vpn, lpn % PAGES_PER_BLK, sect_offset, num_sectors_to_read);
+            //uart_printf("nand_page_ptread_to_host(%d, %d, %d, %d, %d);", bank, vpn, lpn % PAGES_PER_BLK, sect_offset, num_sectors_to_read);
         }
         // The host is requesting to read a logical page that has never been written to.
         else
@@ -1543,7 +1548,7 @@ void ftl_read_block(UINT32 const lba, UINT32 const num_sectors)
         remain_sects -= num_sectors_to_read;
         lpn++;
     }
-    uart_printf("read function success");
+    uart_printf("block mapping read function success");
 }
 
 
@@ -1558,8 +1563,8 @@ void ftl_write_block(UINT32 const lba, UINT32 const num_sectors)
     lpn          = lba / SECTORS_PER_PAGE;
     sect_offset  = lba % SECTORS_PER_PAGE;
     remain_sects = num_sectors;
-    uart_printf("----------------------------------------------------------------------");
-    uart_printf("lba : %d,lpn : %d",lba,lpn);
+    //uart_printf("----------------------------------------------------------------------");
+    //uart_printf("lba : %d,lpn : %d",lba,lpn);
     while (remain_sects != 0)
     {
         if ((sect_offset + remain_sects) < SECTORS_PER_PAGE)
@@ -1577,13 +1582,15 @@ void ftl_write_block(UINT32 const lba, UINT32 const num_sectors)
         remain_sects -= num_sectors_to_write;
         lpn++;
     }
+    uart_printf("block mapping write function success");
 }
 
 
 static int is_written(UINT32 bank, UINT32 lbn, UINT32 lpn)
 {
-	return ;
+	return 0;
 }
+
 static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 const num_sectors)
 {
     CHECK_LBLOCK(lpn / PAGES_PER_BLK);
@@ -1609,7 +1616,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     vblock   = new_vbn;
     page_num = lpn % PAGES_PER_BLK;
 
-    uart_printf("Write data to lbn %d, lpn %d, # banks %d\n", vblock, page_num, bank);
+    //uart_printf("Write data to lbn %d, lpn %d, # banks %d\n", vblock, page_num, bank);
     // write new data (make sure that the new data is ready in the write buffer frame)
     // (c.f FO_B_SATA_W flag in flash.h)
     nand_page_ptprogram_from_host(bank,
@@ -1620,16 +1627,16 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     // update metadata
     set_lbn(bank, page_num, lbn);
     set_vbn(bank * NUM_BMAP_BLOCK + lbn, new_vbn);
-    uart_printf("Get vbn %d\n", get_vbn(lbn));
+    //uart_printf("Get vbn %d\n", get_vbn(lbn));
     set_vcount_block(bank, vblock - first_bmap_vblock[bank], get_vcount_block(bank, vblock - first_bmap_vblock[bank]) + 1);
     set_new_write_vbn(bank, new_vbn);
-    uart_printf("lbn : %d",lbn);
-    uart_printf("page_num : %d",page_num);
-    uart_printf("vbn : %d",new_vbn);
+    //uart_printf("lbn : %d",lbn);
+    //uart_printf("page_num : %d",page_num);
+    //uart_printf("vbn : %d",new_vbn);
      //page_num : %d\n vbn : %d\n", lbn, page_num, vbn);
     //update metadata
     g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK) / 8] = g_misc_meta[bank].block_bitmap[(lpn % PAGES_PER_BLK) / 8] | (0x00000001 << ((lpn % PAGES_PER_BLK) % 8)*4);
-    uart_printf("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", g_misc_meta[bank].block_bitmap[0], g_misc_meta[bank].block_bitmap[1], g_misc_meta[bank].block_bitmap[2], g_misc_meta[bank].block_bitmap[3], g_misc_meta[bank].block_bitmap[4], g_misc_meta[bank].block_bitmap[5], g_misc_meta[bank].block_bitmap[6], g_misc_meta[bank].block_bitmap[7], g_misc_meta[bank].block_bitmap[8], g_misc_meta[bank].block_bitmap[9], g_misc_meta[bank].block_bitmap[10], g_misc_meta[bank].block_bitmap[11], g_misc_meta[bank].block_bitmap[12], g_misc_meta[bank].block_bitmap[13], g_misc_meta[bank].block_bitmap[14], g_misc_meta[bank].block_bitmap[15]);
+    //uart_printf("%8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x %8x", g_misc_meta[bank].block_bitmap[0], g_misc_meta[bank].block_bitmap[1], g_misc_meta[bank].block_bitmap[2], g_misc_meta[bank].block_bitmap[3], g_misc_meta[bank].block_bitmap[4], g_misc_meta[bank].block_bitmap[5], g_misc_meta[bank].block_bitmap[6], g_misc_meta[bank].block_bitmap[7], g_misc_meta[bank].block_bitmap[8], g_misc_meta[bank].block_bitmap[9], g_misc_meta[bank].block_bitmap[10], g_misc_meta[bank].block_bitmap[11], g_misc_meta[bank].block_bitmap[12], g_misc_meta[bank].block_bitmap[13], g_misc_meta[bank].block_bitmap[14], g_misc_meta[bank].block_bitmap[15]);
 }
 
 
@@ -1639,13 +1646,11 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
 // get vpn from BLOCK_MAP
 static UINT32 get_vbn(UINT32 const lbn)
 {
-    CHECK_LBLOCK(lbn);
     return read_dram_32(BLOCK_MAP_ADDR + lbn * sizeof(UINT32));
 }
 // set vpn to BLOCK_MAP
 static void set_vbn(UINT32 const lbn, UINT32 const vbn)
 {
-    CHECK_LBLOCK(lbn);
     ASSERT(vbn < (VBLKS_PER_BANK * NUM_BMAP_BLOCK));
 
     write_dram_32(BLOCK_MAP_ADDR + lbn * sizeof(UINT32), vbn);
@@ -1692,12 +1697,12 @@ static void garbage_collection_block(UINT32 const bank)
     g_ftl_statistics[bank].gc_cnt++;
 
   //  do{
-    uart_printf("garbage_collection_block function start");
+    //uart_printf("garbage_collection_block function start");
         vt_vblock = get_vt_vblock_block(bank);   // get victim block
         vcount    = get_vcount_block(bank, vt_vblock - first_bmap_vblock[bank]);
         gc_vblock = get_gc_vblock_block(bank);
 
-        uart_printf("garbage_collection bank %d, vblock %d, vblock\'s vcount : %d, gc_vblock %d, gc_vblock\'s vcount : %d",bank, vt_vblock, get_vcount_block(bank, vt_vblock - first_bmap_vblock[bank]), gc_vblock, get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]));
+        //uart_printf("garbage_collection bank %d, vblock %d, vblock\'s vcount : %d, gc_vblock %d, gc_vblock\'s vcount : %d",bank, vt_vblock, get_vcount_block(bank, vt_vblock - first_bmap_vblock[bank]), gc_vblock, get_vcount_block(bank, gc_vblock - first_bmap_vblock[bank]));
 
         ASSERT(vt_vblock != gc_vblock);
         ASSERT(vcount < (PAGES_PER_BLK + 1));
@@ -1713,7 +1718,7 @@ static void garbage_collection_block(UINT32 const bank)
         // 3. erase victim block
         nand_block_erase(bank, vt_vblock);
         
-         uart_printf("gc page count : %d", vcount); 
+        //uart_printf("gc page count : %d", vcount); 
 
         // 4. update metadata
         set_vcount_block(bank, vt_vblock - first_bmap_vblock[bank], VC_MAX);
@@ -1722,7 +1727,7 @@ static void garbage_collection_block(UINT32 const bank)
         set_gc_vblock_block(bank, vt_vblock); // next free block (reserve for GC)
         dec_full_blk_cnt_block(bank); // decrease full block count
  //   }while(g_misc_meta[bank].free_blk_cnt_block < 10);
-    uart_print("garbage_collection end");
+    //uart_print("garbage_collection end");
 }
 
 
@@ -1748,6 +1753,6 @@ static UINT32 get_vt_vblock_block(UINT32 const bank)
     //ASSERT(is_bad_block(bank, vblock) == FALSE);
     ASSERT(get_vcount_block(bank,vblock - first_bmap_vblock[bank]) < (PAGES_PER_BLK + 1));
     //ASSERT(get_vcount_block(bank, vblock) == 0);
-    uart_printf("in garbage_collection(%d), vt_vblock is %d\t vt_vblock\'s vcount : %d", bank, first_bmap_vblock[bank] + vblock,get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
+    //uart_printf("in garbage_collection(%d), vt_vblock is %d\t vt_vblock\'s vcount : %d", bank, first_bmap_vblock[bank] + vblock,get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
     return first_bmap_vblock[bank] + vblock;
 }

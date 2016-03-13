@@ -88,12 +88,14 @@ void Main(void)
 
 			eventq_get(&cmd);
 
-			is_block = (cmd.sector_count >> 28);
+			is_block = (cmd.lba >> 28);
+			
+			if(is_block != 0)	uart_printf("in main function, is_block : %d",is_block);
 			if (cmd.cmd_type == READ)
 			{
 				if (is_block) {
-					ftl_read_block(cmd.lba,
-							cmd.sector_count & 0x0FFFFFFF);
+					ftl_read_block(cmd.lba & 0x0FFFFFFF,
+							cmd.sector_count);
 				} else {
 					ftl_read(cmd.lba, cmd.sector_count);
 				}
@@ -101,8 +103,8 @@ void Main(void)
 			else
 			{
 				if (is_block) {
-					ftl_write_block(cmd.lba,
-							cmd.sector_count & 0x0FFFFFFF);
+					ftl_write_block(cmd.lba & 0x0FFFFFFF,
+							cmd.sector_count);
 				} else {
 					ftl_write(cmd.lba, cmd.sector_count);
 				}

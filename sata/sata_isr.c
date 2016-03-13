@@ -106,9 +106,9 @@ static __inline void handle_got_cfis(void)
 	fis_d3 = GETREG(SATA_FIS_H2D_3);
 	fis_d4 = GETREG(SATA_FIS_H2D_4);
 	
-	is_block = (fis_d2 >> 5);
-	SETREG(SATA_FIS_H2D_2, GETREG(SATA_FIS_H2D_2) & 0xFFFFFF1F);
-	uart_printf("is block map: %u\n", is_block, fis_d2);
+	is_block = (fis_d2 >> 24);
+	if(is_block != 0)	uart_printf("is block map: %u\n", is_block);
+	SETREG(SATA_FIS_H2D_2, GETREG(SATA_FIS_H2D_2) & 0xF1FFFFFF);
 	if (cmd_type & ATR_LBA_NOR)
 	{
 		if ((fis_d1 & BIT30) == 0)	// CHS
@@ -156,8 +156,8 @@ static __inline void handle_got_cfis(void)
 		UINT32 action_flags;
 
 		SETREG(SATA_LBA, lba);
-		SETREG(SATA_SECT_CNT, sector_count | (is_block << 28));
-
+		SETREG(SATA_, cmd_type | (is_block << 8));
+		
 		if (cmd_type & CCL_FTL_H2D)
 		{
 			SETREG(SATA_INSERT_EQ_W, 1);	// The contents of SATA_LBA and SATA_SECT_CNT are inserted into the event queue as a write command.
@@ -212,7 +212,7 @@ static __inline void handle_got_cfis(void)
 		}
 
 		SETREG(SATA_XFER_BYTES, sector_count * BYTES_PER_SECTOR);
-		SETREG(SATA_SECT_OFFSET, lba);	// this information is used by SATA hardware to calculate sector offset into page buffer
+		SETREG(SATA_LBA, lba | is_block >> 28);	// this information is used by SATA hardware to calculate sector offset into page buffer
 
 		if (GETREG(SATA_EQ_STATUS) >> 31)
 		{
