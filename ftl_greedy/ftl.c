@@ -813,9 +813,9 @@ static UINT32 get_vt_vblock(UINT32 const bank)
     UINT32 vblock;
 
     // search the block which has mininum valid pages
-    vblock = mem_search_min_max(VCOUNT_ADDR + (bank * VBLKS_PER_BANK * sizeof(UINT16)),
+    vblock = mem_search_min_max(VCOUNT_ADDR + (bank * (VBLKS_PER_BANK)* sizeof(UINT16)),
                                 sizeof(UINT16),
-                                VBLKS_PER_BANK,
+                                VBLKS_PER_BANK - META_BLKS_PER_BANK - NUM_BMAP_BLOCK - 50,
                                 MU_CMD_SEARCH_MIN_DRAM);
 
     ASSERT(is_bad_block(bank, vblock) == FALSE);
@@ -1580,10 +1580,6 @@ void ftl_write_block(UINT32 const lba, UINT32 const num_sectors)
 }
 
 
-static int is_written(UINT32 bank, UINT32 lbn, UINT32 lpn)
-{
-	return ;
-}
 static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 const num_sectors)
 {
     CHECK_LBLOCK(lpn / PAGES_PER_BLK);
