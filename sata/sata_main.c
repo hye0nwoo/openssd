@@ -88,22 +88,27 @@ void Main(void)
 
 			eventq_get(&cmd);
 
-			is_block = (cmd.sector_count >> 28);
+			is_block = (cmd.sector_count >> 15);
+			if(is_block) uart_printf("%d", is_block);
 			if (cmd.cmd_type == READ)
 			{
 				if (is_block) {
+					uart_printf("block read");
 					ftl_read_block(cmd.lba,
-							cmd.sector_count & 0x0FFFFFFF);
+							cmd.sector_count & 0x7FFF);
 				} else {
+					//uart_printf("origin read");
 					ftl_read(cmd.lba, cmd.sector_count);
 				}
 			}
 			else
 			{
 				if (is_block) {
+					uart_printf("block write");
 					ftl_write_block(cmd.lba,
-							cmd.sector_count & 0x0FFFFFFF);
+							cmd.sector_count &  0x7FFF);
 				} else {
+					//uart_printf("origin write");
 					ftl_write(cmd.lba, cmd.sector_count);
 				}
 			}

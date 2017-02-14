@@ -106,9 +106,10 @@ static __inline void handle_got_cfis(void)
 	fis_d3 = GETREG(SATA_FIS_H2D_3);
 	fis_d4 = GETREG(SATA_FIS_H2D_4);
 	
-	is_block = (fis_d2 >> 5);
-	SETREG(SATA_FIS_H2D_2, GETREG(SATA_FIS_H2D_2) & 0xFFFFFF1F);
-	uart_printf("is block map: %u\n", is_block, fis_d2);
+	//is_block = (fis_d2 >> 24);
+	is_block = (fis_d2 / 20);
+	SETREG(SATA_FIS_H2D_2, GETREG(SATA_FIS_H2D_2) & 0xF8FFFFFF);
+	//if(is_block) uart_printf("is block map: %u, fis_d2: 0x%08x\n", is_block, fis_d2);
 	if (cmd_type & ATR_LBA_NOR)
 	{
 		if ((fis_d1 & BIT30) == 0)	// CHS
@@ -156,7 +157,8 @@ static __inline void handle_got_cfis(void)
 		UINT32 action_flags;
 
 		SETREG(SATA_LBA, lba);
-		SETREG(SATA_SECT_CNT, sector_count | (is_block << 28));
+		//if(sector_count >> 15 & 0x1 == 1)	uart_printf("\n\n\n\n\n\n\nhahahahahahahahahahahahahahaha\n\n\n\n\n\n\n");
+		SETREG(SATA_SECT_CNT, sector_count | (is_block? (0x1<<15):0));
 
 		if (cmd_type & CCL_FTL_H2D)
 		{

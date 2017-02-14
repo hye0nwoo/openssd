@@ -321,11 +321,24 @@ static void set_string_data(UINT16 *id_buffer, char* src_data, UINT32 whole_word
 	}
 }
 
+extern long long read_block, write_block, gc_block;
+extern long long read_page, write_page_t, gc_page;
+extern long long cb_page;
 void ata_identify_device(UINT32 lba, UINT32 sector_count)
 {
 	UINT16* const addr = ht_identify_data;
 	UINT32 capacity;
 
+	uart_printf("Block mapping operations");
+	uart_printf("========================");
+	uart_printf("Read: %lld, Write: %lld, GC: %lld", read_block, write_block, gc_block);
+
+	uart_printf("\nPage mapping operations");
+	uart_printf("========================");
+	uart_printf("Read: %lld, Write: %lld, GC: %lld, Copyback: %lld", 
+		read_page, write_page_t, gc_page, cb_page);
+	uart_printf("========================\n");
+	
 	set_string_data(&addr[10], "0123456789", 10);
 	set_string_data(&addr[23], "0001", 4);
 	set_string_data(&addr[27], "OpenSSD Jasmine     ", 20);
