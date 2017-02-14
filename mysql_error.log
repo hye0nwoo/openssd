@@ -1,0 +1,84 @@
+160719 15:59:00 mysqld_safe Starting mysqld daemon with databases from /home/vldbhw/jasmine_test/data
+2016-07-19T06:59:00.753881Z 0 [Warning] TIMESTAMP with implicit DEFAULT value is deprecated. Please use --explicit_defaults_for_timestamp server option (see documentation for more details).
+2016-07-19T06:59:00.753931Z 0 [Note] /usr/local/mysql-5.7.2-dblwr/bin/mysqld (mysqld 5.7.2-m12) starting as process 16817 ...
+2016-07-19T06:59:00.755467Z 0 [Note] Plugin 'FEDERATED' is disabled.
+2016-07-19T06:59:00.755692Z 0 [Warning] InnoDB: innodb-page-size has been changed from the default value 16384 to 4096.
+2016-07-19T06:59:00.755718Z 0 [Note] InnoDB: The InnoDB memory heap is disabled
+2016-07-19T06:59:00.755722Z 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2016-07-19T06:59:00.755724Z 0 [Note] InnoDB: Uses event mutexes
+2016-07-19T06:59:00.755726Z 0 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2016-07-19T06:59:00.755727Z 0 [Note] InnoDB: Using Linux native AIO
+2016-07-19T06:59:00.757111Z 0 [Note] InnoDB: Number of pools: 1
+2016-07-19T06:59:00.757168Z 0 [Note] InnoDB: Using CPU crc32 instructions
+2016-07-19T06:59:00.757659Z 0 [Note] InnoDB: Initializing buffer pool, total size = 2.0G, instances = 4
+2016-07-19T06:59:01.037902Z 0 [Note] InnoDB: Completed initialization of buffer pool
+InnoDB: Note: The innodb_doublewrite_file option has been specified.
+InnoDB: This option is for experts only. Don't use it unless you understand WELL what it is.
+InnoDB: ### Don't specify a file older than the last checkpoint. ###
+InnoDB: Otherwise, the older doublewrite buffer will break your data during recovery!
+2016-07-19 15:59:01 0x7facd1d7c780  InnoDB: Doublewrite buffer file /home/vldbhw/jasmine_test/data/dblwr_data.ibd did not exist. It will be be created.
+2016-07-19 15:59:01 0x7facd1d7c780  InnoDB: Setting file /home/vldbhw/jasmine_test/data/dblwr_data.ibd size to 8 MB
+InnoDB: Database physically writes the file full: wait...
+2016-07-19T06:59:01.700128Z 0 [Warning] InnoDB: Allocated tablespace 4294967264, old maximum was 0
+2016-07-19T06:59:01.700826Z 0 [Note] InnoDB: Highest supported file format is Barracuda.
+2016-07-19T06:59:01.936575Z 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2016-07-19T06:59:01.936588Z 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2016-07-19T06:59:01.936613Z 0 [Note] InnoDB: Setting file "./ibtmp1" size to 12 MB
+2016-07-19T06:59:01.936617Z 0 [Note] InnoDB: Database physically writes the file full: wait ...
+Create doublewrite fsp Header - block page no : 0
+Create file seg for doublewrite buffer 
+Create file seg for doublewrite buffer 
+Doublewrite sys pageno : 5, TRX_SYS_PAGE_NO:5
+2016-07-19T06:59:02.247440Z 0 [Note] InnoDB: Doublewrite buffer not found: creating new
+2016-07-19T06:59:02.247445Z 0 [Note] InnoDB: Seperate Doublewrite buffer used - create fileseg
+Create file seg for doublewrite buffer 
+2016-07-19 15:59:02 0x7facd1d7c780  InnoDB: Assertion failure in thread 140380231681920 in file buf0dblwr.cc line 316
+InnoDB: Failing assertion: page_no == 2 * FSP_EXTENT_SIZE
+InnoDB: We intentionally generate a memory trap.
+InnoDB: Submit a detailed bug report to http://bugs.mysql.com.
+InnoDB: If you get repeated assertion failures or crashes, even
+InnoDB: immediately after the mysqld startup, there may be
+InnoDB: corruption in the InnoDB tablespace. Please refer to
+InnoDB: http://dev.mysql.com/doc/refman/5.7/en/forcing-innodb-recovery.html
+InnoDB: about forcing recovery.
+06:59:02 UTC - mysqld got signal 6 ;
+This could be because you hit a bug. It is also possible that this binary
+or one of the libraries it was linked against is corrupt, improperly built,
+or misconfigured. This error can also be caused by malfunctioning hardware.
+We will try our best to scrape up some info that will hopefully help
+diagnose the problem, but since we have already crashed, 
+something is definitely wrong and this may fail.
+
+key_buffer_size=8388608
+read_buffer_size=131072
+max_used_connections=0
+max_threads=151
+thread_count=0
+connection_count=0
+It is possible that mysqld could use up to 
+key_buffer_size + (read_buffer_size + sort_buffer_size)*max_threads = 68022 K  bytes of memory
+Hope that's ok; if not, decrease some variables in the equation.
+
+Thread pointer: 0x0
+Attempting backtrace. You can use the following information to find out
+where mysqld died. If you see no messages after this, something went
+terribly wrong...
+stack_bottom = 0 thread_stack 0x40000
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(my_print_stacktrace+0x2c)[0x92e52c]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(handle_fatal_signal+0x35c)[0x6febcc]
+/lib/x86_64-linux-gnu/libpthread.so.0(+0x10340)[0x7facd132c340]
+/lib/x86_64-linux-gnu/libc.so.6(gsignal+0x39)[0x7facd076dcc9]
+/lib/x86_64-linux-gnu/libc.so.6(abort+0x148)[0x7facd07710d8]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(_Z23ut_dbg_assertion_failedPKcS0_m+0x0)[0x5b0e78]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(_Z16buf_dblwr_createv+0x53f)[0xb2ea7f]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(_Z34innobase_start_or_create_for_mysqlv+0x31c5)[0xabaf25]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld[0x9ef056]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(_Z24ha_initialize_handlertonP13st_plugin_int+0x4e)[0x6114be]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld[0x79689e]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(_Z11plugin_initPiPPci+0x860)[0x79c680]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld(_Z11mysqld_mainiPPc+0xcd8)[0x5d22d8]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf5)[0x7facd0758ec5]
+/usr/local/mysql-5.7.2-dblwr/bin/mysqld[0x5c8d4a]
+The manual page at http://dev.mysql.com/doc/mysql/en/crashing.html contains
+information that should help you find out what is causing the crash.
+160719 15:59:02 mysqld_safe mysqld from pid file /home/vldbhw/jasmine_test/data/vldbhw-desktop.pid ended
