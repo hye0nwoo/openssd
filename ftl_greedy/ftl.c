@@ -1389,7 +1389,7 @@ static UINT32 assign_new_write_vbn(UINT32 const bank, UINT32 const lpn)
         if (is_full_all_blks_block(bank))
         {
             garbage_collection_block(bank);
-            if(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) != VC_MAX) set_vcount_block(bank, write_vbn - first_bmap_vblock[bank], 0);
+            if(get_vcount_block(bank, write_vbn - first_bmap_vblock[bank]) != VC_MAX) set_vcount_block(bank, write_vbn - first_bmap_vblock[bank], PAGES_PER_BLK);
         
             return get_cur_write_vbn(bank);
         }
@@ -1553,7 +1553,7 @@ static void write_page_block(UINT32 const lpn, UINT32 const sect_offset, UINT32 
     set_lbn(bank, page_num, lbn);
     set_vbn(lbn, new_vbn);
     //uart_printf("Get vbn %d\n", get_vbn(lbn));
-    set_vcount_block(bank, vblock - first_bmap_vblock[bank], get_vcount_block(bank, vblock - first_bmap_vblock[bank]) + 1);
+    set_vcount_block(bank, vblock - first_bmap_vblock[bank], get_vcount_block(bank, vblock - first_bmap_vblock[bank]) - 1);
     //set_new_write_vbn(bank, new_vbn);
     //uart_printf("lbn : %d",lbn);
     //uart_printf("page_num : %d",page_num);
