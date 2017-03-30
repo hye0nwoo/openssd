@@ -1678,4 +1678,4 @@ static UINT32 get_vt_vblock_block(UINT32 const bank)
     //ASSERT(get_vcount_block(bank, vblock) == 0);
     ////uart_printf("in garbage_collection(%d), vt_vblock is %d\t vt_vblock\'s vcount : %d", bank, first_bmap_vblock[bank] + vblock,get_vcount_block(bank, vblock - first_bmap_vblock[bank]));
     return first_bmap_vblock[bank] + vblock;
-}
+} 
